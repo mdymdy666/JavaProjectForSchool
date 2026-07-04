@@ -193,4 +193,4 @@
 - 涉及文件：`.gitattributes`、`.gitignore`、`README.md`、`docs/`、`codex.md`、指导书 `.docx`
 - 完成内容：准备将当前项目初始化文档、协作规范、环境文档和指导书上传到 GitHub 仓库 `mdymdy666/JavaProjectForSchool`；上传前检查 Git 状态、远程仓库状态和敏感信息扫描结果。
 - 验证方式：执行 `git status --short`、`git remote -v`、`git ls-remote https://github.com/mdymdy666/JavaProjectForSchool.git`、`rg` 敏感信息扫描；确认未创建正式前端、后端或测试目录。
-- 后续状态：待完成首次 commit、设置 `origin` 并推送到 GitHub。
+- 后续状态：首次 commit 已完成，`origin` 已设置为 `https://github.com/mdymdy666/JavaProjectForSchool.git`，`main` 分支已推送到 GitHub。

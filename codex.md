@@ -194,3 +194,12 @@
 - 完成内容：准备将当前项目初始化文档、协作规范、环境文档和指导书上传到 GitHub 仓库 `mdymdy666/JavaProjectForSchool`；上传前检查 Git 状态、远程仓库状态和敏感信息扫描结果。
 - 验证方式：执行 `git status --short`、`git remote -v`、`git ls-remote https://github.com/mdymdy666/JavaProjectForSchool.git`、`rg` 敏感信息扫描；确认未创建正式前端、后端或测试目录。
 - 后续状态：首次 commit 已完成，`origin` 已设置为 `https://github.com/mdymdy666/JavaProjectForSchool.git`，`main` 分支已推送到 GitHub。
+
+## 2026-07-04 - 新增 Windows 依赖检测脚本
+
+- 执行 Agent：Codex
+- 变动类型：脚本、文档、环境检测
+- 涉及文件：`scripts/check-dependencies.bat`、`scripts/check-dependencies.ps1`、`reports/dependency-check-report.md`、`.gitignore`、`README.md`、`docs/环境安装与版本对齐.md`、`docs/测试规范.md`、`docs/依赖版本清单.md`、`docs/开发环境.md`、`docs/目录结构规范.md`、`codex.md`
+- 完成内容：新增 Windows BAT 入口脚本，调用同目录 PowerShell helper 检测 Git、Java、Javac、Maven、Node.js、npm、pnpm、MySQL、Redis、VS Code、IntelliJ IDEA、Apifox，并在后续存在 `pom.xml` 或 `package.json` 时检测 Spring Boot、Spring Security、MySQL JDBC Driver、Spring Data Redis、JUnit、Vue3、Vite、Axios、Vitest 等配置型依赖；生成 Markdown 报告；补充文档中的运行方式、状态含义和安全约束。
+- 验证方式：执行 `scripts\check-dependencies.bat --no-pause`；脚本成功生成 `reports/dependency-check-report.md`；当前检测结果为已对齐 10 项、可接受待确认 6 项、需调整 0 项、未检测到 0 项、项目未配置 9 项、检测失败 0 项。
+- 后续状态：脚本可供组员拉取仓库后直接运行；MySQL 登录级 `SELECT VERSION()` 仍需测试账号确认；当前 Redis 服务需要认证；正式前后端工程仍未创建。

@@ -67,6 +67,9 @@ log/
 tmp/
 temp/
 cache/
+reports/tmp/
+*.tmp
+*.bak
 uploads/
 upload/
 files/
@@ -94,4 +97,3 @@ redis-data/
 *.tar.gz
 *.rar
 *.7z
-

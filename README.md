@@ -17,6 +17,7 @@
 | 文本属性 | 已创建 | 已创建 `.gitattributes` |
 | 文档规范 | 已创建 | 文档统一放在 `docs/` |
 | Agent 协作记录 | 已创建 | 根目录 `codex.md` |
+| 依赖检测脚本 | 已创建 | `scripts/check-dependencies.bat` |
 | 后端项目 | 未配置 | 尚未创建 `pom.xml` |
 | 前端项目 | 未配置 | 尚未创建 `package.json` |
 | 数据库脚本 | 未配置 | 后续数据库设计完成后再创建 |
@@ -44,3 +45,24 @@
 ## 依赖验证
 
 此前曾使用独立 smoke test 验证本机工具、Spring Boot 配置型依赖、Vue3/Vite 配置型依赖、MySQL、Redis 和 Apifox 可运行性；当前已按要求删除 `test/` 目录。正式前端和后端工程仍未创建，后续如需复验依赖，应重新在临时测试目录中执行，不要把 smoke test 写成业务工程。
+
+当前仓库提供 Windows 依赖检测脚本，用于组员在不同软件版本、不同安装路径下检查本机环境是否可用于本项目：
+
+```powershell
+scripts\check-dependencies.bat
+```
+
+可选参数：
+
+```powershell
+scripts\check-dependencies.bat --no-pause
+scripts\check-dependencies.bat --verbose
+```
+
+脚本会优先检查 PATH，再检查常见环境变量和安装目录，并生成 Markdown 报告：
+
+```text
+reports/dependency-check-report.md
+```
+
+脚本只做检测和报告生成，不会安装、卸载或重装软件，不会修改系统 PATH，不会修改 Java、MySQL、Redis 配置，也不会写入真实账号、密码或密钥。

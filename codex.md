@@ -32,6 +32,7 @@
 8. 项目相关提示词必须基于当前项目真实内容；第一次处理前应浏览项目结构、关键文档和 Git 状态，后续处理时应关注项目变化。
 9. 给其他 Agent 的提示词应约束输出文件数量、位置、命名、内容范围、验收标准和自检要求，避免生成过多或偏离项目的文件。
 10. 代码、配置、脚本等会影响项目行为的变动，默认以 Git 变动为单位记录到本文件；只有用户明确说“不需要记录改动记录”时才跳过。
+11. 后续涉及后端业务、事务一致性、高并发、MySQL、Redis、MQ、缓存、锁、审计、补偿、测试和落地路线的设计或实现时，应把 `docs/后端工业级业务事务与高并发全景设计.md` 作为全局参考文档，先对照其原则再落地。
 
 ## Git 变动记录规则
 
@@ -203,3 +204,39 @@
 - 完成内容：新增 Windows BAT 入口脚本，调用同目录 PowerShell helper 检测 Git、Java、Javac、Maven、Node.js、npm、pnpm、MySQL、Redis、VS Code、IntelliJ IDEA、Apifox，并在后续存在 `pom.xml` 或 `package.json` 时检测 Spring Boot、Spring Security、MySQL JDBC Driver、Spring Data Redis、JUnit、Vue3、Vite、Axios、Vitest 等配置型依赖；生成 Markdown 报告；补充文档中的运行方式、状态含义和安全约束。
 - 验证方式：执行 `scripts\check-dependencies.bat --no-pause`；脚本成功生成 `reports/dependency-check-report.md`；当前检测结果为已对齐 10 项、可接受待确认 6 项、需调整 0 项、未检测到 0 项、项目未配置 9 项、检测失败 0 项。
 - 后续状态：脚本可供组员拉取仓库后直接运行；MySQL 登录级 `SELECT VERSION()` 仍需测试账号确认；当前 Redis 服务需要认证；正式前后端工程仍未创建。
+
+## 2026-07-04 15:16 - 创建第一阶段前后端项目骨架
+
+- 执行 Agent：Codex
+- 变动类型：项目骨架、后端、前端、数据库脚本
+- 涉及文件：`backend/`、`frontend/`、`sql/`、`codex.md`
+- 完成内容：创建 Spring Boot 后端基础工程，加入统一响应、Security 基础配置、健康检查接口和首页商品演示接口；创建 Vue3/Vite 前端基础工程，加入首页应用壳、核心模块卡片和答辩演示主线；创建 SQL 目录，补充核心业务表结构草案和演示分类种子数据。
+- 验证方式：先编写后端 MockMvc 测试和前端 Vitest 测试；后端执行 `mvn -f backend\pom.xml test`，结果为 3 个测试通过、0 失败；前端执行 `pnpm install`、`pnpm test` 和 `pnpm build`，结果为 1 个测试通过且 Vite 生产构建成功。
+- 后续状态：第一阶段代码骨架已创建但尚未提交；后续可继续实现用户认证、商品发布审核、订单流转等业务模块。
+
+## 2026-07-04 15:33 - 完成答辩演示版业务闭环
+
+- 执行 Agent：Codex
+- 变动类型：后端接口、前端页面、测试、文档
+- 涉及文件：`backend/src/main/java/com/campustrade/demo/`、`backend/src/main/java/com/campustrade/config/SecurityConfig.java`、`backend/src/test/java/com/campustrade/demo/DemoControllerTest.java`、`frontend/src/App.vue`、`frontend/src/styles.css`、`frontend/src/App.spec.ts`、`README.md`、`codex.md`
+- 完成内容：新增 `/api/demo/**` 演示接口，覆盖登录、统计、商品发布、商品审核、订单创建、订单流转、消息发送和消息查询；前端升级为可点击的答辩演示工作台，覆盖商品市场、订单交易、消息沟通、后台管理和分类统计；更新 README 为当前真实运行方式。
+- 验证方式：执行 `mvn -f backend\pom.xml test`，结果为 5 个测试通过、0 失败；执行 `pnpm test`，结果为 2 个测试通过；执行 `pnpm build`，Vite 生产构建成功。
+- 后续状态：答辩演示版已可运行但尚未提交；演示数据目前使用内存服务，后续可继续替换为 MyBatis-Plus + MySQL 持久化实现。
+
+## 2026-07-04 16:35 - 登记后端工业级全局设计文档
+
+- 执行 Agent：Codex
+- 变动类型：文档、协作规则
+- 涉及文件：`docs/后端工业级业务事务与高并发全景设计.md`、`README.md`、`codex.md`
+- 完成内容：按用户要求将 `D:\QQ\后端工业级业务事务与高并发全景设计.md` 复制到项目 `docs/` 目录，并在 README 文档入口和 Agent 工作规则中登记为后端业务、事务一致性、高并发、MySQL、Redis、MQ、缓存、锁、审计、补偿和测试落地的全局参考文档。
+- 验证方式：执行源文件与项目内文件 SHA256 校验，两个文件哈希均为 `9ADEB6928A2ACC42D3CBCF8E68E67CC0435F4F02F72E7E747A85079B9272B4A3`。
+- 后续状态：后续改进后端时应先对照该全局设计文档；本次仅登记文档和规则，未修改业务代码。
+
+## 2026-07-04 16:44 - 制定混合实训升级版设计方案
+
+- 执行 Agent：Codex
+- 变动类型：设计文档、需求方案
+- 涉及文件：`docs/superpowers/specs/2026-07-04-campus-trade-mixed-upgrade-design.md`、`codex.md`
+- 完成内容：基于课程截图要求、当前可运行演示版项目和后端工业级全局设计文档，制定“混合实训升级版”方案；明确用户、商品、订单、消息、后台、扩展模块的后端边界、前端页面、MySQL 表方向、Redis 使用、接口范围、错误处理、安全原则、测试验收和分阶段实施路线。
+- 验证方式：检查设计文档无 `TBD`、`TODO`、`待定` 等占位内容；对照当前项目状态确认方案不把未实现能力写成已完成。
+- 后续状态：等待用户审阅设计方案；确认后再进入实施计划和代码改造。

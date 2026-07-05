@@ -1,68 +1,79 @@
 # 校园二手物品交易平台的设计与实现
 
-本仓库用于《徐士伟-软件与理论综合设计与实践项目指导书【徐士伟-题目2-2026】》对应项目的初始化、文档沉淀与后续开发协作。
-
-当前阶段只完成项目初始化、文档规范和开发环境检查，尚未创建 Vue3 前端项目或 Spring Boot 后端项目，也尚未实现任何业务代码。
-
-## 项目定位
-
-项目要求建设一个基于 Vue3 + Spring Boot + MySQL + Redis 的校园 C2C 二手物品交易 Web 应用，采用前后端分离架构。后续计划围绕用户管理、商品管理、订单交易、消息沟通、后台管理、数据统计、公告管理等模块开展需求分析、系统设计、编码、联调与测试。
+本项目面向《软件与理论综合设计与实践》课程实训，目标是实现一个基于 Vue3 + Spring Boot + MySQL + Redis 的校园 C2C 二手物品交易 Web 应用。当前版本已经具备答辩展示可用的前后端工程、演示业务接口、前端交互工作台和数据库建表脚本。
 
 ## 当前状态
 
-| 项目 | 状态 | 说明 |
+| 模块 | 状态 | 说明 |
 |---|---|---|
-| Git 仓库 | 已初始化 | 已创建 `.git` |
-| 忽略规则 | 已创建 | 已创建 `.gitignore` |
-| 文本属性 | 已创建 | 已创建 `.gitattributes` |
-| 文档规范 | 已创建 | 文档统一放在 `docs/` |
-| Agent 协作记录 | 已创建 | 根目录 `codex.md` |
-| 依赖检测脚本 | 已创建 | `scripts/check-dependencies.bat` |
-| 后端项目 | 未配置 | 尚未创建 `pom.xml` |
-| 前端项目 | 未配置 | 尚未创建 `package.json` |
-| 数据库脚本 | 未配置 | 后续数据库设计完成后再创建 |
+| 前端 | 已创建 | Vue3 + Vite + TypeScript，包含商品、订单、消息、后台管理和统计展示 |
+| 后端 | 已创建 | Spring Boot 3，提供健康检查、商品演示接口和 `/api/demo/**` 演示业务接口 |
+| 数据库 | 已创建脚本 | `sql/schema.sql`、`sql/seed.sql` 覆盖用户、商品、订单、消息、公告、审计日志等表 |
+| Redis | 已预留 | 当前演示接口使用内存数据，后续可接入 Redis 做缓存、验证码或会话 |
+| 测试 | 已配置 | 后端 MockMvc 测试，前端 Vitest 测试 |
+
+## 演示功能
+
+- 用户登录：提供管理员和普通用户演示登录接口。
+- 商品市场：展示审核通过的二手商品，可直接创建订单。
+- 商品发布：前端可快速发布演示商品，进入待审核状态。
+- 后台审核：管理员可通过或驳回待审核商品。
+- 订单交易：支持创建订单，并按待支付、已支付、已发货、已完成推进状态。
+- 消息沟通：支持买卖双方留言、未读和已读状态展示。
+- 数据统计：展示注册用户、在售商品、订单数量、成交金额和分类占比。
+
+## 运行方式
+
+后端：
+
+```powershell
+cd D:\实训\JavaProjectForSchool
+& 'D:\java\idea\IntelliJ IDEA Community Edition 2025.2.2\plugins\maven\lib\maven3\bin\mvn.cmd' -f backend\pom.xml spring-boot:run
+```
+
+前端：
+
+```powershell
+cd D:\实训\JavaProjectForSchool\frontend
+pnpm install
+pnpm dev
+```
+
+默认访问：
+
+- 前端：http://localhost:5173
+- 后端健康检查：http://localhost:8080/api/health
+- 后端演示数据：http://localhost:8080/api/demo/dashboard
+
+## 常用验证命令
+
+```powershell
+cd D:\实训\JavaProjectForSchool
+& 'D:\java\idea\IntelliJ IDEA Community Edition 2025.2.2\plugins\maven\lib\maven3\bin\mvn.cmd' -f backend\pom.xml test
+
+cd D:\实训\JavaProjectForSchool\frontend
+pnpm test
+pnpm build
+```
+
+## 目录结构
+
+```text
+backend/   Spring Boot 后端工程
+frontend/  Vue3 前端工程
+sql/       MySQL 建表和种子数据脚本
+docs/      项目文档和环境说明
+codex.md   协作记录
+```
 
 ## 文档入口
 
 - [项目说明](docs/项目说明.md)
-- [文档规范](docs/文档规范.md)
+- [后端工业级业务事务与高并发全景设计](docs/后端工业级业务事务与高并发全景设计.md)
 - [开发环境](docs/开发环境.md)
-- [依赖版本清单](docs/依赖版本清单.md)
 - [环境安装与版本对齐](docs/环境安装与版本对齐.md)
-- [目录结构规范](docs/目录结构规范.md)
+- [依赖版本清单](docs/依赖版本清单.md)
 - [接口文档规范](docs/接口文档规范.md)
 - [数据库设计规范](docs/数据库设计规范.md)
 - [测试规范](docs/测试规范.md)
 - [协作记录规范](docs/协作记录规范.md)
-
-## 后续建议
-
-1. 先完成需求分析、角色用例、业务流程、ER 图和接口草案。
-2. 再创建后端 Spring Boot 项目和前端 Vue3 项目。
-3. 创建项目配置时，使用 `.env.example`、`application-example.yml` 等样例文件记录配置项，不提交真实账号、密码、密钥。
-4. 每次文档、代码或环境配置变更后，按 `codex.md` 记录本次变动。
-
-## 依赖验证
-
-此前曾使用独立 smoke test 验证本机工具、Spring Boot 配置型依赖、Vue3/Vite 配置型依赖、MySQL、Redis 和 Apifox 可运行性；当前已按要求删除 `test/` 目录。正式前端和后端工程仍未创建，后续如需复验依赖，应重新在临时测试目录中执行，不要把 smoke test 写成业务工程。
-
-当前仓库提供 Windows 依赖检测脚本，用于组员在不同软件版本、不同安装路径下检查本机环境是否可用于本项目：
-
-```powershell
-scripts\check-dependencies.bat
-```
-
-可选参数：
-
-```powershell
-scripts\check-dependencies.bat --no-pause
-scripts\check-dependencies.bat --verbose
-```
-
-脚本会优先检查 PATH，再检查常见环境变量和安装目录，并生成 Markdown 报告：
-
-```text
-reports/dependency-check-report.md
-```
-
-脚本只做检测和报告生成，不会安装、卸载或重装软件，不会修改系统 PATH，不会修改 Java、MySQL、Redis 配置，也不会写入真实账号、密码或密钥。

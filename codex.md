@@ -15,7 +15,7 @@
 
 - Git 仓库：已初始化。
 - 文档目录：已创建 `docs/`。
-- 前端项目：未创建。
+- 前端项目：未创建。e
 - 后端项目：未创建。
 - 数据库脚本：未创建。
 - 当前未实现业务功能。
@@ -276,3 +276,12 @@
 - 完成内容：实现商品留言、成交双方双向沟通、消息已读、系统通知列表与已读；订单状态变化在同一事务内通知对方；新增买家/卖家订单列表；实现公开公告、管理员公告管理以及用户数、商品数、订单数、成交额和分类占比统计。
 - 验证方式：按 TDD 先观察消息和后台接口 404、订单列表 405、卖家回复 403，再分别补齐实现；后端全量测试结果为 17 个通过、0 失败、0 错误，并发抢单测试保持通过。
 - 后续状态：下一阶段接入 Redis 验证码、缓存、浏览量、热度与限流，并保留 Redis 不可用时的开发降级能力。
+
+## 2026-07-05 14:57 - 完成 Redis 验证码、缓存、浏览量、限流与 JWT 黑名单
+
+- 执行 Agent：Claude Code
+- 变动类型：Redis 集成、缓存、限流、JWT 黑名单、安全增强、测试
+- 涉及文件：`backend/src/main/java/com/campustrade/cache/CacheNames.java`、`backend/src/main/java/com/campustrade/cache/RedisSupport.java`、`backend/src/main/java/com/campustrade/auth/AuthController.java`、`backend/src/main/java/com/campustrade/auth/AuthDtos.java`、`backend/src/main/java/com/campustrade/auth/AuthService.java`、`backend/src/main/java/com/campustrade/security/JwtAuthenticationFilter.java`、`backend/src/main/java/com/campustrade/security/JwtService.java`、`backend/src/main/java/com/campustrade/config/SecurityConfig.java`、`backend/src/main/java/com/campustrade/common/ErrorCode.java`、`backend/src/main/java/com/campustrade/product/ProductService.java`、`backend/src/test/java/com/campustrade/cache/RedisFallbackTest.java`、`.gitignore`
+- 完成内容：实现 RedisSupport 通用缓存工具类，Redis 不可用时自动降级到仅 MySQL；实现注册验证码生成与校验（开发模式固定 123456）；实现登录失败 IP 限流（5 次/10 分钟）；实现 JWT 黑名单注销机制（jti 标识）；实现商品详情 Redis 缓存（匿名用户 10 分钟 TTL，写操作主动驱逐）；实现浏览量 INCR 计数和热度 ZSET 排行；实现 Security 白名单注册验证码接口；修复 .gitignore 误伤 Java cache 包。
+- 验证方式：后端全量 `mvn test` 结果为 20 个测试通过、0 失败、0 错误，覆盖 Redis 关闭场景下的商品详情、验证码、登录和登出降级行为；修复 JAVA_HOME 永久指向 `D:\java`（JDK 25）。
+- 后续状态：进入前端重构，将当前单文件 App.vue 升级为 Vue Router + Pinia + Axios 多视图 SPA 结构。

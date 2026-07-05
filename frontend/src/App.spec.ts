@@ -1,24 +1,29 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
-
+import { createPinia, setActivePinia } from 'pinia'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
+import { routes } from './router'
+
+function mountApp() {
+  const pinia = createPinia()
+  setActivePinia(pinia)
+  const router = createRouter({ history: createWebHashHistory(), routes })
+  return mount(App, { global: { plugins: [pinia, router] } })
+}
 
 describe('App', () => {
-  it('renders the campus trade dashboard shell', () => {
-    const wrapper = mount(App)
+  it('renders the campus trade app shell with header', () => {
+    const wrapper = mountApp()
 
-    expect(wrapper.text()).toContain('校园二手交易平台')
-    expect(wrapper.text()).toContain('商品市场')
-    expect(wrapper.text()).toContain('订单交易')
-    expect(wrapper.findAll('[data-test="product-card"]')).toHaveLength(2)
+    expect(wrapper.text()).toContain('校园二手交易')
+    expect(wrapper.text()).toContain('登录')
+    expect(wrapper.text()).toContain('注册')
   })
 
-  it('creates an order from an approved product', async () => {
-    const wrapper = mount(App)
+  it('shows home page by default', () => {
+    const wrapper = mountApp()
 
-    await wrapper.find('[data-test="product-card"] button').trigger('click')
-
-    expect(wrapper.text()).toContain('订单已创建，等待模拟支付')
-    expect(wrapper.findAll('[data-test="order-row"]').length).toBeGreaterThanOrEqual(3)
+    expect(wrapper.text()).toContain('首页')
   })
 })

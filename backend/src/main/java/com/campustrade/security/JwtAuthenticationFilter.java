@@ -8,6 +8,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.campustrade.cache.CacheNames;
+import com.campustrade.cache.RedisSupport;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,9 +18,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
+    private final RedisSupport redisSupport;
 
-    public JwtAuthenticationFilter(JwtService jwtService) {
+    public JwtAuthenticationFilter(JwtService jwtService, RedisSupport redisSupport) {
         this.jwtService = jwtService;
+        this.redisSupport = redisSupport;
     }
 
     @Override
@@ -28,7 +33,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String header = request.getHeader("Authorization");
         if (header != null && header.startsWith("Bearer ")) {
             try {
-                SecurityUser user = jwtService.parse(header.substring(7));
+                String token = header.substring(7);
+                String tokenId = jwtService.extractId(token);
+                if (redisSupport.exists(CacheNames.JWT_BLACKLIST + tokenId)) {
+                    filterChain.doFilter(request, response);
+                    return;
+                }
+                SecurityUser user = jwtService.parse(token);
                 var authentication = new UsernamePasswordAuthenticationToken(
                         user,
                         null,

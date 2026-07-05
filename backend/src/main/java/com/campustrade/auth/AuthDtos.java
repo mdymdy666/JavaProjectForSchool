@@ -10,7 +10,8 @@ public final class AuthDtos {
     public record RegisterRequest(
             @NotBlank String username,
             @Size(min = 8, max = 64) String password,
-            @NotBlank String nickname) {
+            @NotBlank String nickname,
+            String captcha) {
     }
 
     public record LoginRequest(@NotBlank String account, @NotBlank String password) {
@@ -20,5 +21,8 @@ public final class AuthDtos {
     }
 
     public record UserSummary(Long id, String username, String nickname, String role) {
+    }
+
+    public record CaptchaResponse(String code, int expiresInSeconds) {
     }
 }

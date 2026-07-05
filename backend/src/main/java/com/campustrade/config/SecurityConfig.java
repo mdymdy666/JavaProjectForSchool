@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.campustrade.security.JwtAuthenticationFilter;
 import com.campustrade.security.JwtService;
+import com.campustrade.cache.RedisSupport;
 
 @Configuration
 @EnableWebSecurity
@@ -37,6 +38,7 @@ public class SecurityConfig {
                                 "/api/health",
                                 "/api/auth/register",
                                 "/api/auth/login",
+                                "/api/auth/captcha/**",
                                 "/api/announcements",
                                 "/api/demo/**",
                                 "/doc.html",
@@ -60,7 +62,7 @@ public class SecurityConfig {
 
     @Bean
     @ConditionalOnBean(JwtService.class)
-    JwtAuthenticationFilter jwtAuthenticationFilter(JwtService jwtService) {
-        return new JwtAuthenticationFilter(jwtService);
+    JwtAuthenticationFilter jwtAuthenticationFilter(JwtService jwtService, RedisSupport redisSupport) {
+        return new JwtAuthenticationFilter(jwtService, redisSupport);
     }
 }

@@ -4,6 +4,7 @@ import static com.campustrade.product.ProductDtos.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.time.Duration;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ import com.campustrade.common.BusinessException;
 import com.campustrade.common.ErrorCode;
 import com.campustrade.common.PageResult;
 import com.campustrade.security.SecurityUser;
+import com.campustrade.cache.CacheNames;
+import com.campustrade.cache.RedisSupport;
 
 @Service
 public class ProductService {
@@ -27,16 +30,19 @@ public class ProductService {
     private final ProductImageMapper productImageMapper;
     private final FavoriteMapper favoriteMapper;
     private final AuthMapper authMapper;
+    private final RedisSupport redisSupport;
 
     public ProductService(
             ProductMapper productMapper,
             ProductImageMapper productImageMapper,
             FavoriteMapper favoriteMapper,
-            AuthMapper authMapper) {
+            AuthMapper authMapper,
+            RedisSupport redisSupport) {
         this.productMapper = productMapper;
         this.productImageMapper = productImageMapper;
         this.favoriteMapper = favoriteMapper;
         this.authMapper = authMapper;
+        this.redisSupport = redisSupport;
     }
 
     public PageResult<ProductCard> search(
@@ -117,6 +123,7 @@ public class ProductService {
         product.setItemCondition(request.itemCondition().trim());
         product.setStatus(ProductStatus.PENDING.name());
         productMapper.updateById(product);
+        evict(productId);
         productImageMapper.delete(new LambdaQueryWrapper<ProductImage>()
                 .eq(ProductImage::getProductId, productId));
         int sortOrder = 0;
@@ -131,6 +138,14 @@ public class ProductService {
     }
 
     public ProductDetail detail(long productId, SecurityUser viewer) {
+        long addedViews = redisSupport.increment(
+                CacheNames.PRODUCT_VIEW + productId, Duration.ofDays(7)).orElse(0);
+        redisSupport.incrementScore(CacheNames.PRODUCT_HOT, String.valueOf(productId));
+        if (viewer == null) {
+            ProductDetail cached = redisSupport.getJson(
+                    CacheNames.PRODUCT_DETAIL + productId, ProductDetail.class).orElse(null);
+            if (cached != null) return withViews(cached, addedViews);
+        }
         Product product = requireProduct(productId);
         boolean privileged = viewer != null
                 && (product.getSellerId().equals(viewer.userId()) || "ADMIN".equals(viewer.role()));
@@ -138,7 +153,11 @@ public class ProductService {
             throw new BusinessException(ErrorCode.PRODUCT_NOT_FOUND);
         }
         Long viewerId = viewer == null ? null : viewer.userId();
-        return toDetail(product, viewerId);
+        ProductDetail detail = toDetail(product, viewerId);
+        if (viewer == null) {
+            redisSupport.putJson(CacheNames.PRODUCT_DETAIL + productId, detail, Duration.ofMinutes(10));
+        }
+        return withViews(detail, addedViews);
     }
 
     @Transactional
@@ -171,6 +190,7 @@ public class ProductService {
         }
         product.setStatus(ProductStatus.OFF_SHELF.name());
         productMapper.updateById(product);
+        evict(productId);
         return detailForOwner(product, sellerId);
     }
 
@@ -182,6 +202,7 @@ public class ProductService {
         }
         product.setStatus(ProductStatus.APPROVED.name());
         productMapper.updateById(product);
+        evict(productId);
         return detailForOwner(product, sellerId);
     }
 
@@ -196,6 +217,7 @@ public class ProductService {
         if (productMapper.softDelete(productId, sellerId) != 1) {
             throw new BusinessException(ErrorCode.INVALID_STATE);
         }
+        evict(productId);
         return response;
     }
 
@@ -210,6 +232,7 @@ public class ProductService {
                 : ProductStatus.REJECTED.name();
         product.setStatus(status);
         productMapper.updateById(product);
+        evict(productId);
         productMapper.insertAuditLog(adminId, productId,
                 request.approved() ? "APPROVE" : "REJECT", request.reason());
         productMapper.insertNotification(
@@ -235,6 +258,19 @@ public class ProductService {
 
     private ProductDetail detailForOwner(Product product, long ownerId) {
         return toDetail(product, ownerId);
+    }
+
+    private ProductDetail withViews(ProductDetail detail, long addedViews) {
+        if (addedViews <= 0) return detail;
+        return new ProductDetail(detail.id(), detail.sellerId(), detail.sellerNickname(),
+                detail.categoryId(), detail.categoryName(), detail.title(), detail.description(),
+                detail.price(), detail.itemCondition(), detail.status(),
+                Math.toIntExact((long) detail.viewCount() + addedViews), detail.images(),
+                detail.favorite(), detail.createdAt());
+    }
+
+    private void evict(long productId) {
+        redisSupport.delete(CacheNames.PRODUCT_DETAIL + productId);
     }
 
     private ProductDetail toDetail(Product product, Long viewerId) {

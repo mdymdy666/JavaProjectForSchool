@@ -25,6 +25,7 @@ public class JwtService {
     public String create(long userId, String role) {
         Instant now = Instant.now();
         return Jwts.builder()
+                .id(java.util.UUID.randomUUID().toString())
                 .subject(String.valueOf(userId))
                 .claim("role", role)
                 .issuedAt(Date.from(now))
@@ -34,11 +35,19 @@ public class JwtService {
     }
 
     public SecurityUser parse(String token) {
-        Claims claims = Jwts.parser()
+        Claims claims = parseClaims(token);
+        return new SecurityUser(Long.parseLong(claims.getSubject()), claims.get("role", String.class));
+    }
+
+    public String extractId(String token) {
+        return parseClaims(token).getId();
+    }
+
+    private Claims parseClaims(String token) {
+        return Jwts.parser()
                 .verifyWith(key)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
-        return new SecurityUser(Long.parseLong(claims.getSubject()), claims.get("role", String.class));
     }
 }

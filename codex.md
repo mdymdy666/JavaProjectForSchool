@@ -285,3 +285,44 @@
 - 完成内容：实现 RedisSupport 通用缓存工具类，Redis 不可用时自动降级到仅 MySQL；实现注册验证码生成与校验（开发模式固定 123456）；实现登录失败 IP 限流（5 次/10 分钟）；实现 JWT 黑名单注销机制（jti 标识）；实现商品详情 Redis 缓存（匿名用户 10 分钟 TTL，写操作主动驱逐）；实现浏览量 INCR 计数和热度 ZSET 排行；实现 Security 白名单注册验证码接口；修复 .gitignore 误伤 Java cache 包。
 - 验证方式：后端全量 `mvn test` 结果为 20 个测试通过、0 失败、0 错误，覆盖 Redis 关闭场景下的商品详情、验证码、登录和登出降级行为；修复 JAVA_HOME 永久指向 `D:\java`（JDK 25）。
 - 后续状态：进入前端重构，将当前单文件 App.vue 升级为 Vue Router + Pinia + Axios 多视图 SPA 结构。
+
+## 2026-07-05 15:06 - 完成前端基础结构重构
+
+- 执行 Agent：Claude Code
+- 变动类型：前端重构、路由、状态管理、API 层、组件化
+- 涉及文件：`frontend/src/router/index.ts`、`frontend/src/api/http.ts`、`frontend/src/api/auth.ts`、`frontend/src/stores/auth.ts`、`frontend/src/types/domain.ts`、`frontend/src/components/AppHeader.vue`、`frontend/src/layouts/AppLayout.vue`、`frontend/src/App.vue`、`frontend/src/main.ts`、`frontend/src/router/router.spec.ts`、`frontend/src/App.spec.ts`、所有视图占位文件
+- 完成内容：将单文件 App.vue 重构为 Vue Router + Pinia + Axios 多视图 SPA；创建 10 个路由（登录、注册、首页、商品列表、商品详情、发布、个人中心、订单、消息、后台）；实现 AppHeader 导航组件和 AppLayout 布局；建立 Axios 拦截器（自动携带 JWT、401 自动清除 token）；实现 auth store（登录/登出/会话持久化）。
+- 验证方式：前端 `pnpm test` 结果为 5 个测试通过（路由 3 + App 2），`pnpm build` 构建成功。
+
+## 2026-07-05 15:05 - 完成前端认证与商品页面
+
+- 执行 Agent：Claude Code
+- 变动类型：前端视图、组件、API
+- 涉及文件：`frontend/src/views/LoginView.vue`、`frontend/src/views/RegisterView.vue`、`frontend/src/views/HomeView.vue`、`frontend/src/views/ProductListView.vue`、`frontend/src/views/ProductDetailView.vue`、`frontend/src/views/PublishProductView.vue`、`frontend/src/components/ProductCard.vue`、`frontend/src/api/product.ts`、`frontend/src/api/user.ts`
+- 完成内容：实现登录页（账号密码登录、错误提示）；实现注册页（验证码获取、表单校验）；实现首页（公告栏、热门商品、最新商品）；实现商品列表（关键词搜索、四种排序、分页）；实现商品详情（图片、价格、收藏、立即购买）；实现商品发布（分类、价格、成色、描述）；创建 ProductCard 通用组件。
+- 验证方式：`pnpm test` 5 通过，`pnpm build` 成功。
+
+## 2026-07-05 15:07 - 完成前端业务页面
+
+- 执行 Agent：Claude Code
+- 变动类型：前端视图、API
+- 涉及文件：`frontend/src/views/ProfileView.vue`、`frontend/src/views/OrderCenterView.vue`、`frontend/src/views/MessageCenterView.vue`、`frontend/src/views/AdminDashboardView.vue`、`frontend/src/api/order.ts`、`frontend/src/api/message.ts`、`frontend/src/api/admin.ts`、`frontend/src/components/StatusTag.vue`
+- 完成内容：实现个人中心（资料查看/编辑、我的商品列表）；实现订单中心（买家/卖家分栏、支付/发货/收货/取消操作、从商品详情直接下单）；实现消息中心（交易留言/系统通知分栏、已读标记）；实现后台管理（数据概览统计卡片、分类占比、商品审核通过/驳回、公告发布）；创建 StatusTag 统一状态标签组件。
+- 验证方式：`pnpm test` 5 通过，`pnpm build` 成功。
+
+## 2026-07-05 15:12 - 完成扩展功能（敏感词、举报、推荐）
+
+- 执行 Agent：Claude Code
+- 变动类型：后端扩展、敏感词过滤、举报、推荐、测试
+- 涉及文件：`backend/src/main/java/com/campustrade/extension/ContentReviewService.java`、`backend/src/main/java/com/campustrade/extension/ReportService.java`、`backend/src/main/java/com/campustrade/extension/ReportController.java`、`backend/src/main/java/com/campustrade/extension/RecommendationService.java`、`backend/src/test/java/com/campustrade/extension/ExtensionFlowTest.java`、`sql/schema.sql`
+- 完成内容：实现 ContentReviewService 敏感词过滤（本地词表，拦截商品标题和描述）；实现 ReportService 用户举报（提交举报、管理员查看待处理列表、处理举报）；实现 RecommendationService 商品推荐（按浏览量和最新排序）；新增 `reports` 和 `sensitive_words` 表；接入 Security 白名单。
+- 验证方式：后端全量 `mvn test` 结果为 24 个测试通过、0 失败、0 错误。新增 4 个扩展测试覆盖敏感词拦截、举报流程和推荐接口。
+
+## 2026-07-05 15:18 - 全量验证通过
+
+- 执行 Agent：Claude Code
+- 变动类型：全量测试、文档更新
+- 涉及文件：`codex.md`
+- 完成内容：后端 24 个测试全部通过（auth、product、order、message、admin、cache、extension），前端 5 个测试全部通过且 Vite 构建成功。JAVA_HOME 已永久配置为 `D:\java`（JDK 25）。
+- 验证方式：`mvn test` BUILD SUCCESS，`pnpm test` 5 passed，`pnpm build` ✓ built。
+- 后续状态：项目核心功能已全部实现，可进行答辩演示。答辩主线：注册登录 → 发布商品 → 管理员审核 → 搜索浏览 → 收藏下单 → 模拟支付 → 卖家发货 → 买家收货 → 消息通知 → 后台统计。

@@ -5,6 +5,7 @@ import static com.campustrade.order.OrderDtos.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,15 +14,20 @@ import com.campustrade.common.BusinessException;
 import com.campustrade.common.ErrorCode;
 import com.campustrade.product.Product;
 import com.campustrade.product.ProductMapper;
+import com.campustrade.message.NotificationService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 @Service
 public class OrderService {
     private final OrderMapper orderMapper;
     private final ProductMapper productMapper;
+    private final NotificationService notificationService;
 
-    public OrderService(OrderMapper orderMapper, ProductMapper productMapper) {
+    public OrderService(OrderMapper orderMapper, ProductMapper productMapper,
+            NotificationService notificationService) {
         this.orderMapper = orderMapper;
         this.productMapper = productMapper;
+        this.notificationService = notificationService;
     }
 
     @Transactional
@@ -48,7 +54,20 @@ public class OrderService {
             throw new BusinessException(ErrorCode.INVALID_STATE, "商品已被其他用户购买");
         }
         orderMapper.insertLog(order.getId(), null, order.getStatus(), buyerId, "创建订单");
+        notificationService.create(order.getSellerId(), "ORDER_STATUS", "收到新的订单",
+                "订单 " + order.getOrderNo() + " 等待买家支付");
         return view(order);
+    }
+
+    public List<OrderView> list(long userId, String role) {
+        LambdaQueryWrapper<TradeOrder> query = new LambdaQueryWrapper<>();
+        if ("seller".equalsIgnoreCase(role)) {
+            query.eq(TradeOrder::getSellerId, userId);
+        } else {
+            query.eq(TradeOrder::getBuyerId, userId);
+        }
+        query.orderByDesc(TradeOrder::getCreatedAt).orderByDesc(TradeOrder::getId);
+        return orderMapper.selectList(query).stream().map(this::view).toList();
     }
 
     @Transactional
@@ -93,6 +112,9 @@ public class OrderService {
             throw new BusinessException(ErrorCode.INVALID_STATE, "订单状态已变化，请刷新后重试");
         }
         orderMapper.insertLog(id, source.name(), target.name(), operatorId, remark);
+        long receiverId = buyerOperation ? order.getSellerId() : order.getBuyerId();
+        notificationService.create(receiverId, "ORDER_STATUS", "订单状态更新",
+                "订单 " + order.getOrderNo() + " 已变更为 " + target.name());
         order.setStatus(target.name());
         order.setLogisticsInfo(nextLogistics);
         order.setVersion(order.getVersion() + 1);

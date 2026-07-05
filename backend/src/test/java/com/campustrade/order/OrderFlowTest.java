@@ -2,6 +2,7 @@ package com.campustrade.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -54,6 +55,15 @@ class OrderFlowTest {
         long orderId = objectMapper.readTree(created.getResponse().getContentAsString())
                 .path("data").path("id").asLong();
 
+        mockMvc.perform(get("/api/orders").param("role", "buyer")
+                        .header("Authorization", bearer(buyer)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data[0].id").value(orderId));
+        mockMvc.perform(get("/api/orders").param("role", "seller")
+                        .header("Authorization", bearer(seller)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data[0].id").value(orderId));
+
         mockMvc.perform(post("/api/orders/{id}/confirm", orderId)
                         .header("Authorization", bearer(buyer)))
                 .andExpect(status().isConflict())
@@ -82,6 +92,9 @@ class OrderFlowTest {
         assertThat(jdbcTemplate.queryForObject(
                 "SELECT status FROM products WHERE id = ?", String.class, productId))
                 .isEqualTo("SOLD");
+        assertThat(jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM notifications WHERE type = 'ORDER_STATUS'", Integer.class))
+                .isEqualTo(4);
     }
 
     @Test

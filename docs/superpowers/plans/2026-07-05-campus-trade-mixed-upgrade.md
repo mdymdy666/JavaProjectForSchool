@@ -846,7 +846,7 @@ git commit -m "feat: add transactional order state machine"
 - Test: `backend/src/test/java/com/campustrade/message/MessageControllerTest.java`
 - Test: `backend/src/test/java/com/campustrade/admin/AdminControllerTest.java`
 
-- [ ] **Step 1: 写消息与后台失败测试**
+- [x] **Step 1: 写消息与后台失败测试**
 
 覆盖：
 
@@ -858,7 +858,7 @@ git commit -m "feat: add transactional order state machine"
 管理员查看统计和发布公告成功
 ```
 
-- [ ] **Step 2: 实现留言和通知**
+- [x] **Step 2: 实现留言和通知**
 
 留言接口：
 
@@ -881,7 +881,7 @@ notificationService.create(
 );
 ```
 
-- [ ] **Step 3: 实现公告和统计**
+- [x] **Step 3: 实现公告和统计**
 
 统计返回：
 
@@ -902,7 +902,7 @@ POST   /api/admin/announcements
 DELETE /api/admin/announcements/{id}
 ```
 
-- [ ] **Step 4: 运行测试**
+- [x] **Step 4: 运行测试**
 
 Run:
 

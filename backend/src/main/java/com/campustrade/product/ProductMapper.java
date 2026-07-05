@@ -42,4 +42,16 @@ public interface ProductMapper extends BaseMapper<Product> {
             WHERE id = #{productId} AND seller_id = #{sellerId} AND deleted = 0
             """)
     int softDelete(@Param("productId") long productId, @Param("sellerId") long sellerId);
+
+    @Update("""
+            UPDATE products SET status = 'SOLD', version = version + 1
+            WHERE id = #{productId} AND status = 'APPROVED' AND version = #{version} AND deleted = 0
+            """)
+    int markSold(@Param("productId") long productId, @Param("version") int version);
+
+    @Update("""
+            UPDATE products SET status = 'APPROVED', version = version + 1
+            WHERE id = #{productId} AND status = 'SOLD' AND deleted = 0
+            """)
+    int restoreApproved(@Param("productId") long productId);
 }

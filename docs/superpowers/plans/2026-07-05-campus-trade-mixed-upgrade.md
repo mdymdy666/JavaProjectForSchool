@@ -734,7 +734,7 @@ git commit -m "feat: add persistent product lifecycle"
 - Test: `backend/src/test/java/com/campustrade/order/OrderFlowTest.java`
 - Test: `backend/src/test/java/com/campustrade/order/OrderConcurrencyTest.java`
 
-- [ ] **Step 1: 写订单主线失败测试**
+- [x] **Step 1: 写订单主线失败测试**
 
 测试主线：
 
@@ -754,7 +754,7 @@ mockMvc.perform(post("/api/orders/{id}/confirm", orderId)
     .andExpect(jsonPath("$.code").value(40901));
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run:
 
@@ -764,7 +764,7 @@ Run:
 
 Expected: FAIL。
 
-- [ ] **Step 3: 实现订单状态机**
+- [x] **Step 3: 实现订单状态机**
 
 `OrderStatus.java`：
 
@@ -787,7 +787,7 @@ public enum OrderStatus {
 }
 ```
 
-- [ ] **Step 4: 实现创建订单事务**
+- [x] **Step 4: 实现创建订单事务**
 
 Service 公共方法标注：
 
@@ -809,7 +809,7 @@ public OrderView createOrder(long buyerId, CreateOrderRequest request)
 
 商品条件更新行数为 0 时抛出 `INVALID_STATE`，防止重复下单。
 
-- [ ] **Step 5: 实现支付、发货、收货、取消**
+- [x] **Step 5: 实现支付、发货、收货、取消**
 
 每个操作必须校验操作者身份：
 
@@ -821,7 +821,7 @@ public OrderView createOrder(long buyerId, CreateOrderRequest request)
 
 取消成功时把商品从 `SOLD` 恢复为 `APPROVED`。
 
-- [ ] **Step 6: 运行订单测试**
+- [x] **Step 6: 运行订单测试**
 
 Run:
 

@@ -21,6 +21,7 @@ import com.campustrade.common.PageResult;
 import com.campustrade.security.SecurityUser;
 import com.campustrade.cache.CacheNames;
 import com.campustrade.cache.RedisSupport;
+import com.campustrade.extension.ContentReviewService;
 
 @Service
 public class ProductService {
@@ -31,18 +32,21 @@ public class ProductService {
     private final FavoriteMapper favoriteMapper;
     private final AuthMapper authMapper;
     private final RedisSupport redisSupport;
+    private final ContentReviewService contentReview;
 
     public ProductService(
             ProductMapper productMapper,
             ProductImageMapper productImageMapper,
             FavoriteMapper favoriteMapper,
             AuthMapper authMapper,
-            RedisSupport redisSupport) {
+            RedisSupport redisSupport,
+            ContentReviewService contentReview) {
         this.productMapper = productMapper;
         this.productImageMapper = productImageMapper;
         this.favoriteMapper = favoriteMapper;
         this.authMapper = authMapper;
         this.redisSupport = redisSupport;
+        this.contentReview = contentReview;
     }
 
     public PageResult<ProductCard> search(
@@ -81,6 +85,8 @@ public class ProductService {
 
     @Transactional
     public ProductDetail publish(long sellerId, PublishRequest request) {
+        contentReview.assertClean(request.title());
+        contentReview.assertClean(request.description());
         if (!productMapper.categoryExists(request.categoryId())) {
             throw new BusinessException(ErrorCode.BAD_REQUEST, "商品分类不存在或已停用");
         }
@@ -109,6 +115,8 @@ public class ProductService {
 
     @Transactional
     public ProductDetail edit(long sellerId, long productId, PublishRequest request) {
+        contentReview.assertClean(request.title());
+        contentReview.assertClean(request.description());
         Product product = requireOwnedProduct(sellerId, productId);
         if (ProductStatus.SOLD.name().equals(product.getStatus())) {
             throw new BusinessException(ErrorCode.INVALID_STATE, "已售出商品不可编辑");

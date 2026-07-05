@@ -21,6 +21,7 @@ import com.campustrade.product.ProductDtos.FavoriteResponse;
 import com.campustrade.product.ProductDtos.ProductCard;
 import com.campustrade.product.ProductDtos.ProductDetail;
 import com.campustrade.product.ProductDtos.PublishRequest;
+import com.campustrade.extension.RecommendationService;
 import com.campustrade.security.SecurityUser;
 
 import jakarta.validation.Valid;
@@ -30,9 +31,17 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/products")
 public class ProductController {
     private final ProductService productService;
+    private final RecommendationService recommendationService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, RecommendationService recommendationService) {
         this.productService = productService;
+        this.recommendationService = recommendationService;
+    }
+
+    @GetMapping("/recommend")
+    public ApiResponse<List<RecommendationService.RecommendProduct>> recommend(
+            @RequestParam(defaultValue = "8") int limit) {
+        return ApiResponse.success(recommendationService.recommend(Math.min(limit, 20)));
     }
 
     @GetMapping

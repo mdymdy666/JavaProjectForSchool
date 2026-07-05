@@ -618,7 +618,7 @@ git commit -m "feat: add jwt authentication and user profile"
 - Create: `backend/src/main/java/com/campustrade/product/ProductDtos.java`
 - Test: `backend/src/test/java/com/campustrade/product/ProductFlowTest.java`
 
-- [ ] **Step 1: 写商品完整流程测试**
+- [x] **Step 1: 写商品完整流程测试**
 
 测试覆盖：
 
@@ -637,7 +637,7 @@ git commit -m "feat: add jwt authentication and user profile"
 .andExpect(jsonPath("$.data.records[0].title").value("蓝牙降噪耳机"));
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run:
 
@@ -647,7 +647,7 @@ Run:
 
 Expected: FAIL。
 
-- [ ] **Step 3: 实现商品实体和查询**
+- [x] **Step 3: 实现商品实体和查询**
 
 商品状态常量：
 
@@ -681,7 +681,7 @@ hot
 
 未知排序值默认 `newest`，不得拼接任意前端 SQL 字段。
 
-- [ ] **Step 4: 实现发布、编辑、上下架、收藏**
+- [x] **Step 4: 实现发布、编辑、上下架、收藏**
 
 发布商品时 sellerId 来自认证上下文，初始状态固定为 `PENDING`。审核通过前不进入公开列表。
 
@@ -693,7 +693,7 @@ UNIQUE KEY uk_favorites_user_product (user_id, product_id)
 
 重复收藏返回已有结果，不产生重复数据。
 
-- [ ] **Step 5: 实现管理员审核**
+- [x] **Step 5: 实现管理员审核**
 
 接口：
 
@@ -710,7 +710,7 @@ POST /api/admin/products/{id}/audit
 
 审核后写 `audit_logs`，并生成卖家通知。
 
-- [ ] **Step 6: 运行商品测试**
+- [x] **Step 6: 运行商品测试**
 
 Run:
 

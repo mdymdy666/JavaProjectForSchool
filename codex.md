@@ -249,3 +249,12 @@
 - 完成内容：建立本地功能分支 `feature/campus-trade-complete`；新增 H2 测试 profile 和完整基础表结构；为商品、订单增加版本与逻辑删除字段，新增订单日志和系统通知表；实现统一业务异常、参数校验错误与分页响应模型；实现基于 MyBatis-Plus、BCrypt、JWT 和 Spring Security 的用户注册、登录与当前用户资料接口。
 - 验证方式：按 TDD 顺序先观察持久化、异常处理、认证接口测试失败，再补实现；执行后端全量 `mvn test`，结果为 10 个测试通过、0 失败、0 错误。
 - 后续状态：下一阶段实现商品持久化 CRUD、筛选排序、收藏、上下架和管理员审核，再接入订单事务状态机。
+
+## 2026-07-05 10:51 - 完成商品持久化与审核业务链
+
+- 执行 Agent：Codex
+- 变动类型：商品实体、分页查询、状态流转、管理员审核、安全配置、测试
+- 涉及文件：`backend/src/main/java/com/campustrade/product/`、`backend/src/main/java/com/campustrade/admin/`、`backend/src/main/java/com/campustrade/config/`、`backend/src/test/java/com/campustrade/product/`、`backend/pom.xml`、实施计划、`codex.md`
+- 完成内容：将首页商品从内存数据升级为 MyBatis-Plus 持久化数据；实现商品发布、编辑、详情、关键词与价格筛选、排序、分页、收藏幂等、下架、重新上架和软删除；实现管理员待审核列表、通过/驳回、审计日志与卖家通知；将商品写接口收紧为登录访问，管理员接口要求 ADMIN 角色。
+- 验证方式：先观察商品发布接口 404、编辑接口 405，再补齐实现；商品流程测试覆盖待审核不可公开、审核后可搜索、重复收藏不重复落库、越权编辑被拒绝、上下架和逻辑删除；后端全量测试结果为 12 个测试通过、0 失败、0 错误。
+- 后续状态：进入订单交易状态机，实现下单、防重复购买、模拟支付、发货、收货、取消和订单日志。

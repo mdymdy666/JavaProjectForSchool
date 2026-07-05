@@ -36,8 +36,8 @@ export async function editProduct(id: number, data: PublishProductRequest): Prom
   return apiPut<ProductDetail>(`/products/${id}`, data)
 }
 
-export async function favoriteProduct(id: number): Promise<ApiResponse<{ favorited: boolean }>> {
-  return apiPost<{ favorited: boolean }>(`/products/${id}/favorite`)
+export async function favoriteProduct(id: number): Promise<ApiResponse<{ productId: number; favorite: boolean }>> {
+  return apiPost<{ productId: number; favorite: boolean }>(`/products/${id}/favorite`)
 }
 
 export async function offShelfProduct(id: number): Promise<ApiResponse<ProductDetail>> {
@@ -45,7 +45,7 @@ export async function offShelfProduct(id: number): Promise<ApiResponse<ProductDe
 }
 
 export async function relistProduct(id: number): Promise<ApiResponse<ProductDetail>> {
-  return apiPost<ProductDetail>(`/products/${id}/relist`)
+  return apiPost<ProductDetail>(`/products/${id}/on-shelf`)
 }
 
 export async function deleteProduct(id: number): Promise<ApiResponse<null>> {

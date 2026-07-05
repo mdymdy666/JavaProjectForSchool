@@ -1,17 +1,17 @@
 import { apiGet, apiPost } from './http'
-import type { ApiResponse, OrderView, PageResult } from '../types/domain'
+import type { ApiResponse, OrderView } from '../types/domain'
 
 export interface CreateOrderRequest {
   productId: number
   remark?: string
 }
 
-export async function getBuyerOrders(params?: Record<string, unknown>): Promise<ApiResponse<PageResult<OrderView>>> {
-  return apiGet<PageResult<OrderView>>('/orders/buyer', params)
+export async function getBuyerOrders(): Promise<ApiResponse<OrderView[]>> {
+  return apiGet<OrderView[]>('/orders', { role: 'buyer' })
 }
 
-export async function getSellerOrders(params?: Record<string, unknown>): Promise<ApiResponse<PageResult<OrderView>>> {
-  return apiGet<PageResult<OrderView>>('/orders/seller', params)
+export async function getSellerOrders(): Promise<ApiResponse<OrderView[]>> {
+  return apiGet<OrderView[]>('/orders', { role: 'seller' })
 }
 
 export async function createOrder(data: CreateOrderRequest): Promise<ApiResponse<OrderView>> {
@@ -22,8 +22,8 @@ export async function payOrder(id: number): Promise<ApiResponse<OrderView>> {
   return apiPost<OrderView>(`/orders/${id}/pay`)
 }
 
-export async function shipOrder(id: number): Promise<ApiResponse<OrderView>> {
-  return apiPost<OrderView>(`/orders/${id}/ship`)
+export async function shipOrder(id: number, logisticsInfo: string): Promise<ApiResponse<OrderView>> {
+  return apiPost<OrderView>(`/orders/${id}/ship`, { logisticsInfo })
 }
 
 export async function confirmOrder(id: number): Promise<ApiResponse<OrderView>> {

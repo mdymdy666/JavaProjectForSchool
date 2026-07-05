@@ -40,9 +40,13 @@ async function save() {
       phone: edit.phone || undefined,
       email: edit.email || undefined
     })
-    profile.value = res.data || profile.value
-    editing.value = false
-    saved.value = true
+    if (res.code === 200) {
+      profile.value = res.data || profile.value
+      editing.value = false
+      saved.value = true
+    } else {
+      error.value = res.message || '保存失败'
+    }
   } catch (e: unknown) {
     error.value = '保存失败'
   }

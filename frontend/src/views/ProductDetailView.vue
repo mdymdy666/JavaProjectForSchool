@@ -29,7 +29,7 @@ async function toggleFavorite() {
   try {
     const res = await favoriteProduct(product.value.id)
     if (product.value && res.data) {
-      product.value = { ...product.value, favorite: res.data.favorited }
+      product.value = { ...product.value, favorite: res.data.favorite }
     }
   } catch { /* ignore */ }
 }

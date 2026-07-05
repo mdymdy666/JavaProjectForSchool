@@ -58,11 +58,15 @@ class OrderFlowTest {
         mockMvc.perform(get("/api/orders").param("role", "buyer")
                         .header("Authorization", bearer(buyer)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data[0].id").value(orderId));
+                .andExpect(jsonPath("$.data[0].id").value(orderId))
+                .andExpect(jsonPath("$.data[0].productTitle").value("宿舍台灯"))
+                .andExpect(jsonPath("$.data[0].sellerNickname").value("订单卖家"))
+                .andExpect(jsonPath("$.data[0].totalAmount").value(68.00));
         mockMvc.perform(get("/api/orders").param("role", "seller")
                         .header("Authorization", bearer(seller)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data[0].id").value(orderId));
+                .andExpect(jsonPath("$.data[0].id").value(orderId))
+                .andExpect(jsonPath("$.data[0].buyerNickname").value("订单买家"));
 
         mockMvc.perform(post("/api/orders/{id}/confirm", orderId)
                         .header("Authorization", bearer(buyer)))

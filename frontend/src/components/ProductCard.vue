@@ -28,7 +28,7 @@ function statusTag(status: string) {
 <template>
   <article class="product-card" data-test="product-card" @click="$emit('select', product.id)">
     <div class="card-image">
-      <img v-if="product.imageUrl" :src="product.imageUrl" :alt="product.title" />
+      <img v-if="product.coverUrl" :src="product.coverUrl" :alt="product.title" />
       <div v-else class="img-placeholder">暂无图片</div>
       <span :class="['status-tag', statusTag(product.status)]">{{ statusLabel(product.status) }}</span>
     </div>

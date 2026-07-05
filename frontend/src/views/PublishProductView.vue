@@ -15,14 +15,24 @@ const form = reactive({
   price: 0,
   itemCondition: '九成新',
   description: '',
-  imageUrls: [] as string[]
+  imageUrls: [''] as string[]
 })
 const loading = ref(false)
 const error = ref('')
 
+function addImageUrl() {
+  if (form.imageUrls.length < 6) form.imageUrls.push('')
+}
+function removeImageUrl(index: number) {
+  if (form.imageUrls.length > 1) form.imageUrls.splice(index, 1)
+}
+
 async function submit() {
   if (!form.title.trim()) { error.value = '请输入商品名称'; return }
   if (form.price <= 0) { error.value = '请输入有效价格'; return }
+  if (!form.description.trim()) { error.value = '请输入商品描述'; return }
+  const validUrls = form.imageUrls.filter(u => u.trim())
+  if (validUrls.length === 0) { error.value = '请至少填写一个图片URL'; return }
   loading.value = true
   error.value = ''
   try {
@@ -32,9 +42,9 @@ async function submit() {
       price: form.price,
       itemCondition: form.itemCondition,
       description: form.description.trim(),
-      imageUrls: form.imageUrls
+      imageUrls: validUrls
     })
-    if (res.code === 0) {
+    if (res.code === 200) {
       router.push(`/products/${res.data?.id}`)
     } else {
       error.value = res.message || '发布失败'
@@ -62,6 +72,8 @@ async function submit() {
           <option :value="1">数码配件</option>
           <option :value="2">图书教材</option>
           <option :value="3">生活用品</option>
+          <option :value="4">运动户外</option>
+          <option :value="5">服饰鞋包</option>
         </select>
       </label>
       <label>
@@ -80,8 +92,22 @@ async function submit() {
       </label>
       <label>
         描述
-        <textarea v-model="form.description" rows="5" placeholder="详细描述商品状况、使用情况..." maxlength="1000" />
+        <textarea v-model="form.description" rows="5" placeholder="详细描述商品状况、使用情况..." maxlength="1000" required />
       </label>
+      <div class="image-urls-section">
+        <label>商品图片URL（至少1张，最多6张）</label>
+        <div v-for="(_, index) in form.imageUrls" :key="index" class="image-url-row">
+          <input
+            v-model="form.imageUrls[index]"
+            type="url"
+            :placeholder="`图片链接 ${index + 1}`"
+          />
+          <button type="button" class="remove-btn" @click="removeImageUrl(index)" :disabled="form.imageUrls.length <= 1">×</button>
+        </div>
+        <button type="button" class="add-btn" @click="addImageUrl" :disabled="form.imageUrls.length >= 6">
+          + 添加图片URL
+        </button>
+      </div>
       <p v-if="error" class="error-msg">{{ error }}</p>
       <button type="submit" :disabled="loading">{{ loading ? '发布中...' : '发布商品' }}</button>
     </form>
@@ -99,6 +125,20 @@ async function submit() {
   border: 1px solid #d9d9d9; border-radius: 6px; font-size: 14px; box-sizing: border-box;
 }
 .publish-form textarea { resize: vertical; }
+.image-urls-section { margin-bottom: 16px; }
+.image-urls-section label { margin-bottom: 8px; font-weight: 500; }
+.image-url-row { display: flex; gap: 6px; margin-bottom: 6px; }
+.image-url-row input { flex: 1; }
+.remove-btn {
+  width: 32px; padding: 0; border: 1px solid #d9d9d9; border-radius: 4px;
+  background: #fff; color: #999; font-size: 18px; cursor: pointer;
+}
+.remove-btn:disabled { opacity: 0.3; cursor: default; }
+.add-btn {
+  padding: 4px 12px; border: 1px dashed #1677ff; border-radius: 4px;
+  background: #fff; color: #1677ff; cursor: pointer; font-size: 13px;
+}
+.add-btn:disabled { opacity: 0.3; cursor: default; }
 .publish-form button[type="submit"] {
   width: 100%; padding: 10px; background: #1677ff; color: #fff;
   border: none; border-radius: 6px; font-size: 15px; cursor: pointer;

@@ -36,7 +36,7 @@ async function submit() {
       account: form.username,
       password: form.password
     })
-    if (res.code === 0) {
+    if (res.code === 200) {
       router.push('/')
     } else {
       error.value = res.message || '登录失败'

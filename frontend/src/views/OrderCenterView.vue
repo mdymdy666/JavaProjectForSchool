@@ -17,8 +17,8 @@ async function fetch() {
     const [bRes, sRes] = await Promise.all([
       getBuyerOrders(), getSellerOrders()
     ])
-    buyerOrders.value = bRes.data?.records || []
-    sellerOrders.value = sRes.data?.records || []
+    buyerOrders.value = bRes.data || []
+    sellerOrders.value = sRes.data || []
   } catch { /* ignore */ }
 }
 
@@ -28,7 +28,7 @@ async function buy() {
   error.value = ''
   try {
     const res = await createOrder({ productId })
-    if (res.code === 0) {
+    if (res.code === 200) {
       await fetch()
       router.replace({ path: '/orders', query: {} })
     } else {
@@ -47,6 +47,12 @@ function statusLabel(s: string) {
 
 async function act(id: number, fn: (id: number) => Promise<unknown>) {
   try { await fn(id); await fetch() } catch { /* ignore */ }
+}
+
+async function ship(id: number) {
+  const logisticsInfo = window.prompt('请输入快递单号、校内自提点或配送备注')?.trim()
+  if (!logisticsInfo) return
+  try { await shipOrder(id, logisticsInfo); await fetch() } catch { /* ignore */ }
 }
 
 onMounted(async () => {
@@ -75,7 +81,7 @@ onMounted(async () => {
           <div class="order-info">
             <span>订单号: {{ o.orderNo }}</span>
             <span>卖家: {{ o.sellerNickname }}</span>
-            <span class="amount">&yen;{{ o.amount?.toFixed(2) }}</span>
+            <span class="amount">&yen;{{ o.totalAmount?.toFixed(2) }}</span>
           </div>
           <div class="order-actions">
             <button v-if="o.status === 'PENDING_PAYMENT'" @click="act(o.id, payOrder)">支付</button>
@@ -97,10 +103,10 @@ onMounted(async () => {
           <div class="order-info">
             <span>订单号: {{ o.orderNo }}</span>
             <span>买家: {{ o.buyerNickname }}</span>
-            <span class="amount">&yen;{{ o.amount?.toFixed(2) }}</span>
+            <span class="amount">&yen;{{ o.totalAmount?.toFixed(2) }}</span>
           </div>
           <div class="order-actions">
-            <button v-if="o.status === 'PAID'" @click="act(o.id, shipOrder)">发货</button>
+            <button v-if="o.status === 'PAID'" @click="ship(o.id)">发货</button>
           </div>
         </div>
       </div>

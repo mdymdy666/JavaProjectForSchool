@@ -64,4 +64,16 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach((to) => {
+  const token = localStorage.getItem('campus-token')
+  const role = localStorage.getItem('campus-role')
+  if (to.meta.admin && (!token || role !== 'ADMIN')) {
+    return token ? { name: 'home' } : { name: 'login', query: { redirect: to.fullPath } }
+  }
+  if (to.meta.auth && !token) {
+    return { name: 'login', query: { redirect: to.fullPath } }
+  }
+  return true
+})
+
 export default router

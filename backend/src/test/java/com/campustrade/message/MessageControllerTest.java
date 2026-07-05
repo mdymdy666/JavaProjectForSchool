@@ -50,7 +50,8 @@ class MessageControllerTest {
                                 {"receiverId":1,"productId":1,"content":"今天可以在图书馆自提吗？"}
                                 """))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.status").value("UNREAD"))
+                .andExpect(jsonPath("$.data.readStatus").value("UNREAD"))
+                .andExpect(jsonPath("$.data.productTitle").value("校园耳机"))
                 .andExpect(jsonPath("$.data.senderNickname").value("留言买家"))
                 .andReturn();
         long messageId = objectMapper.readTree(sent.getResponse().getContentAsString())
@@ -59,12 +60,12 @@ class MessageControllerTest {
         mockMvc.perform(get("/api/messages").header("Authorization", bearer(seller)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data[0].content").value("今天可以在图书馆自提吗？"))
-                .andExpect(jsonPath("$.data[0].status").value("UNREAD"));
+                .andExpect(jsonPath("$.data[0].readStatus").value("UNREAD"));
 
         mockMvc.perform(post("/api/messages/{id}/read", messageId)
                         .header("Authorization", bearer(seller)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.status").value("READ"));
+                .andExpect(jsonPath("$.data.readStatus").value("READ"));
 
         jdbcTemplate.update("""
                 INSERT INTO orders(order_no, buyer_id, seller_id, product_id, total_amount,

@@ -12,10 +12,9 @@ export interface ProductCard {
   price: number
   status: ProductStatus
   viewCount: number
-  imageUrl: string | null
+  coverUrl: string | null
   itemCondition: string
   createdAt: string
-  favorite: boolean
 }
 
 export interface ProductDetail {
@@ -44,9 +43,10 @@ export interface OrderView {
   buyerNickname: string
   sellerId: number
   sellerNickname: string
-  amount: number
+  totalAmount: number
   status: OrderStatus
-  remark: string | null
+  logisticsInfo: string | null
+  version: number
   createdAt: string
 }
 
@@ -88,8 +88,8 @@ export interface DashboardView {
 }
 
 export interface CategoryStat {
-  name: string
-  count: number
+  categoryName: string
+  productCount: number
 }
 
 export interface UserProfile {

@@ -16,18 +16,22 @@ import com.campustrade.product.Product;
 import com.campustrade.product.ProductMapper;
 import com.campustrade.message.NotificationService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.campustrade.auth.AuthMapper;
+import com.campustrade.auth.UserAccount;
 
 @Service
 public class OrderService {
     private final OrderMapper orderMapper;
     private final ProductMapper productMapper;
     private final NotificationService notificationService;
+    private final AuthMapper authMapper;
 
     public OrderService(OrderMapper orderMapper, ProductMapper productMapper,
-            NotificationService notificationService) {
+            NotificationService notificationService, AuthMapper authMapper) {
         this.orderMapper = orderMapper;
         this.productMapper = productMapper;
         this.notificationService = notificationService;
+        this.authMapper = authMapper;
     }
 
     @Transactional
@@ -128,9 +132,14 @@ public class OrderService {
     }
 
     private OrderView view(TradeOrder order) {
-        return new OrderView(order.getId(), order.getOrderNo(), order.getBuyerId(), order.getSellerId(),
-                order.getProductId(), order.getTotalAmount(), order.getStatus(), order.getLogisticsInfo(),
-                order.getVersion(), order.getCreatedAt());
+        Product product = productMapper.selectById(order.getProductId());
+        UserAccount buyer = authMapper.selectById(order.getBuyerId());
+        UserAccount seller = authMapper.selectById(order.getSellerId());
+        return new OrderView(order.getId(), order.getOrderNo(), order.getProductId(),
+                product == null ? "商品已删除" : product.getTitle(), order.getBuyerId(),
+                buyer == null ? "未知用户" : buyer.getNickname(), order.getSellerId(),
+                seller == null ? "未知用户" : seller.getNickname(), order.getTotalAmount(),
+                order.getStatus(), order.getLogisticsInfo(), order.getVersion(), order.getCreatedAt());
     }
 
     private String generateOrderNo() {

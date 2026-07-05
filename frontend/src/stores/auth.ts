@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function login(request: LoginRequest): Promise<ApiResponse<{ userId: number; nickname: string; role: string; accessToken: string }>> {
     const res = await loginApi(request)
-    if (res.code === 0 && res.data) {
+    if (res.code === 200 && res.data) {
       saveSession(res.data.accessToken, res.data.userId, res.data.nickname, res.data.role)
     }
     return res

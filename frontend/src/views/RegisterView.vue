@@ -36,7 +36,7 @@ async function submit() {
       nickname: form.nickname,
       captcha: form.captcha || undefined
     })
-    if (res.code === 0) {
+    if (res.code === 200) {
       router.push('/login')
     } else {
       error.value = res.message || '注册失败'

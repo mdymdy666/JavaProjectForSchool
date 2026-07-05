@@ -14,7 +14,7 @@ export async function auditProduct(id: number, approved: boolean, reason?: strin
 }
 
 export async function createAnnouncement(title: string, content: string): Promise<ApiResponse<unknown>> {
-  return apiPost<unknown>('/admin/announcements', { title, content })
+  return apiPost<unknown>('/admin/announcements', { title, content, published: true })
 }
 
 export async function deleteAnnouncement(id: number): Promise<ApiResponse<null>> {

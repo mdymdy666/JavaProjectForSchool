@@ -11,7 +11,7 @@ ON DUPLICATE KEY UPDATE
   enabled = VALUES(enabled);
 
 INSERT INTO users (username, password_hash, nickname, role, status)
-VALUES ('admin', '$2a$10$replace_with_real_bcrypt_hash', '系统管理员', 'ADMIN', 'NORMAL')
+VALUES ('admin', '$2a$10$L468Ag4yzUWWvM3xl5MA2eYc5Ym2V5cl4hXA1sB1Nh3xTcTTmRWOK', '系统管理员', 'ADMIN', 'NORMAL')
 ON DUPLICATE KEY UPDATE
   nickname = VALUES(nickname),
   role = VALUES(role),

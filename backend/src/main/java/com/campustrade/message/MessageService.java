@@ -11,21 +11,26 @@ import com.campustrade.common.BusinessException;
 import com.campustrade.common.ErrorCode;
 import com.campustrade.product.Product;
 import com.campustrade.product.ProductMapper;
+import com.campustrade.extension.ContentReviewService;
 
 @Service
 public class MessageService {
     private final MessageMapper messageMapper;
     private final ProductMapper productMapper;
     private final AuthMapper authMapper;
+    private final ContentReviewService contentReview;
 
-    public MessageService(MessageMapper messageMapper, ProductMapper productMapper, AuthMapper authMapper) {
+    public MessageService(MessageMapper messageMapper, ProductMapper productMapper,
+            AuthMapper authMapper, ContentReviewService contentReview) {
         this.messageMapper = messageMapper;
         this.productMapper = productMapper;
         this.authMapper = authMapper;
+        this.contentReview = contentReview;
     }
 
     @Transactional
     public MessageView send(long senderId, SendRequest request) {
+        contentReview.assertClean(request.content());
         if (senderId == request.receiverId()) throw new BusinessException(ErrorCode.BAD_REQUEST, "不能给自己留言");
         Product product = productMapper.selectById(request.productId());
         if (product == null) throw new BusinessException(ErrorCode.PRODUCT_NOT_FOUND);
@@ -66,8 +71,12 @@ public class MessageService {
 
     private MessageView view(SiteMessage message) {
         UserAccount sender = authMapper.selectById(message.getSenderId());
+        UserAccount receiver = authMapper.selectById(message.getReceiverId());
+        Product product = productMapper.selectById(message.getProductId());
         return new MessageView(message.getId(), message.getSenderId(),
                 sender == null ? "未知用户" : sender.getNickname(), message.getReceiverId(),
-                message.getProductId(), message.getContent(), message.getStatus(), message.getCreatedAt());
+                receiver == null ? "未知用户" : receiver.getNickname(), message.getProductId(),
+                product == null ? "商品已删除" : product.getTitle(), message.getContent(),
+                message.getStatus(), message.getCreatedAt());
     }
 }

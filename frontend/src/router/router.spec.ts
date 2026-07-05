@@ -1,7 +1,11 @@
-import { describe, expect, it } from 'vitest'
-import { routes } from './index'
+import { beforeEach, describe, expect, it } from 'vitest'
+import router, { routes } from './index'
 
 describe('routes', () => {
+  beforeEach(async () => {
+    localStorage.clear()
+    await router.push('/')
+  })
   it('contains required answer-defense pages', () => {
     const names = routes.map((route) => route.name)
     expect(names).toContain('login')
@@ -28,5 +32,17 @@ describe('routes', () => {
   it('has admin guard on admin page', () => {
     const admin = routes.find((r) => r.name === 'admin')
     expect(admin?.meta?.admin).toBe(true)
+  })
+
+  it('redirects anonymous users away from protected pages', async () => {
+    await router.push('/profile')
+    expect(router.currentRoute.value.name).toBe('login')
+  })
+
+  it('redirects non-admin users away from the admin page', async () => {
+    localStorage.setItem('campus-token', 'token')
+    localStorage.setItem('campus-role', 'USER')
+    await router.push('/admin')
+    expect(router.currentRoute.value.name).toBe('home')
   })
 })

@@ -3,6 +3,7 @@ import { flushPromises, mount } from '@vue/test-utils'
 import { createPinia } from 'pinia'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import ProductDetailView from './ProductDetailView.vue'
+import detailSource from './ProductDetailView.vue?raw'
 
 vi.mock('../api/product', () => ({
   getProductDetail: vi.fn().mockResolvedValue({ code: 200, data: {
@@ -37,5 +38,6 @@ describe('ProductDetailView', () => {
     expect(favorite.attributes('aria-label')).toBe('收藏商品')
     expect(favorite.text()).toContain('收藏')
     expect(favorite.find('[data-icon="heart"]').exists()).toBe(true)
+    expect(detailSource).toMatch(/\.btn-fav \{[^}]*color:\s*#333;/)
   })
 })

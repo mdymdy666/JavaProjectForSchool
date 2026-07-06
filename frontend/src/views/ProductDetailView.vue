@@ -267,7 +267,7 @@ onMounted(fetch)
 
 /* 操作栏 */
 .action-bar { display: flex; gap: 10px; align-items: center; }
-.btn-fav { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 20px; border: 1px solid #d9d9d9; border-radius: 8px; background: #fff; cursor: pointer; font-size: 15px; }
+.btn-fav { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 20px; border: 1px solid #d9d9d9; border-radius: 8px; color: #333; background: #fff; cursor: pointer; font-size: 15px; }
 .btn-fav:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-fav.on { border-color: #faad14; color: #faad14; background: #fffbe6; }
 .btn-cart { padding: 8px 20px; border: 1px solid #ff4d4f; border-radius: 8px; background: #fff; color: #ff4d4f; cursor: pointer; font-size: 15px; }

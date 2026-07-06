@@ -26,9 +26,9 @@ function go(path: string) {
       <button @click="go('/products')">市场</button>
       <button v-if="auth.isLoggedIn" @click="go('/publish')">发布</button>
       <button v-if="auth.isLoggedIn" @click="go('/orders')">订单</button>
-      <button v-if="auth.isLoggedIn" class="msg-nav" @click="go('/messages')">
+      <button class="msg-nav" @click="auth.isLoggedIn ? go('/messages') : go('/login')">
         消息
-        <i v-if="notify.unreadCount" class="badge">{{ notify.unreadCount }}</i>
+        <i v-if="auth.isLoggedIn && notify.unreadCount" class="badge">{{ notify.unreadCount }}</i>
       </button>
       <button v-if="auth.isAdmin" @click="go('/admin')">后台</button>
     </nav>

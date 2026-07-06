@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { useCartStore } from '../stores/cart'
 import { useNotificationStore } from '../stores/notification'
+import UiIcon from './UiIcon.vue'
 
 const router = useRouter()
 const auth = useAuthStore()
@@ -34,8 +35,9 @@ function go(path: string) {
     </nav>
 
     <div class="right">
-      <button class="cart" @click="go('/cart')">
-        购物车
+      <button class="cart" aria-label="购物车" @click="go('/cart')">
+        <UiIcon name="cart" />
+        <span>购物车</span>
         <i v-if="cart.totalCount" class="badge">{{ cart.totalCount }}</i>
       </button>
       <template v-if="auth.isLoggedIn">
@@ -66,7 +68,7 @@ function go(path: string) {
 .right button { padding: 4px 12px; border: 1px solid #d9d9d9; border-radius: 5px; background: #fff; cursor: pointer; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
 .right button.ghost { color: #666; border-color: transparent; }
 .right button.user { color: #1677ff; border-color: #1677ff; }
-.right button.cart { position: relative; padding-right: 14px; }
+.right button.cart { position: relative; display: inline-flex; align-items: center; gap: 6px; padding-right: 14px; }
 .badge {
   position: absolute; top: -6px; right: -6px;
   min-width: 17px; height: 17px; line-height: 17px;

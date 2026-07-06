@@ -5,6 +5,7 @@ import { getProductDetail, favoriteProduct, offShelfProduct, relistProduct, dele
 import { useAuthStore } from '../stores/auth'
 import { useCartStore } from '../stores/cart'
 import type { ProductDetail } from '../types/domain'
+import UiIcon from '../components/UiIcon.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -174,8 +175,16 @@ onMounted(fetch)
 
           <!-- 操作按钮 -->
           <div class="action-bar">
-            <button class="btn-fav" :class="{ on: product.favorite }" :disabled="acting || isOwner" :title="isOwner ? '不能收藏自己的商品' : ''" @click="toggleFavorite">
-              {{ isOwner ? '☆ 自己的' : (acting ? '...' : (product.favorite ? '★ 已收藏' : '☆ 收藏')) }}
+            <button
+              class="btn-fav"
+              :class="{ on: product.favorite }"
+              :disabled="acting || isOwner"
+              :aria-label="isOwner ? '自己的商品' : (product.favorite ? '取消收藏商品' : '收藏商品')"
+              :title="isOwner ? '不能收藏自己的商品' : ''"
+              @click="toggleFavorite"
+            >
+              <UiIcon name="heart" :filled="product.favorite" />
+              <span>{{ isOwner ? '自己的商品' : (acting ? '处理中...' : (product.favorite ? '已收藏' : '收藏')) }}</span>
             </button>
             <button v-if="!isOwner" class="btn-cart" :disabled="acting" @click="addToCart">加入购物车</button>
             <button v-if="canBuy" class="btn-buy" @click="buy">立即购买</button>
@@ -258,7 +267,7 @@ onMounted(fetch)
 
 /* 操作栏 */
 .action-bar { display: flex; gap: 10px; align-items: center; }
-.btn-fav { padding: 8px 20px; border: 1px solid #d9d9d9; border-radius: 8px; background: #fff; cursor: pointer; font-size: 15px; }
+.btn-fav { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 20px; border: 1px solid #d9d9d9; border-radius: 8px; background: #fff; cursor: pointer; font-size: 15px; }
 .btn-fav:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-fav.on { border-color: #faad14; color: #faad14; background: #fffbe6; }
 .btn-cart { padding: 8px 20px; border: 1px solid #ff4d4f; border-radius: 8px; background: #fff; color: #ff4d4f; cursor: pointer; font-size: 15px; }

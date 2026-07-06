@@ -1,18 +1,17 @@
 package com.campustrade.config;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.campustrade.security.JwtAuthenticationFilter;
@@ -24,9 +23,12 @@ import com.campustrade.cache.RedisSupport;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(
-            HttpSecurity http,
-            ObjectProvider<JwtAuthenticationFilter> jwtAuthenticationFilterProvider) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http,
+            ObjectProvider<JwtService> jwtProvider,
+            ObjectProvider<RedisSupport> redisProvider) throws Exception {
+        JwtService jwtService = jwtProvider.getIfAvailable();
+        RedisSupport redisSupport = redisProvider.getIfAvailable();
+
         http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session ->
@@ -36,33 +38,30 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/health",
-                                "/api/auth/register",
-                                "/api/auth/login",
-                                "/api/auth/captcha/**",
+                                "/api/auth/**",
                                 "/api/announcements",
                                 "/api/demo/**",
+                                "/api/products/recommend",
                                 "/doc.html",
                                 "/swagger-ui/**",
-                                "/v3/api-docs/**")
-                        .permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/products", "/api/products/recommend", "/api/products/**").permitAll()
+                                "/v3/api-docs/**",
+                                "/error"
+                        ).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/products", "/api/products/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated());
-        JwtAuthenticationFilter jwtAuthenticationFilter = jwtAuthenticationFilterProvider.getIfAvailable();
-        if (jwtAuthenticationFilter != null) {
-            http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        if (jwtService != null && redisSupport != null) {
+            http.addFilterBefore(
+                    new JwtAuthenticationFilter(jwtService, redisSupport),
+                    UsernamePasswordAuthenticationFilter.class);
         }
+
         return http.build();
     }
 
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    @ConditionalOnBean(JwtService.class)
-    JwtAuthenticationFilter jwtAuthenticationFilter(JwtService jwtService, RedisSupport redisSupport) {
-        return new JwtAuthenticationFilter(jwtService, redisSupport);
     }
 }

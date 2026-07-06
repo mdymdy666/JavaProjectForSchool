@@ -2,6 +2,7 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { publishProduct } from '../api/product'
+import { uploadImage } from '../api/upload'
 import { useAuthStore } from '../stores/auth'
 
 const router = useRouter()
@@ -18,6 +19,7 @@ const form = reactive({
   imageUrls: [''] as string[]
 })
 const loading = ref(false)
+const uploading = ref(false)
 const error = ref('')
 
 function addImageUrl() {
@@ -27,12 +29,41 @@ function removeImageUrl(index: number) {
   if (form.imageUrls.length > 1) form.imageUrls.splice(index, 1)
 }
 
+async function handleFileUpload(event: Event) {
+  const input = event.target as HTMLInputElement
+  const files = input.files
+  if (!files || files.length === 0) return
+
+  uploading.value = true
+  error.value = ''
+  try {
+    for (const file of files) {
+      if (form.imageUrls.filter(u => u.trim()).length >= 6) break
+      const res = await uploadImage(file)
+      if (res.code === 200 && res.data) {
+        // Fill first empty slot or append
+        const emptyIdx = form.imageUrls.findIndex(u => !u.trim())
+        if (emptyIdx >= 0) {
+          form.imageUrls[emptyIdx] = res.data.url
+        } else if (form.imageUrls.length < 6) {
+          form.imageUrls.push(res.data.url)
+        }
+      }
+    }
+  } catch {
+    error.value = '图片上传失败'
+  } finally {
+    uploading.value = false
+    input.value = '' // reset so same file can be re-selected
+  }
+}
+
 async function submit() {
   if (!form.title.trim()) { error.value = '请输入商品名称'; return }
   if (form.price <= 0) { error.value = '请输入有效价格'; return }
   if (!form.description.trim()) { error.value = '请输入商品描述'; return }
   const validUrls = form.imageUrls.filter(u => u.trim())
-  if (validUrls.length === 0) { error.value = '请至少填写一个图片URL'; return }
+  if (validUrls.length === 0) { error.value = '请至少上传一张图片或填写图片URL'; return }
   loading.value = true
   error.value = ''
   try {
@@ -94,13 +125,26 @@ async function submit() {
         描述
         <textarea v-model="form.description" rows="5" placeholder="详细描述商品状况、使用情况..." maxlength="1000" required />
       </label>
-      <div class="image-urls-section">
-        <label>商品图片URL（至少1张，最多6张）</label>
+
+      <div class="image-section">
+        <label>商品图片（至少1张，最多6张）</label>
+        <div class="upload-row">
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/gif,image/webp"
+            multiple
+            @change="handleFileUpload"
+            class="file-input"
+            ref="fileInput"
+          />
+          <span v-if="uploading" class="uploading-hint">上传中...</span>
+          <span v-else class="upload-hint">支持 JPG/PNG/GIF/WebP，单文件 ≤ 5MB</span>
+        </div>
         <div v-for="(_, index) in form.imageUrls" :key="index" class="image-url-row">
           <input
             v-model="form.imageUrls[index]"
-            type="url"
-            :placeholder="`图片链接 ${index + 1}`"
+            type="text"
+            :placeholder="`图片链接 ${index + 1}（或点击上方按钮上传）`"
           />
           <button type="button" class="remove-btn" @click="removeImageUrl(index)" :disabled="form.imageUrls.length <= 1">×</button>
         </div>
@@ -108,8 +152,9 @@ async function submit() {
           + 添加图片URL
         </button>
       </div>
+
       <p v-if="error" class="error-msg">{{ error }}</p>
-      <button type="submit" :disabled="loading">{{ loading ? '发布中...' : '发布商品' }}</button>
+      <button type="submit" :disabled="loading || uploading">{{ loading ? '发布中...' : '发布商品' }}</button>
     </form>
   </div>
 </template>
@@ -125,8 +170,12 @@ async function submit() {
   border: 1px solid #d9d9d9; border-radius: 6px; font-size: 14px; box-sizing: border-box;
 }
 .publish-form textarea { resize: vertical; }
-.image-urls-section { margin-bottom: 16px; }
-.image-urls-section label { margin-bottom: 8px; font-weight: 500; }
+.image-section { margin-bottom: 16px; }
+.image-section > label { margin-bottom: 8px; font-weight: 500; }
+.upload-row { margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+.file-input { flex: 0; font-size: 13px; }
+.upload-hint, .uploading-hint { font-size: 12px; color: #999; }
+.uploading-hint { color: #1677ff; }
 .image-url-row { display: flex; gap: 6px; margin-bottom: 6px; }
 .image-url-row input { flex: 1; }
 .remove-btn {

@@ -11,6 +11,15 @@ const auth = useAuthStore()
 
 const product = ref<ProductDetail | null>(null)
 const loading = ref(true)
+const currentImage = ref(0)
+
+function prevImage() {
+  if (product.value && currentImage.value > 0) currentImage.value--
+}
+function nextImage() {
+  if (product.value && currentImage.value < product.value.images.length - 1) currentImage.value++
+}
+function goImage(index: number) { currentImage.value = index }
 
 async function fetch() {
   loading.value = true
@@ -56,7 +65,21 @@ onMounted(fetch)
     <template v-else-if="product">
       <div class="detail-layout">
         <div class="detail-gallery">
-          <img v-if="product.images.length" :src="product.images[0]" :alt="product.title" class="main-image" />
+          <div v-if="product.images.length" class="carousel">
+            <div class="carousel-main">
+              <button v-if="product.images.length > 1" class="carousel-btn prev" @click="prevImage">‹</button>
+              <img :src="product.images[currentImage]" :alt="product.title" class="main-image" />
+              <button v-if="product.images.length > 1" class="carousel-btn next" @click="nextImage">›</button>
+            </div>
+            <div v-if="product.images.length > 1" class="carousel-dots">
+              <span
+                v-for="(img, idx) in product.images"
+                :key="idx"
+                :class="['dot', { active: idx === currentImage }]"
+                @click="goImage(idx)"
+              />
+            </div>
+          </div>
           <div v-else class="img-placeholder">暂无图片</div>
         </div>
         <div class="detail-info">
@@ -74,10 +97,9 @@ onMounted(fetch)
             <button class="btn-fav" :class="{ active: product.favorite }" @click="toggleFavorite">
               {{ product.favorite ? '★ 已收藏' : '☆ 收藏' }}
             </button>
-            <button
-              v-if="product.status === 'APPROVED'"
-              class="btn-buy" @click="buy"
-            >立即购买</button>
+            <button v-if="product.status === 'APPROVED'" class="btn-buy" @click="buy">
+              立即购买
+            </button>
           </div>
         </div>
       </div>
@@ -93,7 +115,22 @@ onMounted(fetch)
 .detail-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
 @media (max-width: 768px) { .detail-layout { grid-template-columns: 1fr; } }
 .detail-gallery { border-radius: 8px; overflow: hidden; }
+.carousel { position: relative; }
+.carousel-main { position: relative; display: flex; align-items: center; }
 .main-image { width: 100%; height: 360px; object-fit: cover; display: block; }
+.carousel-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; border-radius: 50%; border: none;
+  background: rgba(0,0,0,0.4); color: #fff; font-size: 22px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  z-index: 2; line-height: 1;
+}
+.carousel-btn.prev { left: 8px; }
+.carousel-btn.next { right: 8px; }
+.carousel-btn:hover { background: rgba(0,0,0,0.6); }
+.carousel-dots { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: #d9d9d9; cursor: pointer; }
+.dot.active { background: #1677ff; }
 .img-placeholder {
   width: 100%; height: 360px; background: #f5f5f5;
   display: flex; align-items: center; justify-content: center; color: #999;

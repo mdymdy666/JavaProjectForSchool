@@ -11,6 +11,8 @@ const activeTab = ref<'buyer' | 'seller'>('buyer')
 const buyerOrders = ref<OrderView[]>([])
 const sellerOrders = ref<OrderView[]>([])
 const error = ref('')
+const trackOrder = ref<OrderView | null>(null)
+const trackSteps = ref<{ time: string; text: string }[]>([])
 
 async function fetch() {
   try {
@@ -40,11 +42,6 @@ async function buy() {
   }
 }
 
-function statusLabel(s: string) {
-  const m: Record<string, string> = { PENDING_PAYMENT: '待支付', PAID: '已支付', SHIPPED: '已发货', COMPLETED: '已完成', CANCELED: '已取消' }
-  return m[s] || s
-}
-
 async function act(id: number, fn: (id: number) => Promise<unknown>) {
   try { await fn(id); await fetch() } catch { /* ignore */ }
 }
@@ -54,6 +51,31 @@ async function ship(id: number) {
   if (!logisticsInfo) return
   try { await shipOrder(id, logisticsInfo); await fetch() } catch { /* ignore */ }
 }
+
+function goPay(orderId: number) {
+  router.push(`/pay/${orderId}`)
+}
+
+function showTrack(o: OrderView) {
+  trackOrder.value = o
+  const created = new Date(o.createdAt)
+  const steps = [
+    { time: fmt(created), text: '订单已创建' },
+    { time: fmt(new Date(+created + 600000)), text: '买家已支付' },
+    { time: fmt(new Date(+created + 1800000)), text: o.logisticsInfo ? `卖家已发货 — ${o.logisticsInfo}` : '卖家已发货' },
+    { time: fmt(new Date(+created + 7200000)), text: '快递已揽件' },
+    { time: fmt(new Date(+created + 14400000)), text: '运输中' }
+  ]
+  if (o.status === 'COMPLETED') {
+    steps.push(
+      { time: fmt(new Date(+created + 43200000)), text: '派送中' },
+      { time: fmt(new Date(+created + 86400000)), text: '已签收' }
+    )
+  }
+  trackSteps.value = steps
+}
+function closeTrack() { trackOrder.value = null }
+function fmt(d: Date) { return d.toLocaleString('zh-CN', { hour12: false }) }
 
 onMounted(async () => {
   await fetch()
@@ -84,9 +106,10 @@ onMounted(async () => {
             <span class="amount">&yen;{{ o.totalAmount?.toFixed(2) }}</span>
           </div>
           <div class="order-actions">
-            <button v-if="o.status === 'PENDING_PAYMENT'" @click="act(o.id, payOrder)">支付</button>
+            <button v-if="o.status === 'PENDING_PAYMENT'" @click="goPay(o.id)">支付</button>
             <button v-if="o.status === 'SHIPPED'" @click="act(o.id, confirmOrder)">确认收货</button>
             <button v-if="o.status === 'PENDING_PAYMENT'" class="ghost" @click="act(o.id, cancelOrder)">取消</button>
+            <button v-if="o.status === 'SHIPPED' || o.status === 'COMPLETED'" class="track-btn" @click="showTrack(o)">查看物流</button>
           </div>
         </div>
       </div>
@@ -107,10 +130,29 @@ onMounted(async () => {
           </div>
           <div class="order-actions">
             <button v-if="o.status === 'PAID'" @click="ship(o.id)">发货</button>
+            <button v-if="o.status === 'SHIPPED' || o.status === 'COMPLETED'" class="track-btn" @click="showTrack(o)">查看物流</button>
           </div>
         </div>
       </div>
       <p v-else class="empty">暂无卖家订单</p>
+    </div>
+
+    <!-- 物流轨迹弹窗 -->
+    <div v-if="trackOrder" class="track-modal" @click.self="closeTrack">
+      <div class="track-card">
+        <h3>物流信息</h3>
+        <p class="track-no">{{ trackOrder.logisticsInfo || '暂无物流单号' }}</p>
+        <div class="track-timeline">
+          <div v-for="(s, i) in trackSteps" :key="i" :class="['track-step', { done: i < trackSteps.length - (trackOrder.status === 'COMPLETED' ? 0 : 2) }]">
+            <div class="track-dot" />
+            <div class="track-body">
+              <p class="track-text">{{ s.text }}</p>
+              <small class="track-time">{{ s.time }}</small>
+            </div>
+          </div>
+        </div>
+        <button class="close-btn" @click="closeTrack">关闭</button>
+      </div>
     </div>
   </div>
 </template>
@@ -138,5 +180,24 @@ onMounted(async () => {
   background: #1677ff; color: #fff; font-size: 13px;
 }
 .order-actions button.ghost { background: #fff; color: #666; border: 1px solid #d9d9d9; }
+.order-actions button.track-btn { background: #fff; color: #1677ff; border: 1px solid #1677ff; }
 .empty { color: #999; text-align: center; padding: 32px; }
+
+/* 物流弹窗 */
+.track-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 200; }
+.track-card { background: #fff; border-radius: 12px; padding: 28px; width: 420px; max-width: 90vw; max-height: 80vh; overflow-y: auto; }
+.track-card h3 { margin: 0 0 6px; font-size: 18px; }
+.track-no { color: #888; font-size: 13px; margin: 0 0 20px; }
+.track-timeline { position: relative; padding-left: 24px; }
+.track-step { position: relative; padding-bottom: 20px; }
+.track-step:last-child { padding-bottom: 0; }
+.track-dot { position: absolute; left: -20px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #d9d9d9; }
+.track-step.done .track-dot { background: #1677ff; }
+.track-step::before { content: ''; position: absolute; left: -16px; top: 18px; width: 2px; height: calc(100% - 14px); background: #e8e8e8; }
+.track-step:last-child::before { display: none; }
+.track-step.done::before { background: #1677ff; }
+.track-text { margin: 0; font-size: 14px; color: #999; }
+.track-step.done .track-text { color: #333; }
+.track-time { font-size: 12px; color: #bbb; }
+.close-btn { margin-top: 20px; padding: 6px 20px; border: 1px solid #d9d9d9; border-radius: 6px; background: #fff; cursor: pointer; font-size: 14px; }
 </style>

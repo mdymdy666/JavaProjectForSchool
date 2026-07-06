@@ -3,11 +3,13 @@ import { onMounted, ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getProductDetail, favoriteProduct, offShelfProduct, relistProduct, deleteProduct } from '../api/product'
 import { useAuthStore } from '../stores/auth'
+import { useCartStore } from '../stores/cart'
 import type { ProductDetail } from '../types/domain'
 
 const route = useRoute()
 const router = useRouter()
 const auth = useAuthStore()
+const cart = useCartStore()
 
 const product = ref<ProductDetail | null>(null)
 const loading = ref(true)
@@ -76,7 +78,18 @@ async function handleDelete() {
 
 function buy() {
   if (!auth.isLoggedIn) { router.push('/login'); return }
-  router.push(`/orders?action=buy&productId=${product.value?.id}`)
+  router.push(`/pay/${product.value?.id}`)
+}
+
+function addToCart() {
+  if (!product.value) return
+  cart.add({
+    productId: product.value.id,
+    title: product.value.title,
+    price: product.value.price,
+    coverUrl: product.value.images[0] || null,
+    sellerNickname: product.value.sellerNickname
+  })
 }
 
 function contactSeller() {
@@ -164,6 +177,7 @@ onMounted(fetch)
             <button class="btn-fav" :class="{ on: product.favorite }" :disabled="acting || isOwner" :title="isOwner ? '不能收藏自己的商品' : ''" @click="toggleFavorite">
               {{ isOwner ? '☆ 自己的' : (acting ? '...' : (product.favorite ? '★ 已收藏' : '☆ 收藏')) }}
             </button>
+            <button v-if="!isOwner" class="btn-cart" :disabled="acting" @click="addToCart">加入购物车</button>
             <button v-if="canBuy" class="btn-buy" @click="buy">立即购买</button>
           </div>
           <p v-if="error" class="err">{{ error }}</p>
@@ -247,6 +261,8 @@ onMounted(fetch)
 .btn-fav { padding: 8px 20px; border: 1px solid #d9d9d9; border-radius: 8px; background: #fff; cursor: pointer; font-size: 15px; }
 .btn-fav:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-fav.on { border-color: #faad14; color: #faad14; background: #fffbe6; }
+.btn-cart { padding: 8px 20px; border: 1px solid #ff4d4f; border-radius: 8px; background: #fff; color: #ff4d4f; cursor: pointer; font-size: 15px; }
+.btn-cart:hover { background: #fff2f0; }
 .btn-buy { padding: 10px 40px; background: #ff4d4f; color: #fff; border: none; border-radius: 8px; font-size: 17px; font-weight: 600; cursor: pointer; }
 .btn-buy:hover { background: #e04343; }
 .err { color: #ff4d4f; font-size: 13px; margin: 0; }

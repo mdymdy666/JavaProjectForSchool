@@ -56,6 +56,17 @@ export const routes: RouteRecordRaw[] = [
     name: 'admin',
     component: () => import('../views/AdminDashboardView.vue'),
     meta: { admin: true }
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: () => import('../views/CartView.vue')
+  },
+  {
+    path: '/pay/:orderId',
+    name: 'pay',
+    component: () => import('../views/PaymentView.vue'),
+    meta: { auth: true }
   }
 ]
 

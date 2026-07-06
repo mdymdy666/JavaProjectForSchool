@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { useCartStore } from '../stores/cart'
+import { useNotificationStore } from '../stores/notification'
 
 const router = useRouter()
 const auth = useAuthStore()
 const cart = useCartStore()
+const notify = useNotificationStore()
+
+onMounted(() => { if (auth.isLoggedIn) notify.refresh() })
 
 function go(path: string) {
   router.push(path)
@@ -21,7 +26,10 @@ function go(path: string) {
       <button @click="go('/products')">市场</button>
       <button v-if="auth.isLoggedIn" @click="go('/publish')">发布</button>
       <button v-if="auth.isLoggedIn" @click="go('/orders')">订单</button>
-      <button v-if="auth.isLoggedIn" @click="go('/messages')">消息</button>
+      <button v-if="auth.isLoggedIn" class="msg-nav" @click="go('/messages')">
+        消息
+        <i v-if="notify.unreadCount" class="badge">{{ notify.unreadCount }}</i>
+      </button>
       <button v-if="auth.isAdmin" @click="go('/admin')">后台</button>
     </nav>
 
@@ -53,6 +61,7 @@ function go(path: string) {
 .nav { display: flex; gap: 2px; flex: 1; min-width: 0; overflow: hidden; }
 .nav button { flex-shrink: 0; background: none; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; color: #333; font-size: 13px; white-space: nowrap; }
 .nav button:hover { background: #f0f0f0; }
+.nav button.msg-nav { position: relative; }
 .right { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
 .right button { padding: 4px 12px; border: 1px solid #d9d9d9; border-radius: 5px; background: #fff; cursor: pointer; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
 .right button.ghost { color: #666; border-color: transparent; }

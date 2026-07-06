@@ -202,6 +202,14 @@ INSERT INTO messages (id, sender_id, receiver_id, product_id, content, status) V
   (1, 4, 2, 1, '键盘今晚 7 点在图书馆门口交易可以吗？', 'READ'),
   (2, 2, 4, 1, '没问题，包装盒和拔键器我都带着。', 'UNREAD');
 
+-- Notifications
+INSERT INTO notifications (id, user_id, type, title, content, read_status) VALUES
+  (1, 2, 'ORDER_STATUS', '收到新的订单', '软件小陈 购买了你的 Cherry 机械键盘 MX3.0S，订单号 CT20260706001', 'UNREAD'),
+  (2, 3, 'ORDER_STATUS', '收到新的订单', '计科小李 购买了你的 2026 考研数学复习全书，订单号 CT20260706002', 'READ'),
+  (3, 4, 'AUDIT', '审核结果通知', '你的商品 宿舍折叠桌 床上书桌 已通过审核，现在可以在市场中展示了', 'UNREAD'),
+  (4, 4, 'ORDER_STATUS', '订单状态更新', '你的订单 CT20260706001 已发货，物流单号：申通快递 7730123456789', 'UNREAD'),
+  (5, 2, 'ORDER_STATUS', '订单状态更新', '你的订单 CT20260706002 买家已支付，请尽快发货', 'UNREAD');
+
 -- Announcements
 INSERT INTO announcements (id, title, content, published) VALUES
   (1, '欢迎使用校园二手交易平台', '本平台仅供校内师生使用。交易请选择校内公共场所，注意人身和财产安全。如遇纠纷请联系管理员处理。', 1),

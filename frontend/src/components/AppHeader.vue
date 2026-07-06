@@ -65,7 +65,7 @@ function go(path: string) {
 .nav button:hover { background: #f0f0f0; }
 .nav button.msg-nav { position: relative; }
 .right { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
-.right button { padding: 4px 12px; border: 1px solid #d9d9d9; border-radius: 5px; background: #fff; cursor: pointer; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
+.right button { padding: 4px 12px; border: 1px solid #d9d9d9; border-radius: 5px; color: #333; background: #fff; cursor: pointer; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
 .right button.ghost { color: #666; border-color: transparent; }
 .right button.user { color: #1677ff; border-color: #1677ff; }
 .right button.cart { position: relative; display: inline-flex; align-items: center; gap: 6px; padding-right: 14px; }

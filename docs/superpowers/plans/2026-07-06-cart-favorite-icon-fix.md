@@ -74,3 +74,27 @@ Expected: TypeScript and Vite build complete successfully.
 Run: `git diff --check` and `git status --short`.
 
 Expected: no whitespace errors; the unrelated modified `backend/src/main/resources/schema-h2.sql` remains untouched.
+
+### Task 4: Fix Header Button Contrast Regression
+
+**Files:**
+- Modify: `frontend/src/components/AppHeader.spec.ts`
+- Modify: `frontend/src/components/AppHeader.vue`
+
+- [ ] **Step 1: Reproduce the white-on-white buttons**
+
+Load `styles.css` in the header test and assert that the computed foreground colors of the cart and login buttons are `rgb(51, 51, 51)`.
+
+- [ ] **Step 2: Run the test to verify it fails**
+
+Run: `pnpm test -- src/components/AppHeader.spec.ts`
+
+Expected: FAIL because both buttons inherit the global white foreground.
+
+- [ ] **Step 3: Add a local header foreground color**
+
+Set `color: #333` on `.right button` in `AppHeader.vue`; preserve the more specific `.ghost` and `.user` colors.
+
+- [ ] **Step 4: Verify the fix**
+
+Run `pnpm test` and `pnpm build`, then refresh the running Vite page and confirm the updated component is served.

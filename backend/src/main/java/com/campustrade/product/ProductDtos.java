@@ -42,6 +42,8 @@ public final class ProductDtos {
             Long id,
             Long sellerId,
             String sellerNickname,
+            String sellerAvatarUrl,
+            Integer sellerProductCount,
             Long categoryId,
             String categoryName,
             String title,

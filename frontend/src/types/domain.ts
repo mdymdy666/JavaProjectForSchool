@@ -21,6 +21,8 @@ export interface ProductDetail {
   id: number
   sellerId: number
   sellerNickname: string
+  sellerAvatarUrl: string | null
+  sellerProductCount: number
   categoryId: number
   categoryName: string
   title: string

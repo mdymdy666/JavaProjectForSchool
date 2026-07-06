@@ -271,6 +271,7 @@ public class ProductService {
     private ProductDetail withViews(ProductDetail detail, long addedViews) {
         if (addedViews <= 0) return detail;
         return new ProductDetail(detail.id(), detail.sellerId(), detail.sellerNickname(),
+                detail.sellerAvatarUrl(), detail.sellerProductCount(),
                 detail.categoryId(), detail.categoryName(), detail.title(), detail.description(),
                 detail.price(), detail.itemCondition(), detail.status(),
                 Math.toIntExact((long) detail.viewCount() + addedViews), detail.images(),
@@ -283,6 +284,13 @@ public class ProductService {
 
     private ProductDetail toDetail(Product product, Long viewerId) {
         UserAccount seller = authMapper.selectById(product.getSellerId());
+        String sellerNickname = seller == null ? "未知用户" : seller.getNickname();
+        String sellerAvatar = seller == null ? null : seller.getAvatarUrl();
+        Long sellerProductCount = productMapper.selectCount(
+                new LambdaQueryWrapper<Product>()
+                        .eq(Product::getSellerId, product.getSellerId())
+                        .eq(Product::getStatus, ProductStatus.APPROVED.name())
+                        .eq(Product::getDeleted, 0));
         List<String> images = productImageMapper.selectList(
                         new LambdaQueryWrapper<ProductImage>()
                                 .eq(ProductImage::getProductId, product.getId())
@@ -293,7 +301,8 @@ public class ProductService {
                         .eq(Favorite::getUserId, viewerId)
                         .eq(Favorite::getProductId, product.getId())) > 0;
         return new ProductDetail(
-                product.getId(), product.getSellerId(), seller == null ? "未知用户" : seller.getNickname(),
+                product.getId(), product.getSellerId(), sellerNickname, sellerAvatar,
+                sellerProductCount == null ? 0 : sellerProductCount.intValue(),
                 product.getCategoryId(), productMapper.categoryName(product.getCategoryId()),
                 product.getTitle(), product.getDescription(), product.getPrice(),
                 product.getItemCondition(), product.getStatus(), product.getViewCount(),

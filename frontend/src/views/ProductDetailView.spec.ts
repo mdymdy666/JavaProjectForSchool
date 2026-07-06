@@ -14,6 +14,12 @@ vi.mock('../api/product', () => ({
   }}),
   favoriteProduct: vi.fn(), offShelfProduct: vi.fn(), relistProduct: vi.fn(), deleteProduct: vi.fn()
 }))
+vi.mock('../api/message', () => ({
+  getMessages: vi.fn().mockResolvedValue({ data: [] }),
+  sendMessage: vi.fn().mockResolvedValue({ code: 200, data: null }),
+  markMessageRead: vi.fn().mockResolvedValue({ code: 200 }),
+  getNotifications: vi.fn().mockResolvedValue({ data: [] })
+}))
 
 describe('ProductDetailView', () => {
   it('shows an identifiable favorite control', async () => {
@@ -39,5 +45,10 @@ describe('ProductDetailView', () => {
     expect(favorite.text()).toContain('收藏')
     expect(favorite.find('[data-icon="heart"]').exists()).toBe(true)
     expect(detailSource).toMatch(/\.btn-fav \{[^}]*color:\s*#333;/)
+
+    await wrapper.get('button.btn-contact').trigger('click')
+    await flushPromises()
+    expect(wrapper.find('[role="dialog"]').exists()).toBe(true)
+    expect(router.currentRoute.value.path).toBe('/products/7')
   })
 })

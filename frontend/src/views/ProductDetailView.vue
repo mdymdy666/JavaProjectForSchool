@@ -6,6 +6,7 @@ import { useAuthStore } from '../stores/auth'
 import { useCartStore } from '../stores/cart'
 import type { ProductDetail } from '../types/domain'
 import UiIcon from '../components/UiIcon.vue'
+import ProductChatDialog from '../components/chat/ProductChatDialog.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -17,6 +18,7 @@ const loading = ref(true)
 const currentImage = ref(0)
 const acting = ref(false)
 const error = ref('')
+const showChat = ref(false)
 
 const isOwner = computed(() =>
   auth.isLoggedIn && product.value != null && auth.userId === product.value.sellerId
@@ -94,8 +96,20 @@ function addToCart() {
 }
 
 function contactSeller() {
-  if (!auth.isLoggedIn) { router.push('/login'); return }
-  router.push('/messages')
+  if (!auth.isLoggedIn) {
+    router.push({ name: 'login', query: { redirect: route.fullPath } })
+    return
+  }
+  showChat.value = true
+}
+
+function openMessageCenter() {
+  if (!product.value) return
+  showChat.value = false
+  router.push({
+    path: '/messages',
+    query: { counterpartId: product.value.sellerId, productId: product.value.id }
+  })
 }
 
 function statusLabel(s: string) {
@@ -209,6 +223,18 @@ onMounted(fetch)
         </div>
         <button v-if="!isOwner" class="btn-contact" @click="contactSeller">联系卖家</button>
       </div>
+
+      <ProductChatDialog
+        v-if="auth.userId"
+        :open="showChat"
+        :product-id="product.id"
+        :product-title="product.title"
+        :seller-id="product.sellerId"
+        :seller-nickname="product.sellerNickname"
+        :current-user-id="auth.userId"
+        @close="showChat = false"
+        @open-center="openMessageCenter"
+      />
     </template>
 
     <p v-else class="empty">商品不存在</p>

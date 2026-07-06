@@ -3,7 +3,7 @@ import type { ApiResponse, SiteMessage, Notification } from '../types/domain'
 
 export interface SendMessageRequest {
   receiverId: number
-  productId?: number
+  productId: number
   content: string
 }
 

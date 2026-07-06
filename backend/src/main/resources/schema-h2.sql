@@ -175,7 +175,7 @@ INSERT INTO product_images (product_id, image_url, sort_order) VALUES
   (3, 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600', 0),
   (4, 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600', 0),
   (5, 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=600', 0),
-  (6, 'https://images.unsplash.com/photo-1507473885765-e6ed057ab6fe?w=600', 0),
+  (6, 'https://images.unsplash.com/photo-1534105615256-13940a56ff44?w=600', 0),
   (7, 'https://images.unsplash.com/photo-1613918431703-aa50889e3be9?w=600', 0),
   (8, 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600', 0);
 

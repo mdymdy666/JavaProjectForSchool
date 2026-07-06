@@ -32,14 +32,16 @@ async function fetch() {
 }
 
 async function toggleFavorite() {
-  if (!auth.isLoggedIn) { router.push('/login'); return }
+  if (!auth.isLoggedIn) { router.push({ name: 'login', query: { redirect: route.fullPath } }); return }
   if (!product.value) return
+  acting.value = true
   try {
     const res = await favoriteProduct(product.value.id)
-    if (product.value && res.data) {
+    if (res.code === 200 && res.data) {
       product.value = { ...product.value, favorite: res.data.favorite }
     }
-  } catch { /* ignore */ }
+  } catch { error.value = '收藏操作失败' }
+  finally { acting.value = false }
 }
 
 async function handleOffShelf() {
@@ -159,8 +161,8 @@ onMounted(fetch)
 
           <!-- 购买操作 -->
           <div v-if="!isOwner" class="buy-bar">
-            <button class="btn-fav" :class="{ on: product.favorite }" @click="toggleFavorite">
-              {{ product.favorite ? '★ 已收藏' : '☆ 收藏' }}
+            <button class="btn-fav" :class="{ on: product.favorite }" :disabled="acting" @click="toggleFavorite">
+              {{ acting ? '...' : (product.favorite ? '★ 已收藏' : '☆ 收藏') }}
             </button>
             <button v-if="canBuy" class="btn-buy" @click="buy">立即购买</button>
           </div>

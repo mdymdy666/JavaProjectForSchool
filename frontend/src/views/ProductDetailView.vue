@@ -159,10 +159,10 @@ onMounted(fetch)
             <button v-if="product.status !== 'SOLD' && product.status !== 'DELETED'" class="btn-del" :disabled="acting" @click="handleDelete">删除</button>
           </div>
 
-          <!-- 购买操作 -->
-          <div v-if="!isOwner" class="buy-bar">
-            <button class="btn-fav" :class="{ on: product.favorite }" :disabled="acting" @click="toggleFavorite">
-              {{ acting ? '...' : (product.favorite ? '★ 已收藏' : '☆ 收藏') }}
+          <!-- 操作按钮 -->
+          <div class="action-bar">
+            <button class="btn-fav" :class="{ on: product.favorite }" :disabled="acting || isOwner" :title="isOwner ? '不能收藏自己的商品' : ''" @click="toggleFavorite">
+              {{ isOwner ? '☆ 自己的' : (acting ? '...' : (product.favorite ? '★ 已收藏' : '☆ 收藏')) }}
             </button>
             <button v-if="canBuy" class="btn-buy" @click="buy">立即购买</button>
           </div>
@@ -242,10 +242,11 @@ onMounted(fetch)
 .btn-ok { background: #52c41a; }
 .btn-del { background: #ff4d4f; }
 
-/* 购买栏 */
-.buy-bar { display: flex; gap: 10px; align-items: center; }
+/* 操作栏 */
+.action-bar { display: flex; gap: 10px; align-items: center; }
 .btn-fav { padding: 8px 20px; border: 1px solid #d9d9d9; border-radius: 8px; background: #fff; cursor: pointer; font-size: 15px; }
-.btn-fav.on { border-color: #faad14; color: #faad14; }
+.btn-fav:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-fav.on { border-color: #faad14; color: #faad14; background: #fffbe6; }
 .btn-buy { padding: 10px 40px; background: #ff4d4f; color: #fff; border: none; border-radius: 8px; font-size: 17px; font-weight: 600; cursor: pointer; }
 .btn-buy:hover { background: #e04343; }
 .err { color: #ff4d4f; font-size: 13px; margin: 0; }

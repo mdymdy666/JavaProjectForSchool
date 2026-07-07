@@ -102,6 +102,19 @@ export interface UserProfile {
   email: string | null
   avatarUrl: string | null
   role: string
+  creditScore: number
+  realName: string | null
+  idCardNo: string | null
+  realNameStatus: 'UNVERIFIED' | 'PENDING' | 'VERIFIED' | 'REJECTED'
+}
+
+export interface AddressView {
+  id: number
+  receiverName: string
+  receiverPhone: string
+  detailAddress: string
+  defaultAddress: boolean
+  createdAt: string
 }
 
 export interface PageResult<T> {

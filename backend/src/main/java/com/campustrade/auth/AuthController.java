@@ -39,6 +39,17 @@ public class AuthController {
         return ApiResponse.success(authService.registerCaptcha(account));
     }
 
+    @PostMapping("/captcha/password-reset")
+    ApiResponse<CaptchaResponse> resetCaptcha(@RequestParam String account) {
+        return ApiResponse.success(authService.resetCaptcha(account));
+    }
+
+    @PostMapping("/password/reset")
+    ApiResponse<Void> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+        authService.resetPassword(request);
+        return ApiResponse.success(null);
+    }
+
     @PostMapping("/logout")
     ApiResponse<Void> logout(@RequestHeader("Authorization") String authHeader) {
         String token = authHeader.replace("Bearer ", "");

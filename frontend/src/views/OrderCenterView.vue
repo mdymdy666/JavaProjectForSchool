@@ -151,7 +151,10 @@ onMounted(async () => {
             </div>
           </div>
         </div>
-        <button class="close-btn" @click="closeTrack">关闭</button>
+        <button class="close-btn" type="button" aria-label="关闭物流信息" @click="closeTrack">
+          <span class="close-icon" data-icon="close" aria-hidden="true">×</span>
+          <span>关闭</span>
+        </button>
       </div>
     </div>
   </div>
@@ -163,10 +166,14 @@ onMounted(async () => {
 .err { color: #ff4d4f; font-size: 14px; margin-bottom: 12px; }
 .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
 .tabs button {
-  padding: 6px 20px; border: 1px solid #d9d9d9; border-radius: 6px;
-  background: #fff; cursor: pointer; font-size: 14px;
+  min-width: 88px;
+  padding: 7px 20px; border: 1px solid #c9d3e1; border-radius: 6px;
+  background: #fff; color: #253044; cursor: pointer; font-size: 14px; font-weight: 500;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
 }
-.tabs button.active { background: #1677ff; color: #fff; border-color: #1677ff; }
+.tabs button:hover { color: #1677ff; border-color: #1677ff; background: #eef6ff; }
+.tabs button.active { background: #1677ff; color: #fff; border-color: #1677ff; box-shadow: 0 2px 6px rgba(22, 119, 255, 0.24); }
 .order-list { display: flex; flex-direction: column; gap: 12px; }
 .order-card {
   background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; padding: 16px;
@@ -199,5 +206,18 @@ onMounted(async () => {
 .track-text { margin: 0; font-size: 14px; color: #999; }
 .track-step.done .track-text { color: #333; }
 .track-time { font-size: 12px; color: #bbb; }
-.close-btn { margin-top: 20px; padding: 6px 20px; border: 1px solid #d9d9d9; border-radius: 6px; background: #fff; cursor: pointer; font-size: 14px; }
+.close-btn {
+  margin-top: 20px;
+  padding: 7px 18px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.close-icon { font-size: 16px; line-height: 1; font-weight: 600; }
 </style>

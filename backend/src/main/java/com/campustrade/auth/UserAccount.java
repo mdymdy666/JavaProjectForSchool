@@ -18,6 +18,10 @@ public class UserAccount {
     private String avatarUrl;
     private String role;
     private String status;
+    private Integer creditScore;
+    private String realName;
+    private String idCardNo;
+    private String realNameStatus;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -91,6 +95,38 @@ public class UserAccount {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getCreditScore() {
+        return creditScore;
+    }
+
+    public void setCreditScore(Integer creditScore) {
+        this.creditScore = creditScore;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getIdCardNo() {
+        return idCardNo;
+    }
+
+    public void setIdCardNo(String idCardNo) {
+        this.idCardNo = idCardNo;
+    }
+
+    public String getRealNameStatus() {
+        return realNameStatus;
+    }
+
+    public void setRealNameStatus(String realNameStatus) {
+        this.realNameStatus = realNameStatus;
     }
 
     public LocalDateTime getCreatedAt() {

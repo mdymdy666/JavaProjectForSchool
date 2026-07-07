@@ -1,49 +1,52 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { registerApi, registerCaptchaApi } from '../api/auth'
+import { passwordResetCaptchaApi, resetPasswordApi } from '../api/auth'
 
 const router = useRouter()
-
 const form = reactive({
-  username: '',
-  password: '',
-  nickname: '',
-  captcha: ''
+  account: '',
+  captcha: '',
+  newPassword: ''
 })
-const captchaSent = ref(false)
 const loading = ref(false)
+const captchaSent = ref(false)
 const error = ref('')
+const success = ref('')
 
 async function getCaptcha() {
-  if (!form.username) return
+  if (!form.account) return
   error.value = ''
+  success.value = ''
   try {
-    await registerCaptchaApi(form.username)
+    await passwordResetCaptchaApi(form.account)
     captchaSent.value = true
-  } catch {
-    error.value = '获取验证码失败'
+    success.value = '验证码已发送，演示码为 123456'
+  } catch (e: unknown) {
+    const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message
+    error.value = msg || '获取验证码失败'
   }
 }
 
 async function submit() {
   loading.value = true
   error.value = ''
+  success.value = ''
   try {
-    const res = await registerApi({
-      username: form.username,
-      password: form.password,
-      nickname: form.nickname,
-      captcha: form.captcha || undefined
+    const res = await resetPasswordApi({
+      account: form.account,
+      captcha: form.captcha,
+      newPassword: form.newPassword
     })
     if (res.code === 200) {
-      router.push('/login')
+      success.value = '密码已重置，请使用新密码登录'
+      setTimeout(() => router.push('/login'), 700)
     } else {
-      error.value = res.message || '注册失败'
+      error.value = res.message || '重置失败'
     }
   } catch (e: unknown) {
     const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message
-    error.value = msg || '注册失败'
+    error.value = msg || '重置失败，请检查账号和验证码'
   } finally {
     loading.value = false
   }
@@ -54,36 +57,33 @@ async function submit() {
   <div class="auth-page">
     <section class="auth-card">
       <div class="auth-head">
-        <h2>注册</h2>
-        <p>验证码演示码固定为 123456</p>
+        <h2>找回密码</h2>
+        <p>通过邮箱、手机号或用户名验证后重置密码</p>
       </div>
       <form @submit.prevent="submit">
         <label>
-          邮箱 / 手机号 / 用户名
-          <input v-model="form.username" type="text" placeholder="作为登录账号使用" required />
-        </label>
-        <label>
-          昵称
-          <input v-model="form.nickname" type="text" placeholder="买卖双方看到的名称" required />
-        </label>
-        <label>
-          密码
-          <input v-model="form.password" type="password" placeholder="至少 8 位密码" required minlength="8" />
+          账号
+          <input v-model="form.account" type="text" placeholder="用户名 / 手机号 / 邮箱" required />
         </label>
         <label>
           验证码
           <div class="captcha-row">
-            <input v-model="form.captcha" type="text" placeholder="输入验证码" />
-            <button type="button" @click="getCaptcha" :disabled="!form.username">
-              {{ captchaSent ? '已发送' : '获取验证码' }}
+            <input v-model="form.captcha" type="text" placeholder="输入验证码" required />
+            <button type="button" @click="getCaptcha" :disabled="!form.account">
+              {{ captchaSent ? '重新获取' : '获取验证码' }}
             </button>
           </div>
         </label>
+        <label>
+          新密码
+          <input v-model="form.newPassword" type="password" placeholder="至少 8 位密码" required minlength="8" />
+        </label>
         <p v-if="error" class="error-msg">{{ error }}</p>
-        <button type="submit" :disabled="loading">{{ loading ? '注册中...' : '注册' }}</button>
+        <p v-if="success" class="success-msg">{{ success }}</p>
+        <button type="submit" :disabled="loading">{{ loading ? '提交中...' : '重置密码' }}</button>
       </form>
       <p class="switch-link">
-        已有账号？<RouterLink to="/login">去登录</RouterLink>
+        想起来了？<RouterLink to="/login">返回登录</RouterLink>
       </p>
     </section>
   </div>
@@ -93,7 +93,7 @@ async function submit() {
 .auth-page {
   display: flex;
   justify-content: center;
-  padding: 56px 16px;
+  padding: 64px 16px;
 }
 .auth-card {
   width: min(440px, 100%);
@@ -151,7 +151,9 @@ button[type="submit"] {
   cursor: pointer;
 }
 button[type="submit"]:disabled { opacity: 0.65; cursor: not-allowed; }
-.error-msg { color: #ef4444; font-size: 13px; margin: 0 0 12px; }
+.error-msg, .success-msg { font-size: 13px; margin: 0 0 12px; }
+.error-msg { color: #ef4444; }
+.success-msg { color: #16a34a; }
 .switch-link { margin-top: 16px; text-align: center; color: #64748b; font-size: 14px; }
 .switch-link a { color: #1677ff; text-decoration: none; font-weight: 700; }
 </style>

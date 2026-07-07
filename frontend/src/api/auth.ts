@@ -20,6 +20,12 @@ export interface RegisterRequest {
   captcha?: string
 }
 
+export interface ResetPasswordRequest {
+  account: string
+  captcha: string
+  newPassword: string
+}
+
 export interface UserSummary {
   id: number
   username: string
@@ -42,6 +48,14 @@ export async function registerApi(data: RegisterRequest): Promise<ApiResponse<Us
 
 export async function registerCaptchaApi(account: string): Promise<ApiResponse<CaptchaResponse>> {
   return apiPost<CaptchaResponse>(`/auth/captcha/register?account=${encodeURIComponent(account)}`)
+}
+
+export async function passwordResetCaptchaApi(account: string): Promise<ApiResponse<CaptchaResponse>> {
+  return apiPost<CaptchaResponse>(`/auth/captcha/password-reset?account=${encodeURIComponent(account)}`)
+}
+
+export async function resetPasswordApi(data: ResetPasswordRequest): Promise<ApiResponse<null>> {
+  return apiPost<null>('/auth/password/reset', data)
 }
 
 export async function logoutApi(): Promise<ApiResponse<null>> {

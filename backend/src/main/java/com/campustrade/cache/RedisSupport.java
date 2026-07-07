@@ -83,5 +83,7 @@ public class RedisSupport {
         try { redis.delete(key); } catch (RuntimeException ignored) { }
     }
 
+    public boolean isAvailable() { return available(); }
+
     private boolean available() { return enabled && redis != null; }
 }

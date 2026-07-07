@@ -13,6 +13,11 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('../views/RegisterView.vue')
   },
   {
+    path: '/forgot-password',
+    name: 'forgot-password',
+    component: () => import('../views/ForgotPasswordView.vue')
+  },
+  {
     path: '/',
     name: 'home',
     component: () => import('../views/HomeView.vue')

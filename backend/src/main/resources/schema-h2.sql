@@ -10,6 +10,10 @@ CREATE TABLE users (
   avatar_url VARCHAR(255),
   role VARCHAR(20) NOT NULL DEFAULT 'USER',
   status VARCHAR(20) NOT NULL DEFAULT 'NORMAL',
+  credit_score INT NOT NULL DEFAULT 95,
+  real_name VARCHAR(50),
+  id_card_no VARCHAR(30),
+  real_name_status VARCHAR(20) NOT NULL DEFAULT 'UNVERIFIED',
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -157,6 +161,15 @@ INSERT INTO users (id, username, password_hash, nickname, role, status) VALUES
   (3, 'xiaozhou', '$2a$10$L468Ag4yzUWWvM3xl5MA2eYc5Ym2V5cl4hXA1sB1Nh3xTcTTmRWOK', '经管小周', 'USER', 'NORMAL'),
   (4, 'xiaochen', '$2a$10$L468Ag4yzUWWvM3xl5MA2eYc5Ym2V5cl4hXA1sB1Nh3xTcTTmRWOK', '软件小陈', 'USER', 'NORMAL');
 
+UPDATE users SET phone = '13800000002', email = 'xiaoli@campus.edu', avatar_url = '/uploads/avatar-xiaoli.png',
+  real_name = '李同学', id_card_no = '110101200001011234', real_name_status = 'VERIFIED', credit_score = 98
+WHERE id = 2;
+UPDATE users SET phone = '13800000003', email = 'xiaozhou@campus.edu', credit_score = 96 WHERE id = 3;
+
+INSERT INTO user_addresses (user_id, receiver_name, receiver_phone, detail_address, is_default) VALUES
+  (2, '计科小李', '13800000002', '软件学院 3 号宿舍楼 502', 1),
+  (2, '李同学', '13800000002', '图书馆北门自提点', 0);
+
 -- Products (APPROVED so they show on homepage)
 INSERT INTO products (id, seller_id, category_id, title, description, price, item_condition, status, view_count) VALUES
   (1, 2, 1, 'Cherry 机械键盘 MX3.0S', 'Cherry 原厂轴体，送拔键器，适合编程和游戏。用了半年，包装盒还在。', 129.00, '九成新', 'APPROVED', 238),
@@ -199,8 +212,10 @@ INSERT INTO order_logs (order_id, from_status, to_status, operator_id, remark) V
 
 -- Messages
 INSERT INTO messages (id, sender_id, receiver_id, product_id, content, status) VALUES
-  (1, 4, 2, 1, '键盘今晚 7 点在图书馆门口交易可以吗？', 'READ'),
-  (2, 2, 4, 1, '没问题，包装盒和拔键器我都带着。', 'UNREAD');
+  (1, 4, 2, 1, '小李你好，键盘还在吗？我想买，今晚 7 点图书馆门口交易可以吗？', 'READ'),
+  (2, 2, 4, 1, '在的，包装盒和拔键器都齐全。今晚 7 点没问题，图书馆门口见！', 'UNREAD'),
+  (3, 3, 2, 2, '小李，G502 鼠标用了多久？成色怎么样，有发票吗？', 'UNREAD'),
+  (4, 4, 2, 1, '好的，顺便问一下键盘是什么轴的？青轴还是红轴？我想买来写代码用。', 'UNREAD');
 
 -- Notifications
 INSERT INTO notifications (id, user_id, type, title, content, read_status) VALUES

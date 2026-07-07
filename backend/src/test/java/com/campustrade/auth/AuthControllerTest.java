@@ -69,4 +69,42 @@ class AuthControllerTest {
         mockMvc.perform(get("/api/users/me"))
                 .andExpect(status().isUnauthorized());
     }
+
+    @Test
+    void resetsPasswordWithCaptchaAndAllowsNewLogin() throws Exception {
+        mockMvc.perform(post("/api/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "username":"reset01",
+                                  "password":"OldPass123",
+                                  "nickname":"Reset User"
+                                }
+                                """))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(post("/api/auth/captcha/password-reset")
+                        .param("account", "reset01"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.code").value("123456"));
+
+        mockMvc.perform(post("/api/auth/password/reset")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "account":"reset01",
+                                  "captcha":"123456",
+                                  "newPassword":"NewPass123"
+                                }
+                                """))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(post("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"account":"reset01","password":"NewPass123"}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.accessToken").isNotEmpty());
+    }
 }

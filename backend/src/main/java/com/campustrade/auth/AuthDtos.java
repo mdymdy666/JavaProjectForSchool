@@ -17,6 +17,12 @@ public final class AuthDtos {
     public record LoginRequest(@NotBlank String account, @NotBlank String password) {
     }
 
+    public record ResetPasswordRequest(
+            @NotBlank String account,
+            @NotBlank String captcha,
+            @Size(min = 8, max = 64) String newPassword) {
+    }
+
     public record LoginResponse(Long userId, String nickname, String role, String accessToken) {
     }
 

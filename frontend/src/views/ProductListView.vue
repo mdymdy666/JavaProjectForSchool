@@ -97,16 +97,24 @@ watch([keyword, sort, page], fetch)
   border-radius: 6px;
   cursor: pointer;
 }
-.sort-bar { display: flex; gap: 4px; align-items: center; font-size: 14px; }
+.sort-bar { display: flex; gap: 8px; align-items: center; font-size: 14px; color: #253044; }
 .sort-bar button {
-  background: none;
-  border: 1px solid #d9d9d9;
-  padding: 4px 12px;
-  border-radius: 4px;
+  background: #fff;
+  color: #253044;
+  border: 1px solid #c9d3e1;
+  padding: 5px 14px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
 }
-.sort-bar button.active { background: #1677ff; color: #fff; border-color: #1677ff; }
+.sort-bar button:hover {
+  color: #1677ff;
+  border-color: #1677ff;
+  background: #eef6ff;
+}
+.sort-bar button.active { background: #1677ff; color: #fff; border-color: #1677ff; box-shadow: 0 2px 6px rgba(22, 119, 255, 0.24); }
 .result-info { color: #999; font-size: 13px; margin-bottom: 12px; }
 .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 @media (max-width: 768px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }

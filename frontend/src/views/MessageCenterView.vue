@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import {
-  getMessages, getNotifications, markMessageRead, markNotificationRead, sendMessage
-} from '../api/message'
+import { getMessages, getNotifications, markMessageRead, markNotificationRead, sendMessage } from '../api/message'
 import ChatPanel from '../components/chat/ChatPanel.vue'
 import { buildConversations } from '../features/chat/conversations'
 import { useAuthStore } from '../stores/auth'
@@ -55,9 +53,7 @@ function ensureActiveConversation() {
 async function load(silent = false) {
   if (!silent) loading.value = true
   try {
-    const [messageResponse, notificationResponse] = await Promise.all([
-      getMessages(), getNotifications()
-    ])
+    const [messageResponse, notificationResponse] = await Promise.all([getMessages(), getNotifications()])
     messages.value = messageResponse.data || []
     notifications.value = notificationResponse.data || []
     ensureActiveConversation()
@@ -91,9 +87,7 @@ async function selectConversation(key: string) {
   mobileChatOpen.value = true
   const conversation = activeConversation.value
   if (conversation) {
-    await router.replace({
-      query: { counterpartId: conversation.counterpartId, productId: conversation.productId }
-    })
+    await router.replace({ query: { counterpartId: conversation.counterpartId, productId: conversation.productId } })
   }
   await markConversationRead()
 }
@@ -104,11 +98,7 @@ async function handleSend(content: string) {
   sending.value = true
   error.value = ''
   try {
-    await sendMessage({
-      receiverId: conversation.counterpartId,
-      productId: conversation.productId,
-      content
-    })
+    await sendMessage({ receiverId: conversation.counterpartId, productId: conversation.productId, content })
     chatPanel.value?.clearDraft()
     await load(true)
     await notificationStore.refresh()
@@ -122,8 +112,7 @@ async function handleSend(content: string) {
 async function readNotification(id: number) {
   try {
     await markNotificationRead(id)
-    notifications.value = notifications.value.map(item =>
-      item.id === id ? { ...item, readStatus: 'READ' } : item)
+    notifications.value = notifications.value.map(item => item.id === id ? { ...item, readStatus: 'READ' } : item)
     await notificationStore.refresh()
   } catch (cause) {
     error.value = apiError(cause, '通知状态更新失败')
@@ -173,9 +162,13 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <main class="message-page">
+  <main class="message-page" data-test="message-community">
     <header class="page-header">
-      <div><h1>消息中心</h1><p>查看商品咨询与交易进度通知</p></div>
+      <div>
+        <p class="eyebrow">消息中心</p>
+        <h1>边聊边交易，记录都留在平台里</h1>
+        <p>查看商品咨询、交易进度和系统通知。</p>
+      </div>
       <nav class="tabs" aria-label="消息分类">
         <button :class="{ active: activeTab === 'messages' }" @click="activeTab = 'messages'">交易会话</button>
         <button :class="{ active: activeTab === 'notifications' }" @click="activeTab = 'notifications'">系统通知</button>
@@ -184,10 +177,10 @@ onBeforeUnmount(() => {
 
     <p v-if="error" class="page-error" role="alert">{{ error }}</p>
 
-    <section v-if="activeTab === 'messages'" :class="['conversation-workspace', { 'mobile-chat-open': mobileChatOpen }]">
+    <section v-if="activeTab === 'messages'" :class="['community-layout', { 'mobile-chat-open': mobileChatOpen }]">
       <aside class="conversation-sidebar">
         <div class="sidebar-header">
-          <strong>交易会话</strong>
+          <div><strong>正在聊</strong><span>{{ conversations.length }} 个会话</span></div>
           <button v-if="conversations.some(item => item.unreadCount)" @click="readAllMessages">全部已读</button>
         </div>
         <div v-if="loading" class="state">正在加载...</div>
@@ -215,7 +208,8 @@ onBeforeUnmount(() => {
         <template v-if="activeConversation">
           <header class="chat-header">
             <button class="back-button" type="button" aria-label="返回会话列表" @click="mobileChatOpen = false">‹</button>
-            <div><strong>{{ activeConversation.counterpartNickname }}</strong><p>{{ activeConversation.productTitle }}</p></div>
+            <div class="chat-avatar">{{ activeConversation.counterpartNickname.slice(0, 1) }}</div>
+            <div><strong>{{ activeConversation.counterpartNickname }}</strong><p>{{ activeConversation.productTitle }} · 同校认证</p></div>
             <button class="product-link" type="button" @click="router.push(`/products/${activeConversation.productId}`)">查看商品</button>
           </header>
           <ChatPanel
@@ -229,6 +223,22 @@ onBeforeUnmount(() => {
         </template>
         <div v-else class="state large">选择一个会话开始聊天</div>
       </section>
+
+      <aside class="community-side">
+        <section class="side-card">
+          <div class="side-head"><h3>校园动态</h3><button>更多</button></div>
+          <article class="feed-item"><strong>毕业季闲置市集活动开始啦</strong><p>6月12日-6月15日，南区广场集中交易。</p></article>
+          <article class="feed-item"><strong>环保协会旧物新生计划</strong><p>让闲置用品找到新主人，一起环保传递爱心。</p></article>
+        </section>
+        <section class="side-card safe">
+          <div class="side-head"><h3>安全提醒</h3><button>规则</button></div>
+          <ul>
+            <li>优先选择同校认证卖家交易</li>
+            <li>线下交易请在公共场所见面</li>
+            <li>不要提前转账，谨防诈骗</li>
+          </ul>
+        </section>
+      </aside>
     </section>
 
     <section v-else class="notification-panel">
@@ -249,61 +259,162 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.message-page { max-width: 1040px; margin: 0 auto; }
-.page-header { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 16px; }
-.page-header h1 { margin: 0; color: #17212b; font-size: 24px; letter-spacing: 0; }
-.page-header p { margin: 5px 0 0; color: #71808f; }
-.tabs { display: flex; gap: 4px; border-bottom: 1px solid #dbe2ea; }
-.tabs button { padding: 9px 14px; border: 0; border-bottom: 3px solid transparent; color: #52606d; background: transparent; cursor: pointer; }
-.tabs button.active { color: #1677ff; border-color: #1677ff; }
-.page-error { padding: 9px 12px; color: #b42318; background: #fff1f0; border-left: 3px solid #ff4d4f; }
-.conversation-workspace { display: grid; grid-template-columns: 280px minmax(0, 1fr); height: min(680px, calc(100vh - 150px)); min-height: 520px; overflow: hidden; border: 1px solid #dbe2ea; border-radius: 8px; background: #fff; }
-.conversation-sidebar { min-width: 0; overflow-y: auto; border-right: 1px solid #e6ebf0; background: #fff; }
-.sidebar-header, .notification-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px; border-bottom: 1px solid #e6ebf0; }
-.sidebar-header button, .notification-toolbar button { padding: 4px; border: 0; color: #1677ff; background: transparent; cursor: pointer; font-size: 12px; }
+.message-page { max-width: 1320px; margin: 0 auto; }
+.page-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 16px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
+}
+.eyebrow { margin: 0 0 6px; color: var(--brand-blue); font-weight: 900; }
+.page-header h1 { margin: 0; color: #17212b; font-size: 28px; letter-spacing: 0; }
+.page-header p { margin: 6px 0 0; color: #71808f; }
+.tabs { display: flex; gap: 8px; }
+.tabs button {
+  height: 38px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: #52606d;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 800;
+}
+.tabs button.active { color: #fff; border-color: var(--brand-blue); background: var(--brand-blue); }
+.page-error { padding: 10px 12px; color: #b42318; background: #fff1f0; border-left: 3px solid #ff4d4f; }
+.community-layout {
+  display: grid;
+  grid-template-columns: 270px minmax(0, 1fr) 280px;
+  height: min(720px, calc(100vh - 165px));
+  min-height: 560px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
+}
+.conversation-sidebar {
+  min-width: 0;
+  overflow-y: auto;
+  border-right: 1px solid #e6ebf0;
+  background: #fbfdff;
+}
+.sidebar-header, .notification-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px;
+  border-bottom: 1px solid #e6ebf0;
+}
+.sidebar-header strong { display: block; font-size: 18px; }
+.sidebar-header span { color: #94a3b8; font-size: 12px; }
+.sidebar-header button, .notification-toolbar button, .side-head button {
+  padding: 0;
+  border: 0;
+  color: var(--brand-blue);
+  background: transparent;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+}
 .conversation-list { display: grid; }
-.conversation-item { position: relative; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px; width: 100%; padding: 12px; border: 0; border-bottom: 1px solid #edf0f3; border-radius: 0; color: #27313b; background: #fff; text-align: left; cursor: pointer; }
-.conversation-item:hover { background: #f7f9fb; }
-.conversation-item.active { background: #eaf3ff; box-shadow: inset 3px 0 #1677ff; }
-.avatar { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; color: #fff; background: #1677ff; font-weight: 700; }
+.conversation-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 10px;
+  width: 100%;
+  padding: 13px;
+  border: 0;
+  border-bottom: 1px solid #edf0f3;
+  border-radius: 0;
+  color: #27313b;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.conversation-item:hover { background: #f2f7ff; }
+.conversation-item.active { background: #eaf3ff; box-shadow: inset 3px 0 var(--brand-blue); }
+.avatar, .chat-avatar {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand-blue), #22c55e);
+  font-weight: 900;
+}
+.avatar { width: 42px; height: 42px; }
+.chat-avatar { width: 38px; height: 38px; }
 .conversation-copy, .conversation-line { min-width: 0; }
 .conversation-line { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
 .conversation-line strong, .conversation-line time, .product-name, .last-message { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .conversation-line strong { font-size: 14px; }
 .conversation-line time { color: #9aa4af; font-size: 10px; }
-.product-name { display: block; margin-top: 2px; color: #1677ff; font-size: 11px; }
+.product-name { display: block; margin-top: 2px; color: var(--brand-blue); font-size: 12px; }
 .last-message { display: block; margin-top: 3px; color: #71808f; font-size: 12px; }
-.unread-badge { position: absolute; right: 10px; bottom: 10px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; color: #fff; background: #ff4d4f; font-size: 10px; line-height: 18px; text-align: center; }
-.chat-workspace { display: grid; grid-template-rows: auto minmax(0, 1fr); min-width: 0; min-height: 0; }
-.chat-header { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-bottom: 1px solid #e6ebf0; }
-.chat-header > div { min-width: 0; flex: 1; }
+.unread-badge { position: absolute; right: 10px; bottom: 10px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; color: #fff; background: var(--danger); font-size: 10px; line-height: 18px; text-align: center; }
+.chat-workspace { display: grid; grid-template-rows: auto minmax(0, 1fr); min-width: 0; min-height: 0; background: #f8fbff; }
+.chat-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid #e6ebf0; background: #fff; }
+.chat-header > div:last-of-type { min-width: 0; flex: 1; }
 .chat-header strong, .chat-header p { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .chat-header p { margin: 2px 0 0; color: #71808f; font-size: 12px; }
 .back-button { display: none; border: 0; color: #52606d; background: transparent; font-size: 25px; }
-.product-link { padding: 6px 10px; border: 1px solid #1677ff; border-radius: 5px; color: #1677ff; background: #fff; cursor: pointer; }
+.product-link { padding: 7px 12px; border: 1px solid var(--brand-blue); border-radius: 8px; color: var(--brand-blue); background: #fff; cursor: pointer; font-weight: 800; }
+.community-side {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  padding: 14px;
+  border-left: 1px solid #e6ebf0;
+  background: #fbfdff;
+}
+.side-card {
+  border: 1px solid #e6edf5;
+  border-radius: 12px;
+  background: #fff;
+  padding: 14px;
+}
+.side-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.side-head h3 { margin: 0; font-size: 17px; }
+.feed-item { padding: 10px 0; border-top: 1px solid #edf2f7; }
+.feed-item:first-of-type { border-top: 0; }
+.feed-item strong { font-size: 14px; }
+.feed-item p { margin: 5px 0 0; color: #64748b; line-height: 1.55; }
+.safe ul { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; color: #475569; line-height: 1.55; }
 .state { padding: 34px 14px; color: #8792a0; text-align: center; }
 .state.large { display: grid; place-items: center; min-height: 360px; }
-.notification-panel { overflow: hidden; border: 1px solid #dbe2ea; border-radius: 8px; background: #fff; }
+.notification-panel { overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: #fff; box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06); }
 .notification-list { display: grid; }
 .notification-item { padding: 15px 18px; border-bottom: 1px solid #edf0f3; }
-.notification-item.unread { box-shadow: inset 3px 0 #1677ff; background: #fafcff; }
+.notification-item.unread { box-shadow: inset 3px 0 var(--brand-blue); background: #fafcff; }
 .notification-head { display: flex; align-items: center; gap: 8px; }
 .notification-head strong { flex: 1; }
 .type-tag { padding: 2px 7px; border-radius: 4px; color: #fff; background: #64748b; font-size: 11px; }
-.type-tag.ORDER_STATUS { background: #1677ff; } .type-tag.AUDIT { background: #d48806; } .type-tag.SYSTEM { background: #389e0d; }
-.unread-dot { width: 8px; height: 8px; border-radius: 50%; background: #1677ff; }
+.type-tag.ORDER_STATUS { background: var(--brand-blue); } .type-tag.AUDIT { background: #d48806; } .type-tag.SYSTEM { background: #389e0d; }
+.unread-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand-blue); }
 .notification-item p { margin: 9px 0; color: #52606d; line-height: 1.6; }
 .notification-item footer { display: flex; align-items: center; justify-content: space-between; }
 .notification-item time { color: #9aa4af; font-size: 12px; }
-.notification-item footer button { padding: 3px; border: 0; color: #1677ff; background: transparent; cursor: pointer; }
+.notification-item footer button { padding: 3px; border: 0; color: var(--brand-blue); background: transparent; cursor: pointer; }
+@media (max-width: 980px) {
+  .community-layout { grid-template-columns: 270px minmax(0, 1fr); }
+  .community-side { display: none; }
+}
 @media (max-width: 700px) {
   .message-page { margin: -8px; }
-  .page-header { display: grid; padding: 8px; }
-  .conversation-workspace { display: block; height: calc(100vh - 180px); min-height: 480px; }
+  .page-header { display: grid; padding: 16px; }
+  .community-layout { display: block; height: calc(100vh - 180px); min-height: 480px; }
   .conversation-sidebar { height: 100%; border-right: 0; }
   .chat-workspace { display: none; height: 100%; }
-  .conversation-workspace.mobile-chat-open .conversation-sidebar { display: none; }
-  .conversation-workspace.mobile-chat-open .chat-workspace { display: grid; }
+  .community-layout.mobile-chat-open .conversation-sidebar { display: none; }
+  .community-layout.mobile-chat-open .chat-workspace { display: grid; }
   .back-button { display: block; }
 }
 </style>

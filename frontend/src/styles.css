@@ -1,6 +1,18 @@
 :root {
-  color: #17212b;
-  background: #f4f6f8;
+  --brand-blue: #1677ff;
+  --brand-blue-dark: #0f5fd6;
+  --brand-green: #16a34a;
+  --brand-teal: #0f9f8f;
+  --ink: #17212b;
+  --muted: #64748b;
+  --line: #dbe4ee;
+  --surface: #ffffff;
+  --soft-blue: #eef6ff;
+  --soft-green: #ecfdf5;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  color: var(--ink);
+  background: #f5f8fc;
   font-family: Inter, "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
 }
 
@@ -12,7 +24,9 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #f4f6f8;
+  background:
+    radial-gradient(circle at 14% 0%, rgba(22, 119, 255, 0.08), transparent 28%),
+    linear-gradient(180deg, #f8fbff 0%, #f4f7fb 44%, #f6f8fb 100%);
 }
 
 button,

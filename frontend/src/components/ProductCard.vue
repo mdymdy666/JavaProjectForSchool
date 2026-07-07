@@ -38,9 +38,14 @@ function statusTag(status: string) {
         <span>{{ product.categoryName }}</span>
         <span>{{ product.itemCondition }}</span>
       </div>
+      <div class="seller-line">
+        <span class="seller-avatar">{{ product.sellerNickname.slice(0, 1) }}</span>
+        <span>{{ product.sellerNickname }}</span>
+        <small>{{ product.viewCount }} 浏览</small>
+      </div>
       <div class="card-footer">
         <strong class="price">&yen;{{ product.price.toFixed(2) }}</strong>
-        <small>{{ product.viewCount }} 浏览 · {{ product.sellerNickname }}</small>
+        <span>同校自提</span>
       </div>
     </div>
   </article>
@@ -48,20 +53,22 @@ function statusTag(status: string) {
 
 <style scoped>
 .product-card {
-  border: 1px solid #e8e8e8;
-  border-radius: 8px;
+  border: 1px solid #e1e8f0;
+  border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-  transition: box-shadow 0.2s;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
   background: #fff;
 }
 .product-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  border-color: #bfd8ff;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.1);
 }
 .card-image {
   position: relative;
-  height: 180px;
-  background: #f5f5f5;
+  height: 184px;
+  background: #eef3f8;
 }
 .card-image img {
   width: 100%;
@@ -73,50 +80,83 @@ function statusTag(status: string) {
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: #999;
+  color: #94a3b8;
   font-size: 14px;
 }
 .status-tag {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  padding: 2px 8px;
-  border-radius: 4px;
+  top: 10px;
+  right: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
   font-size: 12px;
+  font-weight: 800;
   color: #fff;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
 }
-.status-tag.success { background: #52c41a; }
-.status-tag.warning { background: #faad14; }
-.status-tag.danger { background: #ff4d4f; }
-.status-tag.info { background: #1677ff; }
+.status-tag.success { background: #22c55e; }
+.status-tag.warning { background: #f59e0b; }
+.status-tag.danger { background: #ef4444; }
+.status-tag.info { background: var(--brand-blue); }
 .card-body {
-  padding: 12px;
+  display: grid;
+  gap: 8px;
+  padding: 13px 14px 14px;
 }
 .card-body h3 {
-  font-size: 15px;
-  margin: 0 0 6px;
+  min-height: 22px;
+  margin: 0;
   overflow: hidden;
+  color: #17212b;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.35;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .card-meta {
   display: flex;
-  gap: 12px;
+  gap: 10px;
+  color: #64748b;
+  font-size: 13px;
+}
+.seller-line {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  color: #475569;
   font-size: 12px;
-  color: #888;
-  margin-bottom: 8px;
+}
+.seller-avatar {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #e8f3ff;
+  color: var(--brand-blue);
+  font-size: 12px;
+  font-weight: 900;
+}
+.seller-line small {
+  margin-left: auto;
+  color: #94a3b8;
+  white-space: nowrap;
 }
 .card-footer {
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: space-between;
+  gap: 8px;
 }
 .price {
-  color: #ff4d4f;
-  font-size: 18px;
+  color: #ef4444;
+  font-size: 21px;
+  line-height: 1;
 }
-.card-footer small {
-  color: #999;
+.card-footer span {
+  color: #64748b;
   font-size: 12px;
 }
 </style>

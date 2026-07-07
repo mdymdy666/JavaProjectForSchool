@@ -27,7 +27,7 @@ describe('AppHeader', () => {
     expect(cart.find('[data-icon="cart"]').exists()).toBe(true)
   })
 
-  it('keeps cart and login labels visible on the white header', async () => {
+  it('keeps cart and login labels visible on the polished header', async () => {
     const router = createRouter({
       history: createMemoryHistory(),
       routes: [{ path: '/', component: { template: '<div />' } }]
@@ -41,6 +41,6 @@ describe('AppHeader', () => {
     expect(login).toBeDefined()
     expect(cart.text()).toContain('购物车')
     expect(login!.text()).toBe('登录')
-    expect(headerSource).toMatch(/\.right button \{[^}]*color:\s*#333;/)
+    expect(headerSource).toMatch(/\.app-header \{[^}]*box-shadow:\s*0 8px 24px/s)
   })
 })

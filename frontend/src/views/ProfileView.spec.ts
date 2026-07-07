@@ -47,12 +47,13 @@ vi.mock('../api/upload', () => ({
 }))
 
 describe('ProfileView', () => {
-  it('renders user-management modules for profile, addresses, trust and products', async () => {
+  it('renders the workspace-style user center modules', async () => {
     const wrapper = mount(ProfileView)
     await flushPromises()
 
-    expect(wrapper.text()).toContain('计科小李')
+    expect(wrapper.get('[data-test="profile-workbench"]').text()).toContain('计科小李')
     expect(wrapper.get('[data-test="profile-panel"]').text()).toContain('上传头像')
+    expect(wrapper.text()).toContain('待处理事项')
 
     await wrapper.get('button:nth-of-type(2)').trigger('click')
     expect(wrapper.get('[data-test="address-panel"]').text()).toContain('软件学院 502')

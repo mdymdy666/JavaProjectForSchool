@@ -20,9 +20,12 @@ function go(path: string) {
 
 <template>
   <header class="app-header">
-    <span class="logo" @click="go('/')">校园二手交易</span>
+    <button class="logo" type="button" @click="go('/')">
+      <span class="logo-text">校园二手交易</span>
+      <small>同校交易 · 安全放心</small>
+    </button>
 
-    <nav class="nav">
+    <nav class="nav" aria-label="主导航">
       <button @click="go('/')">首页</button>
       <button @click="go('/products')">市场</button>
       <button v-if="auth.isLoggedIn" @click="go('/publish')">发布</button>
@@ -54,25 +57,135 @@ function go(path: string) {
 
 <style scoped>
 .app-header {
-  display: flex; align-items: center; gap: 10px;
-  padding: 0 20px; height: 52px; background: #fff;
-  border-bottom: 1px solid #e8e8e8; position: sticky; top: 0; z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 22px;
   min-width: 0;
+  height: 68px;
+  padding: 0 38px;
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid rgba(219, 228, 238, 0.9);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(14px);
 }
-.logo { font-weight: 700; font-size: 17px; color: #1677ff; cursor: pointer; flex-shrink: 0; margin-right: 6px; }
-.nav { display: flex; gap: 2px; flex: 1; min-width: 0; overflow: hidden; }
-.nav button { flex-shrink: 0; background: none; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; color: #333; font-size: 13px; white-space: nowrap; }
-.nav button:hover { background: #f0f0f0; }
+.logo {
+  display: grid;
+  gap: 2px;
+  min-width: 186px;
+  padding: 0;
+  border: 0;
+  color: var(--ink);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+.logo-text {
+  color: var(--brand-blue);
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+}
+.logo small {
+  color: #8a99aa;
+  font-size: 11px;
+  font-weight: 700;
+}
+.nav {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+.nav button {
+  position: relative;
+  flex-shrink: 0;
+  min-width: 54px;
+  height: 38px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #233044;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.nav button:hover {
+  color: var(--brand-blue);
+  background: var(--soft-blue);
+}
 .nav button.msg-nav { position: relative; }
-.right { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
-.right button { padding: 4px 12px; border: 1px solid #d9d9d9; border-radius: 5px; color: #333; background: #fff; cursor: pointer; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
-.right button.ghost { color: #666; border-color: transparent; }
-.right button.user { color: #1677ff; border-color: #1677ff; }
-.right button.cart { position: relative; display: inline-flex; align-items: center; gap: 6px; padding-right: 14px; }
+.right {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+.right button {
+  height: 36px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: #233044;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.right button:hover {
+  border-color: var(--brand-blue);
+  color: var(--brand-blue);
+}
+.right button.ghost {
+  color: #64748b;
+  border-color: transparent;
+  background: transparent;
+}
+.right button.user {
+  color: var(--brand-blue);
+  border-color: #b9d7ff;
+  background: #f7fbff;
+}
+.right button.cart {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding-right: 14px;
+}
 .badge {
-  position: absolute; top: -6px; right: -6px;
-  min-width: 17px; height: 17px; line-height: 17px;
-  background: #ff4d4f; color: #fff; border-radius: 9px;
-  font-size: 10px; text-align: center; padding: 0 4px; font-style: normal;
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: var(--danger);
+  color: #fff;
+  font-size: 10px;
+  font-style: normal;
+  line-height: 14px;
+  text-align: center;
+}
+@media (max-width: 820px) {
+  .app-header {
+    gap: 10px;
+    height: auto;
+    padding: 12px 14px;
+    flex-wrap: wrap;
+  }
+  .logo { min-width: 150px; }
+  .nav { order: 3; width: 100%; overflow-x: auto; }
+  .right { margin-left: auto; }
 }
 </style>

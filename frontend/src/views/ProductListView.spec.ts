@@ -12,7 +12,7 @@ vi.mock('../api/product', () => ({
 }))
 
 describe('ProductListView', () => {
-  it('keeps sort controls readable in normal and active states', async () => {
+  it('uses the clean market layout with readable sort controls', async () => {
     const router = createRouter({
       history: createMemoryHistory(),
       routes: [{ path: '/products', component: ProductListView }]
@@ -23,12 +23,12 @@ describe('ProductListView', () => {
     const wrapper = mount(ProductListView, { global: { plugins: [router] } })
     await flushPromises()
 
+    expect(wrapper.get('[data-test="market-shell"]').text()).toContain('校园市集')
     const sortButtons = wrapper.findAll('.sort-bar button')
     expect(sortButtons).toHaveLength(4)
     expect(sortButtons.map(button => button.text())).toEqual(['最新', '热度', '价格↑', '价格↓'])
     expect(sortButtons[0].classes()).toContain('active')
-    expect(listSource).toMatch(/\.sort-bar button \{[^}]*background:\s*#fff;/s)
-    expect(listSource).toMatch(/\.sort-bar button \{[^}]*color:\s*#253044;/s)
-    expect(listSource).toMatch(/\.sort-bar button\.active \{[^}]*background:\s*#1677ff;[^}]*color:\s*#fff;/s)
+    expect(listSource).toMatch(/\.market-layout \{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)\s*300px/s)
+    expect(listSource).toMatch(/\.sort-bar button\.active \{[^}]*background:\s*var\(--brand-blue\)/s)
   })
 })

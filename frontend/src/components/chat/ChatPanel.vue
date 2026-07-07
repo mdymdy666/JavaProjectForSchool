@@ -95,28 +95,127 @@ defineExpose({ clearDraft })
 </template>
 
 <style scoped>
-.chat-panel { display: grid; grid-template-rows: minmax(0, 1fr) auto; min-height: 0; background: #fff; }
-.message-viewport { min-height: 260px; overflow-y: auto; padding: 18px; background: #f5f7fa; }
-.bubble-list { display: grid; gap: 12px; }
-.bubble-row { display: flex; }
-.bubble-row.incoming { justify-content: flex-start; }
-.bubble-row.outgoing { justify-content: flex-end; }
-.bubble { max-width: min(76%, 480px); padding: 9px 12px 6px; border: 1px solid #e3e8ee; border-radius: 8px; color: #27313b; background: #fff; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04); }
-.outgoing .bubble { border-color: #b9d7ff; background: #e8f3ff; }
-.bubble p { margin: 0; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
-.bubble time { display: block; margin-top: 4px; color: #8792a0; font-size: 11px; text-align: right; }
-.empty-chat { margin: 0; padding: 72px 16px; color: #8792a0; text-align: center; }
-.composer { padding: 12px 14px; border-top: 1px solid #e6ebf0; background: #fff; }
-.composer textarea { display: block; width: 100%; resize: none; padding: 10px 12px; border: 1px solid #cfd8e3; border-radius: 6px; color: #17212b; background: #fff; font: inherit; line-height: 1.5; }
-.composer textarea:focus { border-color: #1677ff; outline: 2px solid rgba(22, 119, 255, 0.12); }
-.composer-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; }
-.composer-footer > div { min-width: 0; }
-.counter { color: #8792a0; font-size: 12px; }
-.send-error { margin-left: 10px; color: #d4380d; font-size: 12px; }
-.composer button { min-width: 84px; padding: 8px 18px; border: 0; border-radius: 6px; color: #fff; background: #1677ff; cursor: pointer; }
-.composer button:disabled { color: #8792a0; background: #e5e9ee; cursor: not-allowed; }
+.chat-panel {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: 0;
+  background: #f8fbff;
+}
+.message-viewport {
+  min-height: 260px;
+  overflow-y: auto;
+  padding: 22px;
+  background: linear-gradient(180deg, #f8fbff 0%, #f2f7ff 100%);
+}
+.bubble-list {
+  display: grid;
+  gap: 12px;
+}
+.bubble-row {
+  display: flex;
+}
+.bubble-row.incoming {
+  justify-content: flex-start;
+}
+.bubble-row.outgoing {
+  justify-content: flex-end;
+}
+.bubble {
+  max-width: min(76%, 500px);
+  padding: 10px 13px 7px;
+  border: 1px solid #e3e8ee;
+  border-radius: 12px 12px 12px 4px;
+  color: #27313b;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+}
+.outgoing .bubble {
+  border-color: #b9d7ff;
+  border-radius: 12px 12px 4px 12px;
+  background: #dfeeff;
+}
+.bubble p {
+  margin: 0;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.bubble time {
+  display: block;
+  margin-top: 4px;
+  color: #8792a0;
+  font-size: 11px;
+  text-align: right;
+}
+.empty-chat {
+  margin: 0;
+  padding: 72px 16px;
+  color: #8792a0;
+  text-align: center;
+}
+.composer {
+  padding: 14px 16px;
+  border-top: 1px solid #e6ebf0;
+  background: #fff;
+}
+.composer textarea {
+  display: block;
+  width: 100%;
+  resize: none;
+  padding: 12px 14px;
+  border: 1px solid #cfd8e3;
+  border-radius: 10px;
+  color: #17212b;
+  background: #fff;
+  font: inherit;
+  line-height: 1.5;
+}
+.composer textarea:focus {
+  border-color: var(--brand-blue);
+  outline: 3px solid rgba(22, 119, 255, 0.12);
+}
+.composer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+}
+.composer-footer > div {
+  min-width: 0;
+}
+.counter {
+  color: #8792a0;
+  font-size: 12px;
+}
+.send-error {
+  margin-left: 10px;
+  color: #d4380d;
+  font-size: 12px;
+}
+.composer button {
+  min-width: 88px;
+  height: 38px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--brand-blue);
+  cursor: pointer;
+  font-weight: 900;
+}
+.composer button:disabled {
+  color: #8792a0;
+  background: #e5e9ee;
+  cursor: not-allowed;
+}
 @media (max-width: 700px) {
-  .message-viewport { min-height: 360px; padding: 14px 10px; }
-  .bubble { max-width: 86%; }
+  .message-viewport {
+    min-height: 360px;
+    padding: 14px 10px;
+  }
+  .bubble {
+    max-width: 86%;
+  }
 }
 </style>

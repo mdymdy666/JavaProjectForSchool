@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/campus_trade?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: your_mysql_user
+    password: your_mysql_password
+  data:
+    redis:
+      host: localhost
+      port: 6379

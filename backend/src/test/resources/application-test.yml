@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:campus_trade;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: always
+  data:
+    redis:
+      repositories:
+        enabled: false
+
+campus-trade:
+  redis-enabled: false
+  upload-dir: target/test-uploads
+  jwt-secret: campus-trade-test-secret-key-for-jwt-2026

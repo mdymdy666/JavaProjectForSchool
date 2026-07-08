@@ -1,0 +1,103 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / editor
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# Java / Spring Boot
+target/
+build/
+out/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+hs_err_pid*
+replay_pid*
+
+# Maven / Gradle
+.mvn-settings.xml
+.m2/
+.m2repo/
+.mvn/wrapper/maven-wrapper.jar
+.gradle/
+gradle-app.setting
+!gradle/wrapper/gradle-wrapper.jar
+
+# Node / Vue / Vite
+.pnpm-store/
+node_modules/
+dist/
+dist-ssr/
+.vite/
+.nuxt/
+.output/
+coverage/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+application-local.yml
+application-local.yaml
+application-prod.yml
+application-prod.yaml
+application-secret.yml
+application-secret.yaml
+
+# Runtime files
+logs/
+log/
+tmp/
+temp/
+/cache/
+reports/tmp/
+*.tmp
+*.bak
+uploads/
+upload/
+files/
+storage/
+public/uploads/
+
+# Database / Redis runtime data
+*.db
+*.sqlite
+*.sqlite3
+*.ibd
+*.frm
+*.myd
+*.myi
+*.pid
+dump.rdb
+appendonly.aof
+appendonlydir/
+mysql-data/
+redis-data/
+
+# Build and package archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z

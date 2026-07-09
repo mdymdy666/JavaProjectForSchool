@@ -42,5 +42,7 @@ describe('AppHeader', () => {
     expect(cart.text()).toContain('购物车')
     expect(login!.text()).toBe('登录')
     expect(headerSource).toMatch(/\.app-header \{[^}]*box-shadow:\s*0 8px 24px/s)
+    expect(headerSource).toMatch(/\.right button\.cart \{[^}]*border-width:\s*2px;/s)
+    expect(headerSource).toMatch(/\.right button\.logout \{[^}]*color:\s*#dc2626;/s)
   })
 })

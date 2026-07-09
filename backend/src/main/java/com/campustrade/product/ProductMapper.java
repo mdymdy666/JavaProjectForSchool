@@ -1,5 +1,7 @@
 package com.campustrade.product;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,6 +17,12 @@ public interface ProductMapper extends BaseMapper<Product> {
 
     @Select("SELECT name FROM categories WHERE id = #{categoryId}")
     String categoryName(@Param("categoryId") long categoryId);
+
+    @Select("""
+            SELECT id FROM categories
+            WHERE enabled = 1 AND name LIKE CONCAT('%', #{keyword}, '%')
+            """)
+    List<Long> categoryIdsLike(@Param("keyword") String keyword);
 
     @Insert("""
             INSERT INTO audit_logs(admin_id, target_type, target_id, action, reason)
@@ -42,6 +50,12 @@ public interface ProductMapper extends BaseMapper<Product> {
             WHERE id = #{productId} AND seller_id = #{sellerId} AND deleted = 0
             """)
     int softDelete(@Param("productId") long productId, @Param("sellerId") long sellerId);
+
+    @Update("""
+            UPDATE products SET view_count = view_count + 1
+            WHERE id = #{productId} AND deleted = 0
+            """)
+    int incrementViewCount(@Param("productId") long productId);
 
     @Update("""
             UPDATE products SET status = 'SOLD', version = version + 1

@@ -3,8 +3,10 @@ package com.campustrade.product;
 import static com.campustrade.product.ProductDtos.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.time.Duration;
+import java.util.Set;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -66,8 +68,27 @@ public class ProductService {
                 .le(maxPrice != null, Product::getPrice, maxPrice);
         if (StringUtils.hasText(keyword)) {
             String normalized = keyword.trim();
-            query.and(item -> item.like(Product::getTitle, normalized)
-                    .or().like(Product::getDescription, normalized));
+            List<String> terms = searchTerms(normalized);
+            List<Long> categoryIds = terms.stream()
+                    .flatMap(term -> productMapper.categoryIdsLike(term).stream())
+                    .distinct()
+                    .toList();
+            query.and(item -> {
+                boolean first = true;
+                for (String term : terms) {
+                    if (first) {
+                        item.like(Product::getTitle, term);
+                        first = false;
+                    } else {
+                        item.or().like(Product::getTitle, term);
+                    }
+                    item.or().like(Product::getDescription, term)
+                            .or().like(Product::getItemCondition, term);
+                }
+                if (!categoryIds.isEmpty()) {
+                    item.or().in(Product::getCategoryId, categoryIds);
+                }
+            });
         }
         applySort(query, sort);
         Page<Product> result = productMapper.selectPage(new Page<>(pageNumber, pageSize), query);
@@ -146,26 +167,17 @@ public class ProductService {
     }
 
     public ProductDetail detail(long productId, SecurityUser viewer) {
-        long addedViews = redisSupport.increment(
-                CacheNames.PRODUCT_VIEW + productId, Duration.ofDays(7)).orElse(0);
-        redisSupport.incrementScore(CacheNames.PRODUCT_HOT, String.valueOf(productId));
-        if (viewer == null) {
-            ProductDetail cached = redisSupport.getJson(
-                    CacheNames.PRODUCT_DETAIL + productId, ProductDetail.class).orElse(null);
-            if (cached != null) return withViews(cached, addedViews);
-        }
         Product product = requireProduct(productId);
         boolean privileged = viewer != null
                 && (product.getSellerId().equals(viewer.userId()) || "ADMIN".equals(viewer.role()));
         if (!ProductStatus.APPROVED.name().equals(product.getStatus()) && !privileged) {
             throw new BusinessException(ErrorCode.PRODUCT_NOT_FOUND);
         }
+        productMapper.incrementViewCount(productId);
+        product.setViewCount((product.getViewCount() == null ? 0 : product.getViewCount()) + 1);
+        redisSupport.incrementScore(CacheNames.PRODUCT_HOT, String.valueOf(productId));
         Long viewerId = viewer == null ? null : viewer.userId();
-        ProductDetail detail = toDetail(product, viewerId);
-        if (viewer == null) {
-            redisSupport.putJson(CacheNames.PRODUCT_DETAIL + productId, detail, Duration.ofMinutes(10));
-        }
-        return withViews(detail, addedViews);
+        return toDetail(product, viewerId);
     }
 
     @Transactional
@@ -268,18 +280,40 @@ public class ProductService {
         return toDetail(product, ownerId);
     }
 
-    private ProductDetail withViews(ProductDetail detail, long addedViews) {
-        if (addedViews <= 0) return detail;
-        return new ProductDetail(detail.id(), detail.sellerId(), detail.sellerNickname(),
-                detail.sellerAvatarUrl(), detail.sellerProductCount(),
-                detail.categoryId(), detail.categoryName(), detail.title(), detail.description(),
-                detail.price(), detail.itemCondition(), detail.status(),
-                Math.toIntExact((long) detail.viewCount() + addedViews), detail.images(),
-                detail.favorite(), detail.createdAt());
-    }
-
     private void evict(long productId) {
         redisSupport.delete(CacheNames.PRODUCT_DETAIL + productId);
+    }
+
+    private List<String> searchTerms(String keyword) {
+        Set<String> terms = new LinkedHashSet<>();
+        String normalized = keyword.trim();
+        if (!StringUtils.hasText(normalized)) return List.of();
+        terms.add(normalized);
+        for (String part : normalized.split("[\\s,，、]+")) {
+            if (StringUtils.hasText(part)) terms.add(part.trim());
+        }
+        for (int i = 0; i < normalized.length() - 1; i++) {
+            String term = normalized.substring(i, i + 2).trim();
+            if (StringUtils.hasText(term)) terms.add(term);
+        }
+        addSearchAliases(normalized, terms);
+        return new ArrayList<>(terms);
+    }
+
+    private void addSearchAliases(String keyword, Set<String> terms) {
+        if (keyword.contains("耳机")) {
+            terms.add("AirPods");
+            terms.add("耳塞");
+            terms.add("降噪");
+        }
+        if (keyword.contains("资料")) {
+            terms.add("复习");
+            terms.add("真题");
+        }
+        if (keyword.contains("考研")) {
+            terms.add("数学");
+            terms.add("复习");
+        }
     }
 
     private ProductDetail toDetail(Product product, Long viewerId) {

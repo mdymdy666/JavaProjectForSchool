@@ -1,0 +1,832 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/vcl2ji",
+    "id": "vcl2ji",
+    "slide": 2,
+    "layoutId": "240d9eca-4185-4b9e-ba31-224c15abbd08",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "45bb0e84-0615-40df-820b-d6c433adf30d",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "240d9eca-4185-4b9e-ba31-224c15abbd08",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "45bb0e84-0615-40df-820b-d6c433adf30d",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "45bb0e84-0615-40df-820b-d6c433adf30d",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/25kb6xkf",
+      "id": "1",
+      "bbox": [
+        54,
+        34,
+        260,
+        24
+      ],
+      "geometry": "rect",
+      "text": "第一章 项目简介",
+      "textPreview": "第一章 项目简介",
+      "resolvedFontSize": 14,
+      "resolvedTextStyle": {
+        "fontSize": 14,
+        "typeface": "+mn-lt",
+        "color": "#1E6FFF",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "第一章 项目简介"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "第一章 项目简介",
+          "resolvedTextStyle": {
+            "fontSize": 14,
+            "color": "#1E6FFF",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "第一章 项目简介",
+              "fontSize": 14,
+              "color": "#1E6FFF",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9w3m94fu",
+      "id": "2",
+      "bbox": [
+        54,
+        66,
+        950,
+        58
+      ],
+      "geometry": "rect",
+      "text": "项目严格对齐指导书给出的技术栈和功能范围",
+      "textPreview": "项目严格对齐指导书给出的技术栈和功能范围",
+      "resolvedFontSize": 36,
+      "resolvedTextStyle": {
+        "fontSize": 36,
+        "typeface": "+mn-lt",
+        "color": "#0F172A",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "项目严格对齐指导书给出的技术栈和功能范围"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "项目严格对齐指导书给出的技术栈和功能范围",
+          "resolvedTextStyle": {
+            "fontSize": 36,
+            "color": "#0F172A",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "项目严格对齐指导书给出的技术栈和功能范围",
+              "fontSize": 36,
+              "color": "#0F172A",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kb6xkf6d",
+      "id": "3",
+      "bbox": [
+        54,
+        138,
+        1172,
+        1
+      ],
+      "geometry": "rect",
+      "fillColor": "#D8E2F0",
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/re1w7mp0",
+      "id": "4",
+      "bbox": [
+        1188,
+        650,
+        38,
+        24
+      ],
+      "geometry": "rect",
+      "text": "02",
+      "textPreview": "02",
+      "resolvedFontSize": 14,
+      "resolvedTextStyle": {
+        "fontSize": 14,
+        "typeface": "+mn-lt",
+        "color": "#64748B",
+        "alignment": "right",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "02"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "02",
+          "resolvedTextStyle": {
+            "fontSize": 14,
+            "color": "#64748B",
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "02",
+              "fontSize": 14,
+              "color": "#64748B",
+              "alignment": "right"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2t83itgf",
+      "id": "5",
+      "bbox": [
+        54,
+        198,
+        8,
+        8
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#1E6FFF",
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9knih4by",
+      "id": "6",
+      "bbox": [
+        76,
+        190,
+        668,
+        58
+      ],
+      "geometry": "rect",
+      "text": "项目题目：校园二手物品交易平台的设计与实现。",
+      "textPreview": "项目题目：校园二手物品交易平台的设计与实现。",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "+mn-lt",
+        "color": "#0F172A",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "项目题目：校园二手物品交易平台的设计与实现。"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "项目题目：校园二手物品交易平台的设计与实现。",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "color": "#0F172A",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "项目题目：校园二手物品交易平台的设计与实现。",
+              "fontSize": 21,
+              "color": "#0F172A",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kzupwb2h",
+      "id": "7",
+      "bbox": [
+        54,
+        258,
+        8,
+        8
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#1E6FFF",
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ra5gbq1o",
+      "id": "8",
+      "bbox": [
+        76,
+        250,
+        668,
+        58
+      ],
+      "geometry": "rect",
+      "text": "技术要求：Vue3 + Spring Boot + MySQL + Redis，采用前后端分离架构。",
+      "textPreview": "技术要求：Vue3 + Spring Boot + MySQL + Redis，采用前后端分离架构。",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "+mn-lt",
+        "color": "#0F172A",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "技术要求：Vue3 + Spring Boot + MySQL + Redis，采用前后端分离架构。"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "技术要求：Vue3 + Spring Boot + MySQL + Redis，采用前后端分离架构。",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "color": "#0F172A",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "技术要求：Vue3 + Spring Boot + MySQL + Redis，采用前后端分离架构。",
+              "fontSize": 21,
+              "color": "#0F172A",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2p8nqxs7",
+      "id": "9",
+      "bbox": [
+        54,
+        318,
+        8,
+        8
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#1E6FFF",
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gvy90je9",
+      "id": "10",
+      "bbox": [
+        76,
+        310,
+        668,
+        58
+      ],
+      "geometry": "rect",
+      "text": "安全要求：JWT + Spring Security 实现用户认证与授权。",
+      "textPreview": "安全要求：JWT + Spring Security 实现用户认证与授权。",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "+mn-lt",
+        "color": "#0F172A",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "安全要求：JWT + Spring Security 实现用户认证与授权。"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "安全要求：JWT + Spring Security 实现用户认证与授权。",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "color": "#0F172A",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "安全要求：JWT + Spring Security 实现用户认证与授权。",
+              "fontSize": 21,
+              "color": "#0F172A",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9gr2p8nq",
+      "id": "11",
+      "bbox": [
+        54,
+        378,
+        8,
+        8
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#1E6FFF",
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2p8nqxs7",
+      "id": "12",
+      "bbox": [
+        76,
+        370,
+        668,
+        58
+      ],
+      "geometry": "rect",
+      "text": "功能要求：覆盖用户、商品、订单、消息、后台管理，并扩展推荐、敏感词和举报处理。",
+      "textPreview": "功能要求：覆盖用户、商品、订单、消息、后台管理，并扩展推荐、敏感词和举报处理。",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "+mn-lt",
+        "color": "#0F172A",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "功能要求：覆盖用户、商品、订单、消息、后台管理，并扩展推荐、"
+          },
+          {
+            "index": 2,
+            "text": "敏感词和举报处理。"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "功能要求：覆盖用户、商品、订单、消息、后台管理，并扩展推荐、敏感词和举报处理。",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "color": "#0F172A",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "功能要求：覆盖用户、商品、订单、消息、后台管理，并扩展推荐、敏感词和举报处理。",
+              "fontSize": 21,
+              "color": "#0F172A",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ra5gbq1o",
+      "id": "13",
+      "bbox": [
+        820,
+        195,
+        330,
+        210
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#EEF5FF",
+      "lineColor": "#D8E2F0",
+      "lineWidth": 1
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kjm1cfa9",
+      "id": "14",
+      "bbox": [
+        850,
+        222,
+        260,
+        32
+      ],
+      "geometry": "rect",
+      "text": "指导书关键词",
+      "textPreview": "指导书关键词",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "+mn-lt",
+        "color": "#1E6FFF",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "指导书关键词"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "指导书关键词",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "color": "#1E6FFF",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "指导书关键词",
+              "fontSize": 24,
+              "color": "#1E6FFF",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/94fu18jq",
+      "id": "15",
+      "bbox": [
+        850,
+        274,
+        260,
+        112
+      ],
+      "geometry": "rect",
+      "text": "应用系统\n项目难度 B\n建议 3-4 人\n校园 C2C 交易平台",
+      "textPreview": "应用系统 | 项目难度 B | 建议 3-4 人 | 校园 C2C 交易平台",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "+mn-lt",
+        "color": "#0F172A",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "应用系统"
+          },
+          {
+            "index": 2,
+            "text": "项目难度 B"
+          },
+          {
+            "index": 3,
+            "text": "建议 3-4 人"
+          },
+          {
+            "index": 4,
+            "text": "校园 C2C 交易平台"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "应用系统",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#0F172A",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "应用系统",
+              "fontSize": 22,
+              "color": "#0F172A",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "项目难度 B",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#0F172A",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "项目难度 B",
+              "fontSize": 22,
+              "color": "#0F172A",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "建议 3-4 人",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#0F172A",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "建议 3-4 人",
+              "fontSize": 22,
+              "color": "#0F172A",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 4,
+          "text": "校园 C2C 交易平台",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#0F172A",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "校园 C2C 交易平台",
+              "fontSize": 22,
+              "color": "#0F172A",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2hwfyxob",
+      "id": "16",
+      "bbox": [
+        785,
+        468,
+        410,
+        86
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#D8E2F0",
+      "lineWidth": 1
+    },
+    {
+      "order": 17,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/47y1kre1",
+      "id": "17",
+      "bbox": [
+        793,
+        476,
+        394,
+        70
+      ],
+      "geometry": "roundRect",
+      "alt": "平台商品分类截图",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "imageMask": {
+        "geometry": "roundRect",
+        "adjustmentList": [
+          {
+            "name": "adj",
+            "formula": "val 11429"
+          }
+        ]
+      },
+      "asset": {
+        "assetId": "e1b3b459-5b92-45f9-8e9e-69f732210305",
+        "contentType": "image/png",
+        "byteLength": 48748
+      }
+    }
+  ],
+  "composeRuns": []
+}

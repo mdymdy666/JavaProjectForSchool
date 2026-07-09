@@ -113,7 +113,12 @@ class ProductFlowTest {
                         .header("Authorization", bearer(buyer)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.favorite").value(true))
-                .andExpect(jsonPath("$.data.sellerNickname").value("校园卖家"));
+                .andExpect(jsonPath("$.data.sellerNickname").value("校园卖家"))
+                .andExpect(jsonPath("$.data.viewCount").value(1));
+
+        assertThat(jdbcTemplate.queryForObject(
+                "SELECT view_count FROM products WHERE id = ?",
+                Integer.class, productId)).isEqualTo(1);
 
         mockMvc.perform(post("/api/products/{id}/off-shelf", productId)
                         .header("Authorization", bearer(seller)))

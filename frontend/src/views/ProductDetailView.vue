@@ -349,7 +349,7 @@ onMounted(fetch)
 .price span { font-size: 18px; margin-right: 2px; }
 
 .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #fafafa; border-radius: 8px; padding: 14px 16px; }
-.meta-item label { display: block; font-size: 12px; color: #999; margin-bottom: 2px; }
+.meta-item label { display: block; font-size: 12px; color: #475569; font-weight: 700; margin-bottom: 2px; }
 .meta-item span { font-size: 14px; color: #333; }
 
 /* 卖家操作栏 */

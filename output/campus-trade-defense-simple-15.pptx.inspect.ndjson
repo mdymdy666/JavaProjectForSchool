@@ -1,0 +1,275 @@
+{"kind":"deck","id":"pr/01etz1","name":"Deck"}
+{"kind":"layout","layoutId":"45bb0e84-0615-40df-820b-d6c433adf30d","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"240d9eca-4185-4b9e-ba31-224c15abbd08","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/pan8bc","slide":1,"title":"软件与理论综合设计与实践","textShapes":6}
+{"kind":"textbox","id":"sh/4zidonyd","slide":1,"text":"软件与理论综合设计与实践","textPreview":"软件与理论综合设计与实践","textChars":12,"textLines":1,"bbox":[54,44,360,28]}
+{"kind":"textbox","id":"sh/fepkzupw","slide":1,"text":"校园二手物品交易平台的设计与实现","textPreview":"校园二手物品交易平台的设计与实现","textChars":16,"textLines":1,"bbox":[54,168,630,138]}
+{"kind":"textbox","id":"sh/mtwra5gb","slide":1,"text":"Vue3 + Spring Boot + MySQL + Redis","textPreview":"Vue3 + Spring Boot + MySQL + Redis","textChars":34,"textLines":1,"bbox":[54,340,520,34]}
+{"kind":"textbox","id":"sh/xc3ylc7u","slide":1,"text":"项目答辩","textPreview":"项目答辩","textChars":4,"textLines":1,"bbox":[54,555,200,32]}
+{"kind":"textbox","id":"sh/4r65wjud","slide":1,"text":"指导教师：徐士伟 / 小组成员 / 日期","textPreview":"指导教师：徐士伟 / 小组成员 / 日期","textChars":20,"textLines":1,"bbox":[54,596,420,26]}
+{"kind":"shape","id":"sh/f6dcbulw","slide":1,"bbox":[730,140,470,310]}
+{"kind":"textbox","id":"sh/x0nuxc3y","slide":1,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"image","id":"im/f6dcbulw","slide":1,"name":"","geometry":"roundRect","alt":"推荐商品卡片页面截图","bbox":[738,148,454,294]}
+{"kind":"notes","id":"nt/pan8bc","slide":1,"text":""}
+{"kind":"slide","id":"sl/vcl2ji","slide":2,"title":"第一章 项目简介","textShapes":9}
+{"kind":"textbox","id":"sh/25kb6xkf","slide":2,"text":"第一章 项目简介","textPreview":"第一章 项目简介","textChars":8,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/9w3m94fu","slide":2,"text":"项目严格对齐指导书给出的技术栈和功能范围","textPreview":"项目严格对齐指导书给出的技术栈和功能范围","textChars":20,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/kb6xkf6d","slide":2,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/re1w7mp0","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/2t83itgf","slide":2,"bbox":[54,198,8,8]}
+{"kind":"textbox","id":"sh/9knih4by","slide":2,"text":"项目题目：校园二手物品交易平台的设计与实现。","textPreview":"项目题目：校园二手物品交易平台的设计与实现。","textChars":22,"textLines":1,"bbox":[76,190,668,58]}
+{"kind":"shape","id":"sh/kzupwb2h","slide":2,"bbox":[54,258,8,8]}
+{"kind":"textbox","id":"sh/ra5gbq1o","slide":2,"text":"技术要求：Vue3 + Spring Boot + MySQL + Redis，采用前后端分离架构。","textPreview":"技术要求：Vue3 + Spring Boot + MySQL + Redis，采用前后端分离架构。","textChars":50,"textLines":1,"bbox":[76,250,668,58]}
+{"kind":"shape","id":"sh/2p8nqxs7","slide":2,"bbox":[54,318,8,8]}
+{"kind":"textbox","id":"sh/gvy90je9","slide":2,"text":"安全要求：JWT + Spring Security 实现用户认证与授权。","textPreview":"安全要求：JWT + Spring Security 实现用户认证与授权。","textChars":37,"textLines":1,"bbox":[76,310,668,58]}
+{"kind":"shape","id":"sh/9gr2p8nq","slide":2,"bbox":[54,378,8,8]}
+{"kind":"textbox","id":"sh/2p8nqxs7","slide":2,"text":"功能要求：覆盖用户、商品、订单、消息、后台管理，并扩展推荐、敏感词和举报处理。","textPreview":"功能要求：覆盖用户、商品、订单、消息、后台管理，并扩展推荐、敏感词和举报处理。","textChars":39,"textLines":1,"bbox":[76,370,668,58]}
+{"kind":"shape","id":"sh/ra5gbq1o","slide":2,"bbox":[820,195,330,210]}
+{"kind":"textbox","id":"sh/kjm1cfa9","slide":2,"text":"指导书关键词","textPreview":"指导书关键词","textChars":6,"textLines":1,"bbox":[850,222,260,32]}
+{"kind":"textbox","id":"sh/94fu18jq","slide":2,"text":"应用系统\n项目难度 B\n建议 3-4 人\n校园 C2C 交易平台","textPreview":"应用系统 | 项目难度 B | 建议 3-4 人 | 校园 C2C 交易平台","textChars":32,"textLines":4,"bbox":[850,274,260,112]}
+{"kind":"shape","id":"sh/2hwfyxob","slide":2,"bbox":[785,468,410,86]}
+{"kind":"image","id":"im/47y1kre1","slide":2,"name":"","geometry":"roundRect","alt":"平台商品分类截图","bbox":[793,476,394,70]}
+{"kind":"notes","id":"nt/vcl2ji","slide":2,"text":""}
+{"kind":"slide","id":"sl/8ehtmf","slide":3,"title":"第一章 项目简介","textShapes":13}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":3,"text":"第一章 项目简介","textPreview":"第一章 项目简介","textChars":8,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/18jqh0fe","slide":3,"text":"平台把校园闲置交易整理成一个可追踪闭环","textPreview":"平台把校园闲置交易整理成一个可追踪闭环","textChars":19,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/8nqxs72x","slide":3,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/jqh0fepk","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/q5o7qpg3","slide":3,"bbox":[610,178,570,250]}
+{"kind":"shape","id":"sh/8bat47y1","slide":3,"bbox":[54,210,108,70]}
+{"kind":"textbox","id":"sh/ji5snelo","slide":3,"text":"注册登录","textPreview":"注册登录","textChars":4,"textLines":1,"bbox":[66,233,84,24]}
+{"kind":"shape","id":"sh/uxc3ylc7","slide":3,"bbox":[186,210,108,70]}
+{"kind":"textbox","id":"sh/gn29gr2p","slide":3,"text":"发布商品","textPreview":"发布商品","textChars":4,"textLines":1,"bbox":[198,233,84,24]}
+{"kind":"shape","id":"sh/58z25kb6","slide":3,"bbox":[318,210,108,70]}
+{"kind":"textbox","id":"sh/yhgn29gr","slide":3,"text":"管理员审核","textPreview":"管理员审核","textChars":5,"textLines":1,"bbox":[330,233,84,24]}
+{"kind":"shape","id":"sh/n29gr2p8","slide":3,"bbox":[450,210,108,70]}
+{"kind":"textbox","id":"sh/gbq1oryt","slide":3,"text":"搜索浏览","textPreview":"搜索浏览","textChars":4,"textLines":1,"bbox":[462,233,84,24]}
+{"kind":"shape","id":"sh/5wjudg7a","slide":3,"bbox":[54,340,108,70]}
+{"kind":"textbox","id":"sh/y90je9cv","slide":3,"text":"下单支付","textPreview":"下单支付","textChars":4,"textLines":1,"bbox":[66,363,84,24]}
+{"kind":"shape","id":"sh/nuxc3ylc","slide":3,"bbox":[186,340,108,70]}
+{"kind":"textbox","id":"sh/cbulwval","slide":3,"text":"发货收货","textPreview":"发货收货","textChars":4,"textLines":1,"bbox":[198,363,84,24]}
+{"kind":"shape","id":"sh/5sneloj2","slide":3,"bbox":[318,340,108,70]}
+{"kind":"textbox","id":"sh/5o7qpg3e","slide":3,"text":"消息留痕","textPreview":"消息留痕","textChars":4,"textLines":1,"bbox":[330,363,84,24]}
+{"kind":"shape","id":"sh/g3ex0nux","slide":3,"bbox":[450,340,108,70]}
+{"kind":"textbox","id":"sh/nih4byhg","slide":3,"text":"后台管理","textPreview":"后台管理","textChars":4,"textLines":1,"bbox":[462,363,84,24]}
+{"kind":"textbox","id":"sh/yxobm58z","slide":3,"text":"解决的问题：信息分散、搜索困难、流程不规范、交易缺少留痕。","textPreview":"解决的问题：信息分散、搜索困难、流程不规范、交易缺少留痕。","textChars":29,"textLines":1,"bbox":[54,520,840,34]}
+{"kind":"textbox","id":"sh/9cvixcze","slide":3,"text":"市场页体现了搜索、分类、结果统计和发布入口，是业务闭环的主要入口。","textPreview":"市场页体现了搜索、分类、结果统计和发布入口，是业务闭环的主要入口。","textChars":33,"textLines":1,"bbox":[54,568,960,30]}
+{"kind":"image","id":"im/cvixczed","slide":3,"name":"","geometry":"roundRect","alt":"商品市场搜索页面截图","bbox":[618,186,554,234]}
+{"kind":"notes","id":"nt/8ehtmf","slide":3,"text":""}
+{"kind":"slide","id":"sl/7csp34","slide":4,"title":"第一章 项目简介","textShapes":13}
+{"kind":"textbox","id":"sh/0nuxc3yl","slide":4,"text":"第一章 项目简介","textPreview":"第一章 项目简介","textChars":8,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/72x4nap4","slide":4,"text":"功能模块覆盖用户端、交易端和管理端","textPreview":"功能模块覆盖用户端、交易端和管理端","textChars":17,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/ih4byhgn","slide":4,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/pkzupwb2","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/0z61032l","slide":4,"bbox":[54,185,560,120]}
+{"kind":"shape","id":"sh/itgfmlkj","slide":4,"bbox":[820,178,330,380]}
+{"kind":"textbox","id":"sh/0bi9s36h","slide":4,"text":"用户","textPreview":"用户","textChars":2,"textLines":1,"bbox":[54,350,70,28]}
+{"kind":"textbox","id":"sh/u18jqh0f","slide":4,"text":"注册登录、个人中心、地址管理","textPreview":"注册登录、个人中心、地址管理","textChars":14,"textLines":1,"bbox":[138,352,260,26]}
+{"kind":"textbox","id":"sh/jm1cfa9w","slide":4,"text":"商品","textPreview":"商品","textChars":2,"textLines":1,"bbox":[409,350,70,28]}
+{"kind":"textbox","id":"sh/c7u54zid","slide":4,"text":"发布、分类、搜索、收藏、上下架","textPreview":"发布、分类、搜索、收藏、上下架","textChars":15,"textLines":1,"bbox":[493,352,260,26]}
+{"kind":"textbox","id":"sh/1orytsvu","slide":4,"text":"订单","textPreview":"订单","textChars":2,"textLines":1,"bbox":[54,428,70,28]}
+{"kind":"textbox","id":"sh/u9knih4b","slide":4,"text":"下单、支付、发货、收货、取消","textPreview":"下单、支付、发货、收货、取消","textChars":14,"textLines":1,"bbox":[138,430,260,26]}
+{"kind":"textbox","id":"sh/judg7ads","slide":4,"text":"消息","textPreview":"消息","textChars":2,"textLines":1,"bbox":[409,428,70,28]}
+{"kind":"textbox","id":"sh/cfa9w3m9","slide":4,"text":"交易沟通、系统通知、已读未读","textPreview":"交易沟通、系统通知、已读未读","textChars":14,"textLines":1,"bbox":[493,430,260,26]}
+{"kind":"textbox","id":"sh/1032lszq","slide":4,"text":"后台","textPreview":"后台","textChars":2,"textLines":1,"bbox":[54,506,70,28]}
+{"kind":"textbox","id":"sh/udg7adsj","slide":4,"text":"数据概览、审核、用户、订单、公告","textPreview":"数据概览、审核、用户、订单、公告","textChars":16,"textLines":1,"bbox":[138,508,260,26]}
+{"kind":"image","id":"im/2p8nqxs7","slide":4,"name":"","geometry":"roundRect","alt":"商品分类入口截图","bbox":[62,193,544,104]}
+{"kind":"image","id":"im/kzupwb2h","slide":4,"name":"","geometry":"roundRect","alt":"热门榜和公告截图","bbox":[828,186,314,364]}
+{"kind":"notes","id":"nt/7csp34","slide":4,"text":""}
+{"kind":"slide","id":"sl/dqasg7","slide":5,"title":"第二章 重要设计与实现","textShapes":8}
+{"kind":"textbox","id":"sh/p0bi9s36","slide":5,"text":"第二章 重要设计与实现","textPreview":"第二章 重要设计与实现","textChars":11,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/i9s36hcr","slide":5,"text":"推荐算法在首页直接形成商品曝光入口","textPreview":"推荐算法在首页直接形成商品曝光入口","textChars":17,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/bulwval8","slide":5,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/032lszqt","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/tovahoza","slide":5,"bbox":[54,185,560,190]}
+{"kind":"shape","id":"sh/bi9s36hc","slide":5,"bbox":[54,410,560,210]}
+{"kind":"textbox","id":"sh/tcj6tova","slide":5,"text":"设计目标","textPreview":"设计目标","textChars":4,"textLines":1,"bbox":[690,188,180,32]}
+{"kind":"shape","id":"sh/hwfyxobm","slide":5,"bbox":[690,253,8,8]}
+{"kind":"textbox","id":"sh/obm58z25","slide":5,"text":"新用户优先看到热门、新鲜商品。","textPreview":"新用户优先看到热门、新鲜商品。","textChars":15,"textLines":1,"bbox":[712,245,448,56]}
+{"kind":"shape","id":"sh/zqtcj6to","slide":5,"bbox":[690,311,8,8]}
+{"kind":"textbox","id":"sh/65wjudg7","slide":5,"text":"老用户根据搜索、浏览、收藏、购买形成个性化推荐。","textPreview":"老用户根据搜索、浏览、收藏、购买形成个性化推荐。","textChars":24,"textLines":1,"bbox":[712,303,448,56]}
+{"kind":"shape","id":"sh/hk3q5o7q","slide":5,"bbox":[690,369,8,8]}
+{"kind":"textbox","id":"sh/oza1gvy9","slide":5,"text":"推荐结果带有价格、分类、浏览量和收藏入口，便于继续交易。","textPreview":"推荐结果带有价格、分类、浏览量和收藏入口，便于继续交易。","textChars":28,"textLines":1,"bbox":[712,361,448,56]}
+{"kind":"textbox","id":"sh/zed8v6ps","slide":5,"text":"页面上的“猜你喜欢”和“推荐好物”是推荐算法的前端落点。","textPreview":"页面上的“猜你喜欢”和“推荐好物”是推荐算法的前端落点。","textChars":28,"textLines":1,"bbox":[690,520,450,54]}
+{"kind":"image","id":"im/judg7ads","slide":5,"name":"","geometry":"roundRect","alt":"猜你喜欢推荐区截图","bbox":[62,193,544,174]}
+{"kind":"image","id":"im/54zidony","slide":5,"name":"","geometry":"roundRect","alt":"推荐好物商品卡片截图","bbox":[62,418,544,194]}
+{"kind":"notes","id":"nt/dqasg7","slide":5,"text":""}
+{"kind":"slide","id":"sl/bkg2gp","slide":6,"title":"第二章 重要设计与实现","textShapes":9}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":6,"text":"第二章 重要设计与实现","textPreview":"第二章 重要设计与实现","textChars":11,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/a1gvy90j","slide":6,"text":"推荐策略同时处理冷启动和个性化场景","textPreview":"推荐策略同时处理冷启动和个性化场景","textChars":17,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/zidonyd0","slide":6,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/svu9knih","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/hgn29gr2","slide":6,"bbox":[770,180,340,395]}
+{"kind":"shape","id":"sh/za1gvy90","slide":6,"bbox":[54,205,300,175]}
+{"kind":"textbox","id":"sh/sji5snel","slide":6,"text":"冷启动推荐","textPreview":"冷启动推荐","textChars":5,"textLines":1,"bbox":[78,230,250,30]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":6,"text":"面向未登录或无行为用户，依据浏览热度和发布时间排序。","textPreview":"面向未登录或无行为用户，依据浏览热度和发布时间排序。","textChars":26,"textLines":1,"bbox":[78,282,240,70]}
+{"kind":"shape","id":"sh/p4r65wju","slide":6,"bbox":[399,205,330,175]}
+{"kind":"textbox","id":"sh/wjudg7ad","slide":6,"text":"个性化推荐","textPreview":"个性化推荐","textChars":5,"textLines":1,"bbox":[423,230,270,30]}
+{"kind":"textbox","id":"sh/7y1kre1w","slide":6,"text":"面向有行为用户，根据搜索、浏览、收藏、购买构建用户画像。","textPreview":"面向有行为用户，根据搜索、浏览、收藏、购买构建用户画像。","textChars":28,"textLines":1,"bbox":[423,282,260,70]}
+{"kind":"shape","id":"sh/ed8v6psf","slide":6,"bbox":[54,430,620,100]}
+{"kind":"textbox","id":"sh/pwb2hwfy","slide":6,"text":"行为权重：浏览 8 / 搜索 14 / 收藏 30 / 购买 45","textPreview":"行为权重：浏览 8 / 搜索 14 / 收藏 30 / 购买 45","textChars":33,"textLines":1,"bbox":[78,462,560,32]}
+{"kind":"textbox","id":"sh/0bi9s36h","slide":6,"text":"热门榜对应冷启动与热度推荐，猜你喜欢对应个性化推荐。","textPreview":"热门榜对应冷启动与热度推荐，猜你喜欢对应个性化推荐。","textChars":26,"textLines":1,"bbox":[54,590,800,30]}
+{"kind":"image","id":"im/3ylc7u54","slide":6,"name":"","geometry":"roundRect","alt":"热门商品榜单截图","bbox":[778,188,324,379]}
+{"kind":"notes","id":"nt/bkg2gp","slide":6,"text":""}
+{"kind":"slide","id":"sl/iwaifw","slide":7,"title":"第二章 重要设计与实现","textShapes":12}
+{"kind":"textbox","id":"sh/xkf6dcbu","slide":7,"text":"第二章 重要设计与实现","textPreview":"第二章 重要设计与实现","textChars":11,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/mtwra5gb","slide":7,"text":"推荐分数由热度、新鲜度和用户偏好共同决定","textPreview":"推荐分数由热度、新鲜度和用户偏好共同决定","textChars":20,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/fepkzupw","slide":7,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/4r65wjud","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/xc3ylc7u","slide":7,"bbox":[700,184,470,270]}
+{"kind":"shape","id":"sh/f6dcbulw","slide":7,"bbox":[54,200,255,88]}
+{"kind":"textbox","id":"sh/4fu18jqh","slide":7,"text":"热度","textPreview":"热度","textChars":2,"textLines":1,"bbox":[76,216,72,28]}
+{"kind":"textbox","id":"sh/x0nuxc3y","slide":7,"text":"浏览量越高，基础分越高","textPreview":"浏览量越高，基础分越高","textChars":11,"textLines":1,"bbox":[150,218,128,42]}
+{"kind":"shape","id":"sh/lkjm1cfa","slide":7,"bbox":[349,200,255,88]}
+{"kind":"textbox","id":"sh/szqtcj6t","slide":7,"text":"新鲜度","textPreview":"新鲜度","textChars":3,"textLines":1,"bbox":[371,216,72,28]}
+{"kind":"textbox","id":"sh/3ex0nuxc","slide":7,"text":"发布时间越近，衰减越少","textPreview":"发布时间越近，衰减越少","textChars":11,"textLines":1,"bbox":[445,218,128,42]}
+{"kind":"shape","id":"sh/at47y1kr","slide":7,"bbox":[54,325,255,88]}
+{"kind":"textbox","id":"sh/l87ed8ba","slide":7,"text":"偏好","textPreview":"偏好","textChars":2,"textLines":1,"bbox":[76,341,72,28]}
+{"kind":"textbox","id":"sh/sneloj2t","slide":7,"text":"分类、关键词、成色与价格匹配加分","textPreview":"分类、关键词、成色与价格匹配加分","textChars":16,"textLines":1,"bbox":[150,343,128,42]}
+{"kind":"shape","id":"sh/32lszqtc","slide":7,"bbox":[349,325,255,88]}
+{"kind":"textbox","id":"sh/ahoza1gv","slide":7,"text":"降权","textPreview":"降权","textChars":2,"textLines":1,"bbox":[371,341,72,28]}
+{"kind":"textbox","id":"sh/lwval87e","slide":7,"text":"已浏览或已购买商品降低推荐分","textPreview":"已浏览或已购买商品降低推荐分","textChars":14,"textLines":1,"bbox":[445,343,128,42]}
+{"kind":"shape","id":"sh/wb2hwfyx","slide":7,"bbox":[54,500,1080,58]}
+{"kind":"textbox","id":"sh/sji5snel","slide":7,"text":"推荐分数 = 热度分 + 新鲜度分 + 分类偏好分 + 关键词匹配分 + 价格匹配分 - 已接触商品降权","textPreview":"推荐分数 = 热度分 + 新鲜度分 + 分类偏好分 + 关键词匹配分 + 价格匹配分 - 已接触商品降权","textChars":52,"textLines":1,"bbox":[78,518,1020,26]}
+{"kind":"image","id":"im/b6xkf6dc","slide":7,"name":"","geometry":"roundRect","alt":"商品推荐卡片细节截图","bbox":[708,192,454,254]}
+{"kind":"notes","id":"nt/iwaifw","slide":7,"text":""}
+{"kind":"slide","id":"sl/9cujmd","slide":8,"title":"第二章 重要设计与实现","textShapes":7}
+{"kind":"textbox","id":"sh/sneloj2t","slide":8,"text":"第二章 重要设计与实现","textPreview":"第二章 重要设计与实现","textChars":11,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/32lszqtc","slide":8,"text":"状态模式让订单流转规则集中且可控","textPreview":"状态模式让订单流转规则集中且可控","textChars":16,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/ahoza1gv","slide":8,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/lkjm1cfa","slide":8,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/szqtcj6t","slide":8,"bbox":[670,195,500,240]}
+{"kind":"shape","id":"sh/at47y1kr","slide":8,"bbox":[54,203,8,8]}
+{"kind":"textbox","id":"sh/loj2t83i","slide":8,"text":"订单状态包括待支付、已支付、已发货、已完成、已取消。","textPreview":"订单状态包括待支付、已支付、已发货、已完成、已取消。","textChars":26,"textLines":1,"bbox":[76,195,518,63]}
+{"kind":"shape","id":"sh/w3m94fu1","slide":8,"bbox":[54,268,8,8]}
+{"kind":"textbox","id":"sh/udg7adsj","slide":8,"text":"OrderStatus 枚举集中定义状态，canTransitionTo() 控制合法流转。","textPreview":"OrderStatus 枚举集中定义状态，canTransitionTo() 控制合法流转。","textChars":46,"textLines":1,"bbox":[76,260,518,63]}
+{"kind":"shape","id":"sh/nyd0z610","slide":8,"bbox":[54,333,8,8]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":8,"text":"状态列中的“已支付、已发货、已完成”对应真实订单流转结果。","textPreview":"状态列中的“已支付、已发货、已完成”对应真实订单流转结果。","textChars":29,"textLines":1,"bbox":[76,325,518,63]}
+{"kind":"shape","id":"sh/54zidony","slide":8,"bbox":[54,500,1000,62]}
+{"kind":"textbox","id":"sh/upwb2hwf","slide":8,"text":"待支付 → 已支付 / 已取消；已支付 → 已发货 / 已取消；已发货 → 已完成。","textPreview":"待支付 → 已支付 / 已取消；已支付 → 已发货 / 已取消；已发货 → 已完成。","textChars":42,"textLines":1,"bbox":[78,520,940,26]}
+{"kind":"image","id":"im/6psfil0r","slide":8,"name":"","geometry":"roundRect","alt":"后台订单管理状态截图","bbox":[678,203,484,224]}
+{"kind":"notes","id":"nt/9cujmd","slide":8,"text":""}
+{"kind":"slide","id":"sl/6eg8zq","slide":9,"title":"第二章 重要设计与实现","textShapes":12}
+{"kind":"textbox","id":"sh/b6xkf6dc","slide":9,"text":"第二章 重要设计与实现","textPreview":"第二章 重要设计与实现","textChars":11,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/0rqd4vmt","slide":9,"text":"模板方法模式复用订单操作的公共流程","textPreview":"模板方法模式复用订单操作的公共流程","textChars":17,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/tcj6tova","slide":9,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/idonyd0z","slide":9,"text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/byhgn29g","slide":9,"bbox":[800,190,350,170]}
+{"kind":"textbox","id":"sh/t47y1kre","slide":9,"text":"支付、发货、确认收货、取消订单的目标状态不同，但处理骨架一致。","textPreview":"支付、发货、确认收货、取消订单的目标状态不同，但处理骨架一致。","textChars":31,"textLines":1,"bbox":[54,185,680,34]}
+{"kind":"shape","id":"sh/i9s36hcr","slide":9,"bbox":[54,305,145,76]}
+{"kind":"textbox","id":"sh/bulwval8","slide":9,"text":"查询订单","textPreview":"查询订单","textChars":4,"textLines":1,"bbox":[68,330,116,24]}
+{"kind":"shape","id":"sh/j6tovaho","slide":9,"bbox":[239,305,145,76]}
+{"kind":"textbox","id":"sh/ulwval87","slide":9,"text":"校验操作者","textPreview":"校验操作者","textChars":5,"textLines":1,"bbox":[253,330,116,24]}
+{"kind":"shape","id":"sh/1cfa9w3m","slide":9,"bbox":[424,305,145,76]}
+{"kind":"textbox","id":"sh/crmhk3q5","slide":9,"text":"校验状态","textPreview":"校验状态","textChars":4,"textLines":1,"bbox":[438,330,116,24]}
+{"kind":"shape","id":"sh/ji5snelo","slide":9,"bbox":[609,305,145,76]}
+{"kind":"textbox","id":"sh/uxc3ylc7","slide":9,"text":"更新状态","textPreview":"更新状态","textChars":4,"textLines":1,"bbox":[623,330,116,24]}
+{"kind":"shape","id":"sh/1kre1w7m","slide":9,"bbox":[794,305,145,76]}
+{"kind":"textbox","id":"sh/c3ylc7u5","slide":9,"text":"写日志","textPreview":"写日志","textChars":3,"textLines":1,"bbox":[808,330,116,24]}
+{"kind":"shape","id":"sh/jqh0fepk","slide":9,"bbox":[979,305,145,76]}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":9,"text":"发通知","textPreview":"发通知","textChars":3,"textLines":1,"bbox":[993,330,116,24]}
+{"kind":"shape","id":"sh/itgfmlkj","slide":9,"bbox":[54,465,720,108]}
+{"kind":"textbox","id":"sh/7ed8bat4","slide":9,"text":"具体实现","textPreview":"具体实现","textChars":4,"textLines":1,"bbox":[78,486,150,28]}
+{"kind":"textbox","id":"sh/0z61032l","slide":9,"text":"pay()、ship()、confirm()、cancel() 最终调用统一的 transition() / transitionEntity()。","textPreview":"pay()、ship()、confirm()、cancel() 最终调用统一的 transition() / transitionEntity()。","textChars":74,"textLines":1,"bbox":[78,526,660,26]}
+{"kind":"image","id":"im/l87ed8ba","slide":9,"name":"","geometry":"roundRect","alt":"订单管理截图","bbox":[808,198,334,154]}
+{"kind":"notes","id":"nt/6eg8zq","slide":9,"text":""}
+{"kind":"slide","id":"sl/z84lul","slide":10,"title":"第二章 重要设计与实现","textShapes":8}
+{"kind":"textbox","id":"sh/bm58z25k","slide":10,"text":"第二章 重要设计与实现","textPreview":"第二章 重要设计与实现","textChars":11,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/47y1kre1","slide":10,"text":"门面模式把复杂业务封装在 Service 层","textPreview":"门面模式把复杂业务封装在 Service 层","textChars":22,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/tsvu9kni","slide":10,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/mp0bi9s3","slide":10,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/bat47y1k","slide":10,"bbox":[690,175,470,370]}
+{"kind":"shape","id":"sh/tgfmlkjm","slide":10,"bbox":[54,205,240,110]}
+{"kind":"textbox","id":"sh/mhk3q5o7","slide":10,"text":"前端入口","textPreview":"前端入口","textChars":4,"textLines":1,"bbox":[78,228,170,28]}
+{"kind":"textbox","id":"sh/b2hwfyxo","slide":10,"text":"用户提交发布表单","textPreview":"用户提交发布表单","textChars":8,"textLines":1,"bbox":[78,272,170,24]}
+{"kind":"shape","id":"sh/f6dcbulw","slide":10,"bbox":[354,205,285,250]}
+{"kind":"textbox","id":"sh/mlkjm1cf","slide":10,"text":"Service 内部处理","textPreview":"Service 内部处理","textChars":12,"textLines":1,"bbox":[378,228,230,28]}
+{"kind":"textbox","id":"sh/xc3ylc7u","slide":10,"text":"参数校验\n分类校验\n敏感词检测\n图片保存\n状态初始化\n通知与后续审核","textPreview":"参数校验 | 分类校验 | 敏感词检测 | 图片保存 | 状态初始化 | 通知与后续审核","textChars":34,"textLines":6,"bbox":[378,276,230,150]}
+{"kind":"textbox","id":"sh/4r65wjud","slide":10,"text":"页面保持简单，后端 Service 统一编排业务细节，Controller 不直接处理复杂流程。","textPreview":"页面保持简单，后端 Service 统一编排业务细节，Controller 不直接处理复杂流程。","textChars":48,"textLines":1,"bbox":[54,555,920,32]}
+{"kind":"image","id":"im/5wjudg7a","slide":10,"name":"","geometry":"roundRect","alt":"商品发布表单截图","bbox":[698,183,454,354]}
+{"kind":"notes","id":"nt/z84lul","slide":10,"text":""}
+{"kind":"slide","id":"sl/oakqib","slide":11,"title":"第二章 重要设计与实现","textShapes":6}
+{"kind":"textbox","id":"sh/vu9knih4","slide":11,"text":"第二章 重要设计与实现","textPreview":"第二章 重要设计与实现","textChars":11,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/kf6dcbul","slide":11,"text":"策略模式思想让不同用户走不同推荐路径","textPreview":"策略模式思想让不同用户走不同推荐路径","textChars":18,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/d0z61032","slide":11,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/2lszqtcj","slide":11,"text":"11","textPreview":"11","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/v6psfil0","slide":11,"bbox":[54,190,520,180]}
+{"kind":"shape","id":"sh/d8bat47y","slide":11,"bbox":[795,185,330,360]}
+{"kind":"shape","id":"sh/val87ed8","slide":11,"bbox":[54,420,520,95]}
+{"kind":"textbox","id":"sh/judg7ads","slide":11,"text":"有行为用户：构建画像，计算分类、关键词、价格等匹配分。","textPreview":"有行为用户：构建画像，计算分类、关键词、价格等匹配分。","textChars":27,"textLines":1,"bbox":[74,452,475,26]}
+{"kind":"shape","id":"sh/u9knih4b","slide":11,"bbox":[590,420,175,95]}
+{"kind":"textbox","id":"sh/1032lszq","slide":11,"text":"选择策略","textPreview":"选择策略","textChars":4,"textLines":1,"bbox":[615,454,120,28]}
+{"kind":"shape","id":"sh/cfa9w3m9","slide":11,"bbox":[795,570,330,52]}
+{"kind":"textbox","id":"sh/jm1cfa9w","slide":11,"text":"无行为用户：优先按热度和新鲜度推荐。","textPreview":"无行为用户：优先按热度和新鲜度推荐。","textChars":18,"textLines":1,"bbox":[815,586,290,24]}
+{"kind":"image","id":"im/xc3ylc7u","slide":11,"name":"","geometry":"roundRect","alt":"猜你喜欢截图","bbox":[62,198,504,164]}
+{"kind":"image","id":"im/fu18jqh0","slide":11,"name":"","geometry":"roundRect","alt":"热门榜截图","bbox":[803,193,314,344]}
+{"kind":"notes","id":"nt/oakqib","slide":11,"text":""}
+{"kind":"slide","id":"sl/mgpdku","slide":12,"title":"第二章 重要设计与实现","textShapes":5}
+{"kind":"textbox","id":"sh/ylc7u54z","slide":12,"text":"第二章 重要设计与实现","textPreview":"第二章 重要设计与实现","textChars":11,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/9cvixcze","slide":12,"text":"商品市场和发布页共同支撑买卖双方操作","textPreview":"商品市场和发布页共同支撑买卖双方操作","textChars":18,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/gr2p8nqx","slide":12,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/nih4byhg","slide":12,"text":"12","textPreview":"12","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/yxobm58z","slide":12,"bbox":[54,185,575,250]}
+{"kind":"shape","id":"sh/g3ex0nux","slide":12,"bbox":[690,185,470,310]}
+{"kind":"textbox","id":"sh/y1kre1w7","slide":12,"text":"买家侧：搜索、分类、热门关键词、排序、查看结果。","textPreview":"买家侧：搜索、分类、热门关键词、排序、查看结果。","textChars":24,"textLines":1,"bbox":[54,485,560,28]}
+{"kind":"textbox","id":"sh/kjm1cfa9","slide":12,"text":"卖家侧：填写名称、分类、成色、价格和描述，提交后进入审核流程。","textPreview":"卖家侧：填写名称、分类、成色、价格和描述，提交后进入审核流程。","textChars":31,"textLines":1,"bbox":[690,525,470,54]}
+{"kind":"image","id":"im/4byhgn29","slide":12,"name":"","geometry":"roundRect","alt":"商品市场搜索页截图","bbox":[62,193,559,234]}
+{"kind":"image","id":"im/m1cfa9w3","slide":12,"name":"","geometry":"roundRect","alt":"商品发布表单截图","bbox":[698,193,454,294]}
+{"kind":"notes","id":"nt/mgpdku","slide":12,"text":""}
+{"kind":"slide","id":"sl/lc3hbr","slide":13,"title":"第二章 重要设计与实现","textShapes":5}
+{"kind":"textbox","id":"sh/wb2hwfyx","slide":13,"text":"第二章 重要设计与实现","textPreview":"第二章 重要设计与实现","textChars":11,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/3q5o7qpg","slide":13,"text":"消息、公告和安全须知共同保障交易沟通","textPreview":"消息、公告和安全须知共同保障交易沟通","textChars":18,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/e9cvixcz","slide":13,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/loj2t83i","slide":13,"text":"13","textPreview":"13","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/w3m94fu1","slide":13,"bbox":[54,188,500,250]}
+{"kind":"shape","id":"sh/ex0nuxc3","slide":13,"bbox":[620,184,520,175]}
+{"kind":"shape","id":"sh/szqtcj6t","slide":13,"bbox":[620,395,520,200]}
+{"kind":"textbox","id":"sh/b6xkf6dc","slide":13,"text":"消息中心记录商品咨询、交易进度和系统通知。","textPreview":"消息中心记录商品咨询、交易进度和系统通知。","textChars":21,"textLines":1,"bbox":[54,475,500,30]}
+{"kind":"textbox","id":"sh/0rqd4vmt","slide":13,"text":"公告与安全须知承担平台规则、活动安排、交易提醒和纠纷处理说明。","textPreview":"公告与安全须知承担平台规则、活动安排、交易提醒和纠纷处理说明。","textChars":31,"textLines":1,"bbox":[54,520,520,50]}
+{"kind":"image","id":"im/at47y1kr","slide":13,"name":"","geometry":"roundRect","alt":"消息中心截图","bbox":[62,196,484,234]}
+{"kind":"image","id":"im/w3m94fu1","slide":13,"name":"","geometry":"roundRect","alt":"平台公告截图","bbox":[628,192,504,159]}
+{"kind":"image","id":"im/9knih4by","slide":13,"name":"","geometry":"roundRect","alt":"交易安全须知截图","bbox":[628,403,504,184]}
+{"kind":"notes","id":"nt/lc3hbr","slide":13,"text":""}
+{"kind":"slide","id":"sl/ltubhj","slide":14,"title":"第二章 重要设计与实现","textShapes":5}
+{"kind":"textbox","id":"sh/d0z61032","slide":14,"text":"第二章 重要设计与实现","textPreview":"第二章 重要设计与实现","textChars":11,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/29gr2p8n","slide":14,"text":"后台管理把平台运营和内容治理集中起来","textPreview":"后台管理把平台运营和内容治理集中起来","textChars":18,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/vu9knih4","slide":14,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/knih4byh","slide":14,"text":"14","textPreview":"14","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/d8bat47y","slide":14,"bbox":[54,175,610,300]}
+{"kind":"shape","id":"sh/v6psfil0","slide":14,"bbox":[720,174,420,116]}
+{"kind":"shape","id":"sh/dcbulwva","slide":14,"bbox":[720,315,420,112]}
+{"kind":"shape","id":"sh/s72x4nap","slide":14,"bbox":[720,452,420,112]}
+{"kind":"textbox","id":"sh/a5gbq1or","slide":14,"text":"数据概览显示注册用户、商品总数、订单总数、成交总额、分类占比和趋势。","textPreview":"数据概览显示注册用户、商品总数、订单总数、成交总额、分类占比和趋势。","textChars":34,"textLines":1,"bbox":[54,505,600,28]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":14,"text":"用户、订单、敏感词管理体现平台治理能力。","textPreview":"用户、订单、敏感词管理体现平台治理能力。","textChars":20,"textLines":1,"bbox":[54,548,530,26]}
+{"kind":"image","id":"im/jqh0fepk","slide":14,"name":"","geometry":"roundRect","alt":"后台数据概览截图","bbox":[62,183,594,284]}
+{"kind":"image","id":"im/1kre1w7m","slide":14,"name":"","geometry":"roundRect","alt":"用户管理截图","bbox":[728,182,404,100]}
+{"kind":"image","id":"im/a1gvy90j","slide":14,"name":"","geometry":"roundRect","alt":"订单管理截图","bbox":[728,323,404,96]}
+{"kind":"image","id":"im/s36hcrmh","slide":14,"name":"","geometry":"roundRect","alt":"敏感词管理截图","bbox":[728,460,404,96]}
+{"kind":"notes","id":"nt/ltubhj","slide":14,"text":""}
+{"kind":"slide","id":"sl/7sn9ux","slide":15,"title":"第三章 成员分工","textShapes":12}
+{"kind":"textbox","id":"sh/47y1kre1","slide":15,"text":"第三章 成员分工","textPreview":"第三章 成员分工","textChars":8,"textLines":1,"bbox":[54,34,260,24]}
+{"kind":"textbox","id":"sh/bm58z25k","slide":15,"text":"团队分工围绕架构、交易、前端和质量保障展开","textPreview":"团队分工围绕架构、交易、前端和质量保障展开","textChars":21,"textLines":1,"bbox":[54,66,950,58]}
+{"kind":"shape","id":"sh/m1cfa9w3","slide":15,"bbox":[54,138,1172,1]}
+{"kind":"textbox","id":"sh/tgfmlkjm","slide":15,"text":"15","textPreview":"15","textChars":2,"textLines":1,"bbox":[1188,650,38,24]}
+{"kind":"shape","id":"sh/4vmtwra5","slide":15,"bbox":[54,185,250,225]}
+{"kind":"textbox","id":"sh/bat47y1k","slide":15,"text":"成员 A","textPreview":"成员 A","textChars":4,"textLines":1,"bbox":[76,210,200,28]}
+{"kind":"textbox","id":"sh/mp0bi9s3","slide":15,"text":"后端核心与系统架构\nJWT 认证\n权限控制\n统一异常处理","textPreview":"后端核心与系统架构 | JWT 认证 | 权限控制 | 统一异常处理","textChars":28,"textLines":4,"bbox":[76,258,205,122]}
+{"kind":"shape","id":"sh/t83itgfm","slide":15,"bbox":[346,185,250,225]}
+{"kind":"textbox","id":"sh/4nap4r65","slide":15,"text":"成员 B","textPreview":"成员 B","textChars":4,"textLines":1,"bbox":[368,210,200,28]}
+{"kind":"textbox","id":"sh/u9knih4b","slide":15,"text":"商品与订单模块\n商品审核\n订单状态机\n乐观锁防超卖","textPreview":"商品与订单模块 | 商品审核 | 订单状态机 | 乐观锁防超卖","textChars":25,"textLines":4,"bbox":[368,258,205,122]}
+{"kind":"shape","id":"sh/judg7ads","slide":15,"bbox":[638,185,250,225]}
+{"kind":"textbox","id":"sh/cfa9w3m9","slide":15,"text":"成员 C","textPreview":"成员 C","textChars":4,"textLines":1,"bbox":[660,210,200,28]}
+{"kind":"textbox","id":"sh/1032lszq","slide":15,"text":"前端页面与交互\n商品市场\n发布页\n消息与公告","textPreview":"前端页面与交互 | 商品市场 | 发布页 | 消息与公告","textChars":22,"textLines":4,"bbox":[660,258,205,122]}
+{"kind":"shape","id":"sh/u18jqh0f","slide":15,"bbox":[930,185,250,225]}
+{"kind":"textbox","id":"sh/jm1cfa9w","slide":15,"text":"成员 D","textPreview":"成员 D","textChars":4,"textLines":1,"bbox":[952,210,200,28]}
+{"kind":"textbox","id":"sh/c7u54zid","slide":15,"text":"推荐算法、数据库与测试\nMySQL / Redis\n后台管理\n答辩材料","textPreview":"推荐算法、数据库与测试 | MySQL / Redis | 后台管理 | 答辩材料","textChars":35,"textLines":4,"bbox":[952,258,205,122]}
+{"kind":"shape","id":"sh/1orytsvu","slide":15,"bbox":[54,462,245,120]}
+{"kind":"shape","id":"sh/nap4r65w","slide":15,"bbox":[346,462,245,120]}
+{"kind":"shape","id":"sh/mlkjm1cf","slide":15,"bbox":[638,462,245,120]}
+{"kind":"shape","id":"sh/4r65wjud","slide":15,"bbox":[930,462,245,120]}
+{"kind":"textbox","id":"sh/mtwra5gb","slide":15,"text":"项目完成了从商品发布、推荐曝光、订单交易到后台治理的核心闭环。","textPreview":"项目完成了从商品发布、推荐曝光、订单交易到后台治理的核心闭环。","textChars":31,"textLines":1,"bbox":[54,620,860,28]}
+{"kind":"image","id":"im/xs72x4na","slide":15,"name":"","geometry":"roundRect","alt":"商品市场缩略图","bbox":[62,470,229,104]}
+{"kind":"image","id":"im/4fu18jqh","slide":15,"name":"","geometry":"roundRect","alt":"推荐区缩略图","bbox":[354,470,229,104]}
+{"kind":"image","id":"im/m94fu18j","slide":15,"name":"","geometry":"roundRect","alt":"消息中心缩略图","bbox":[646,470,229,104]}
+{"kind":"image","id":"im/83itgfml","slide":15,"name":"","geometry":"roundRect","alt":"后台概览缩略图","bbox":[938,470,229,104]}
+{"kind":"notes","id":"nt/7sn9ux","slide":15,"text":""}

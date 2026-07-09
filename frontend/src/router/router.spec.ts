@@ -9,11 +9,21 @@ describe('routes', () => {
   it('contains required answer-defense pages', () => {
     const names = routes.map((route) => route.name)
     expect(names).toContain('login')
+    expect(names).toContain('cover')
     expect(names).toContain('home')
     expect(names).toContain('product-detail')
     expect(names).toContain('safety')
     expect(names).toContain('orders')
     expect(names).toContain('admin')
+  })
+
+  it('uses the cover as the default entry and keeps home behind /home', () => {
+    const cover = routes.find((r) => r.name === 'cover')
+    const home = routes.find((r) => r.name === 'home')
+
+    expect(cover?.path).toBe('/')
+    expect(cover?.meta?.cover).toBe(true)
+    expect(home?.path).toBe('/home')
   })
 
   it('has auth guard on protected pages', () => {

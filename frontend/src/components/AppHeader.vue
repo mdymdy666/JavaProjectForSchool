@@ -13,7 +13,7 @@ const cart = useCartStore()
 const notify = useNotificationStore()
 
 const navItems = computed(() => [
-  { label: '首页', path: '/', show: true },
+  { label: '首页', path: '/home', show: true },
   { label: '市场', path: '/products', show: true },
   { label: '发布', path: '/publish', show: auth.isLoggedIn },
   { label: '订单', path: '/orders', show: auth.isLoggedIn },
@@ -34,14 +34,14 @@ function go(path: string) {
 }
 
 function isActive(path: string) {
-  if (path === '/') return route.path === '/'
+  if (path === '/home') return route.path === '/home'
   return route.path.startsWith(path)
 }
 </script>
 
 <template>
   <header class="app-header">
-    <button class="logo" type="button" @click="go('/')">
+    <button class="logo" type="button" @click="go('/home')">
       <span class="logo-mark">校</span>
       <span class="logo-copy">
         <span class="logo-text">校园二手交易</span>
@@ -76,7 +76,7 @@ function isActive(path: string) {
           <span class="avatar">{{ auth.nickname.slice(0, 1) }}</span>
           {{ auth.nickname }}
         </button>
-        <button class="ghost" type="button" @click="auth.logout(); go('/')">退出</button>
+        <button class="ghost logout" type="button" @click="auth.logout(); go('/home')">退出</button>
       </template>
       <template v-else>
         <button type="button" @click="go('/login')">登录</button>
@@ -250,6 +250,18 @@ function isActive(path: string) {
   background: transparent;
 }
 
+.right button.logout {
+  color: #dc2626;
+  border-color: #fecaca;
+  background: #fff5f5;
+}
+
+.right button.logout:hover {
+  color: #b91c1c;
+  border-color: #fca5a5;
+  background: #fee2e2;
+}
+
 .right button.user {
   padding-left: 8px;
   color: #17212b;
@@ -269,8 +281,11 @@ function isActive(path: string) {
   font-weight: 900;
 }
 
-.cart {
-  color: #334155;
+.right button.cart {
+  border-width: 2px;
+  border-color: #bfdbfe;
+  color: #1e3a8a;
+  background: #f8fbff;
 }
 
 .badge {

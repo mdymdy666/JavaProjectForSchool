@@ -55,4 +55,17 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.data[0].price").value(129.00))
                 .andExpect(jsonPath("$.data[0].category").value("数码配件"));
     }
+
+    @Test
+    void looselyMatchesCompositeSearchKeywords() throws Exception {
+        mockMvc.perform(get("/api/products").param("keyword", "机械配件"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.total").value(1))
+                .andExpect(jsonPath("$.data.records[0].title").value("九成新机械键盘"));
+
+        mockMvc.perform(get("/api/products").param("keyword", "数码"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.total").value(1))
+                .andExpect(jsonPath("$.data.records[0].categoryName").value("数码配件"));
+    }
 }

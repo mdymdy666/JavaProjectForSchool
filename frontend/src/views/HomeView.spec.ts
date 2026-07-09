@@ -3,6 +3,7 @@ import { flushPromises, mount } from '@vue/test-utils'
 import { createPinia } from 'pinia'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import HomeView from './HomeView.vue'
+import homeSource from './HomeView.vue?raw'
 import { searchProducts } from '../api/product'
 import type { ProductCard } from '../types/domain'
 
@@ -72,19 +73,29 @@ vi.mock('../api/product', () => ({
 }))
 
 vi.mock('../api/http', () => ({
-  apiGet: vi.fn().mockResolvedValue({ code: 200, message: 'success', data: [] })
+  apiGet: vi.fn().mockResolvedValue({
+    code: 200,
+    message: 'success',
+    data: [{ id: 1, title: '欢迎使用校园二手交易平台', content: '请在校内公共区域交易', createdAt: '2026-07-09T09:00:00' }]
+  })
 }))
 
 describe('HomeView', () => {
-  it('renders a product image carousel from loaded products', async () => {
-    const router = createRouter({
+  function createHomeRouter() {
+    return createRouter({
       history: createMemoryHistory(),
       routes: [
         { path: '/', component: HomeView },
         { path: '/products', component: { template: '<div />' } },
-        { path: '/products/:id', component: { template: '<div />' } }
+        { path: '/products/:id', component: { template: '<div />' } },
+        { path: '/announcements', component: { template: '<div />' } }
       ]
     })
+  }
+
+  it('renders a product image carousel from loaded products', async () => {
+    localStorage.clear()
+    const router = createHomeRouter()
     await router.push('/')
     await router.isReady()
 
@@ -97,13 +108,67 @@ describe('HomeView', () => {
     expect(wrapper.get('.slide-main img').attributes('src')).toBe(hotProduct.coverUrl)
     expect(wrapper.findAll('.slide-dots button')).toHaveLength(4)
     expect(wrapper.find('[data-icon="device"]').exists()).toBe(true)
+    expect(wrapper.find('.hot-label').exists()).toBe(true)
     expect(wrapper.findAll('.rank-medal')).toHaveLength(3)
+    expect(wrapper.findAll('.notice-list i')).toHaveLength(1)
+    expect(wrapper.find('.motion-ring').exists()).toBe(true)
+    expect(wrapper.findAll('.hero-stats .stat-pill')).toHaveLength(3)
+    expect(wrapper.get('.notice-list').text()).toContain('欢迎使用校园二手交易平台')
     expect(wrapper.get('.recommendation-section').text()).toContain('猜你喜欢')
     expect(wrapper.get('.recommendation-section').text()).toContain('匹配你搜索过的“键盘”')
+
+    expect(homeSource).toContain('@keyframes soft-rise')
+    expect(homeSource).toMatch(/\.home-grid > \* \{[^}]*animation:\s*soft-rise/s)
+    expect(homeSource).toMatch(/\.motion-ring \{[^}]*animation:\s*ring-drift/s)
+    expect(homeSource).toMatch(/\.stat-pill \{[^}]*backdrop-filter:\s*blur\(14px\);/s)
+    expect(wrapper.find('.recommend-head .eyebrow').exists()).toBe(false)
+    expect(homeSource).toMatch(/\.section-kicker \{[^}]*background:\s*#eaf3ff;/s)
+    expect(homeSource).toMatch(/\.recommend-title \{[^}]*border-left:\s*4px solid var\(--brand-blue\);/s)
+    expect(homeSource).toMatch(/\.section-tabs \.more-link \{[^}]*border:\s*1px solid #cfe1ff;/s)
 
     await wrapper.get('.slide-nav.next').trigger('click')
     expect(wrapper.get('.carousel-track').attributes('style')).toContain('translateX(calc(-100%')
     expect(wrapper.findAll('.slide-dots button')[1].attributes('aria-pressed')).toBe('true')
+
+    await wrapper.get('.notice-list button').trigger('click')
+    await flushPromises()
+    expect(wrapper.findAll('.notice-list i')).toHaveLength(0)
+    expect(router.currentRoute.value.path).toBe('/announcements')
+
+    wrapper.unmount()
+  })
+
+  it('opens the carousel product detail when a press ends without swiping', async () => {
+    localStorage.clear()
+    const router = createHomeRouter()
+    await router.push('/')
+    await router.isReady()
+
+    const wrapper = mount(HomeView, { global: { plugins: [createPinia(), router] } })
+    await flushPromises()
+
+    const viewport = wrapper.get('.carousel-viewport')
+    const slide = wrapper.get('.slide-main')
+    await slide.trigger('pointerdown', { clientX: 120, pointerId: 1 })
+    await viewport.trigger('pointerup', { clientX: 120, pointerId: 1 })
+    await flushPromises()
+
+    expect(router.currentRoute.value.path).toBe('/products/1')
+
+    wrapper.unmount()
+  })
+
+  it('keeps the home product preview short so the market owns full browsing', async () => {
+    localStorage.clear()
+    const router = createHomeRouter()
+    await router.push('/')
+    await router.isReady()
+
+    const wrapper = mount(HomeView, { global: { plugins: [createPinia(), router] } })
+    await flushPromises()
+
+    expect(wrapper.findAll('.product-section .product-card')).toHaveLength(2)
+    expect(homeSource).toMatch(/visibleProducts = computed\(\(\) => \(activeTab\.value === 'hot' \? hotProducts\.value : newProducts\.value\)\.slice\(0, 2\)/)
 
     wrapper.unmount()
   })

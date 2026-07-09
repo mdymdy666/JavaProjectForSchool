@@ -14,7 +14,7 @@ vi.mock('../api/product', () => ({
 }))
 
 describe('ProductListView', () => {
-  it('uses the dynamic market layout with readable controls', async () => {
+  it('uses a compact catalog layout that is visually different from the home page', async () => {
     const router = createRouter({
       history: createMemoryHistory(),
       routes: [{ path: '/products', component: ProductListView }]
@@ -25,16 +25,22 @@ describe('ProductListView', () => {
     const wrapper = mount(ProductListView, { global: { plugins: [createPinia(), router] } })
     await flushPromises()
 
-    expect(wrapper.get('[data-test="market-shell"]').text()).toContain('校园市场')
-    expect(wrapper.get('.hero-panel').text()).toContain('校园二手交易')
-    expect(wrapper.get('.safe-panel').text()).toContain('交易安全提示')
-    expect(wrapper.findAll('.category-tile')).toHaveLength(7)
+    expect(wrapper.get('[data-test="market-shell"]').text()).toContain('商品市场')
+    expect(wrapper.find('.hero-panel').exists()).toBe(false)
+    expect(wrapper.find('.market-console').exists()).toBe(true)
+    expect(wrapper.find('.console-metrics').exists()).toBe(true)
+    expect(wrapper.find('.catalog-layout').exists()).toBe(true)
+    expect(wrapper.find('.result-toolbar').exists()).toBe(true)
+    expect(wrapper.findAll('.category-filter')).toHaveLength(7)
     const sortButtons = wrapper.findAll('.sort-bar button')
     expect(sortButtons).toHaveLength(5)
     expect(sortButtons.map(button => button.text())).toEqual(['最新', '热度', '价格↑', '价格↓', '重置'])
     expect(sortButtons[0].classes()).toContain('active')
-    expect(listSource).toMatch(/\.market-content \{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)\s*340px/s)
-    expect(listSource).toContain('campus-market-hero.png')
+    expect(listSource).toMatch(/\.catalog-layout \{[^}]*grid-template-columns:\s*220px\s+minmax\(0,\s*1fr\)/s)
+    expect(listSource).not.toContain('campus-market-hero.png')
+    expect(listSource).toMatch(/\.market-console::before \{[^}]*background:/s)
+    expect(listSource).toMatch(/\.metric-card \{[^}]*box-shadow:/s)
+    expect(listSource).toMatch(/\.filter-card::before \{[^}]*background:/s)
     expect(listSource).toMatch(/\.sort-bar button\.active \{[^}]*background:\s*var\(--brand-blue\)/s)
   })
 
@@ -49,7 +55,7 @@ describe('ProductListView', () => {
     const wrapper = mount(ProductListView, { global: { plugins: [createPinia(), router] } })
     await flushPromises()
 
-    const bookButton = wrapper.findAll('.category-tile').find(button => button.text().includes('图书教材'))
+    const bookButton = wrapper.findAll('.category-filter').find(button => button.text().includes('图书教材'))
     expect(bookButton).toBeTruthy()
     await bookButton!.trigger('click')
     await flushPromises()
@@ -58,5 +64,47 @@ describe('ProductListView', () => {
       expect.objectContaining({ categoryId: 2, page: 1, size: 12 })
     )
     expect(bookButton!.classes()).toContain('active')
+  })
+
+  it('switches to newest sorting when the latest feed tab is clicked', async () => {
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: [{ path: '/products', component: ProductListView }]
+    })
+    await router.push('/products?sort=hot&page=2')
+    await router.isReady()
+
+    const wrapper = mount(ProductListView, { global: { plugins: [createPinia(), router] } })
+    await flushPromises()
+
+    await wrapper.findAll('.section-tabs button')[1].trigger('click')
+    await flushPromises()
+
+    expect(searchProducts).toHaveBeenLastCalledWith(
+      expect.objectContaining({ sort: 'newest', page: 1, size: 12 })
+    )
+    expect(router.currentRoute.value.query.sort).toBe('newest')
+    expect(router.currentRoute.value.query.page).toBeUndefined()
+  })
+
+  it('starts a global fuzzy search when a hot keyword is clicked', async () => {
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: [{ path: '/products', component: ProductListView }]
+    })
+    await router.push('/products?sort=newest&categoryId=2')
+    await router.isReady()
+
+    const wrapper = mount(ProductListView, { global: { plugins: [createPinia(), router] } })
+    await flushPromises()
+
+    await wrapper.find('.quick-keywords button').trigger('click')
+    await flushPromises()
+
+    const lastCall = vi.mocked(searchProducts).mock.calls.at(-1)?.[0]
+    expect(lastCall).toEqual(expect.objectContaining({ page: 1, size: 12 }))
+    expect(lastCall?.keyword).toBeTruthy()
+    expect(lastCall?.categoryId).toBeUndefined()
+    expect(router.currentRoute.value.query.categoryId).toBeUndefined()
   })
 })

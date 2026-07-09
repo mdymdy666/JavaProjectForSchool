@@ -19,6 +19,12 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: '/',
+    name: 'cover',
+    component: () => import('../views/CoverView.vue'),
+    meta: { cover: true }
+  },
+  {
+    path: '/home',
     name: 'home',
     component: () => import('../views/HomeView.vue')
   },
@@ -36,6 +42,11 @@ export const routes: RouteRecordRaw[] = [
     path: '/safety',
     name: 'safety',
     component: () => import('../views/SafetyNoticeView.vue')
+  },
+  {
+    path: '/announcements',
+    name: 'announcements',
+    component: () => import('../views/AnnouncementListView.vue')
   },
   {
     path: '/publish',

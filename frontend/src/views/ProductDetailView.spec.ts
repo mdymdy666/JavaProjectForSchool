@@ -45,6 +45,8 @@ describe('ProductDetailView', () => {
     expect(favorite.text()).toContain('收藏')
     expect(favorite.find('[data-icon="heart"]').exists()).toBe(true)
     expect(detailSource).toMatch(/\.btn-fav \{[^}]*color:\s*#333;/)
+    expect(detailSource).toMatch(/\.meta-item label \{[^}]*color:\s*#475569;/)
+    expect(detailSource).toMatch(/\.meta-item label \{[^}]*font-weight:\s*700;/)
 
     await wrapper.get('button.btn-contact').trigger('click')
     await flushPromises()

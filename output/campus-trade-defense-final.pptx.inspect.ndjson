@@ -1,0 +1,360 @@
+{"kind":"deck","id":"pr/wcd4ns","name":"Deck"}
+{"kind":"layout","layoutId":"9b182ec8-fa21-48aa-8774-3ccc2a34f457","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"9f0b74ef-9f7e-4f48-b501-a602492712d1","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/ucbky1","slide":1,"title":"软件与理论综合设计与实践","textShapes":6}
+{"kind":"shape","id":"sh/qd4vmtwr","slide":1,"bbox":[0,0,760,720]}
+{"kind":"shape","id":"sh/fyxobm58","slide":1,"bbox":[760,0,170,720]}
+{"kind":"textbox","id":"sh/8v6psfil","slide":1,"text":"软件与理论综合设计与实践","textPreview":"软件与理论综合设计与实践","textChars":12,"textLines":1,"bbox":[56,54,420,28]}
+{"kind":"textbox","id":"sh/xczed8v6","slide":1,"text":"校园二手物品交易平台\n的设计与实现","textPreview":"校园二手物品交易平台 | 的设计与实现","textChars":17,"textLines":2,"bbox":[56,155,720,136]}
+{"kind":"textbox","id":"sh/qpg3ex0n","slide":1,"text":"同校面对面  交易更安全","textPreview":"同校面对面  交易更安全","textChars":12,"textLines":1,"bbox":[56,318,560,34]}
+{"kind":"shape","id":"sh/fa9w3m94","slide":1,"bbox":[56,520,420,82]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":1,"text":"答辩汇报","textPreview":"答辩汇报","textChars":4,"textLines":1,"bbox":[80,538,160,30]}
+{"kind":"textbox","id":"sh/1gvy90je","slide":1,"text":"Vue3 + Spring Boot + MySQL + Redis","textPreview":"Vue3 + Spring Boot + MySQL + Redis","textChars":34,"textLines":1,"bbox":[80,570,330,24]}
+{"kind":"textbox","id":"sh/pg3ex0nu","slide":1,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[1180,650,40,22]}
+{"kind":"image","id":"im/gn29gr2p","slide":1,"name":"","geometry":"rect","alt":"图片","bbox":[0,0,1280,720]}
+{"kind":"notes","id":"nt/ucbky1","slide":1,"text":"各位老师好，我们小组本次答辩的项目是校园二手物品交易平台的设计与实现。这个系统面向高校师生，目标是把校内闲置物品交易从分散的信息流，整理成可搜索、可沟通、可审核、可追踪的完整平台。"}
+{"kind":"slide","id":"sl/qtqhwo","slide":2,"title":"汇报结构","textShapes":13}
+{"kind":"textbox","id":"sh/8v6psfil","slide":2,"text":"汇报结构","textPreview":"汇报结构","textChars":4,"textLines":1,"bbox":[56,30,340,24]}
+{"kind":"textbox","id":"sh/fa9w3m94","slide":2,"text":"这次答辩围绕系统价值、关键设计和团队协作展开","textPreview":"这次答辩围绕系统价值、关键设计和团队协作展开","textChars":22,"textLines":1,"bbox":[56,62,950,58]}
+{"kind":"shape","id":"sh/qpg3ex0n","slide":2,"bbox":[56,136,1168,1.4]}
+{"kind":"textbox","id":"sh/x4nap4r6","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1182,650,42,22]}
+{"kind":"shape","id":"sh/8jqh0fep","slide":2,"bbox":[56,210,340,270]}
+{"kind":"textbox","id":"sh/fyxobm58","slide":2,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[80,234,70,38]}
+{"kind":"textbox","id":"sh/qd4vmtwr","slide":2,"text":"系统简介","textPreview":"系统简介","textChars":4,"textLines":1,"bbox":[80,304,230,36]}
+{"kind":"textbox","id":"sh/xs72x4na","slide":2,"text":"项目背景、用户角色、总体用例和功能模块","textPreview":"项目背景、用户角色、总体用例和功能模块","textChars":19,"textLines":1,"bbox":[80,360,276,78]}
+{"kind":"shape","id":"sh/87ed8bat","slide":2,"bbox":[446,210,340,270]}
+{"kind":"textbox","id":"sh/ed8v6psf","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[470,234,70,38]}
+{"kind":"textbox","id":"sh/7y1kre1w","slide":2,"text":"重要设计和实现","textPreview":"重要设计和实现","textChars":7,"textLines":1,"bbox":[470,304,230,36]}
+{"kind":"textbox","id":"sh/wjudg7ad","slide":2,"text":"系统架构、设计模式、推荐算法和交易闭环","textPreview":"系统架构、设计模式、推荐算法和交易闭环","textChars":19,"textLines":1,"bbox":[470,360,276,78]}
+{"kind":"shape","id":"sh/p4r65wju","slide":2,"bbox":[836,210,340,270]}
+{"kind":"textbox","id":"sh/i5sneloj","slide":2,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[860,234,70,38]}
+{"kind":"textbox","id":"sh/7qpg3ex0","slide":2,"text":"成员分工","textPreview":"成员分工","textChars":4,"textLines":1,"bbox":[860,304,230,36]}
+{"kind":"textbox","id":"sh/0bi9s36h","slide":2,"text":"小组职责划分、实现结果和后续优化方向","textPreview":"小组职责划分、实现结果和后续优化方向","textChars":18,"textLines":1,"bbox":[860,360,276,78]}
+{"kind":"textbox","id":"sh/pwb2hwfy","slide":2,"text":"核心结论：系统不仅完成了页面展示，还形成了从发布、审核、推荐、交易到治理的闭环。","textPreview":"核心结论：系统不仅完成了页面展示，还形成了从发布、审核、推荐、交易到治理的闭环。","textChars":40,"textLines":1,"bbox":[56,560,1040,40]}
+{"kind":"notes","id":"nt/qtqhwo","slide":2,"text":"这次汇报分为三个部分。第一部分介绍系统为什么做、服务谁、具备哪些功能。第二部分讲关键设计和实现，包括状态模式、策略模式、外观模式、推荐算法和完整业务流程。第三部分说明成员分工和项目总结。"}
+{"kind":"slide","id":"sl/nay1b9","slide":3,"title":"第一章  系统简介","textShapes":9}
+{"kind":"textbox","id":"sh/wval87ed","slide":3,"text":"第一章  系统简介","textPreview":"第一章  系统简介","textChars":9,"textLines":1,"bbox":[56,30,340,24]}
+{"kind":"textbox","id":"sh/7adsji5s","slide":3,"text":"校园二手交易的核心问题是信息分散和流程不可信","textPreview":"校园二手交易的核心问题是信息分散和流程不可信","textChars":22,"textLines":1,"bbox":[56,62,950,58]}
+{"kind":"shape","id":"sh/epkzupwb","slide":3,"bbox":[56,136,1168,1.4]}
+{"kind":"textbox","id":"sh/psfil0rq","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1182,650,42,22]}
+{"kind":"shape","id":"sh/w7mp0bi9","slide":3,"bbox":[610,180,570,270]}
+{"kind":"shape","id":"sh/e1w7mp0b","slide":3,"bbox":[56,180,116,34]}
+{"kind":"textbox","id":"sh/l0rqd4vm","slide":3,"text":"项目定位","textPreview":"项目定位","textChars":4,"textLines":1,"bbox":[68,187,92,20]}
+{"kind":"textbox","id":"sh/wfyxobm5","slide":3,"text":"面向高校师生的 C2C 二手交易平台","textPreview":"面向高校师生的 C2C 二手交易平台","textChars":18,"textLines":1,"bbox":[56,230,470,42]}
+{"kind":"shape","id":"sh/ixczed8v","slide":3,"bbox":[56,315,9,9]}
+{"kind":"textbox","id":"sh/bi9s36hc","slide":3,"text":"把微信群、朋友圈中的闲置信息集中到统一市场","textPreview":"把微信群、朋友圈中的闲置信息集中到统一市场","textChars":21,"textLines":1,"bbox":[80,305,476,54]}
+{"kind":"shape","id":"sh/032lszqt","slide":3,"bbox":[56,373,9,9]}
+{"kind":"textbox","id":"sh/tovahoza","slide":3,"text":"通过分类、搜索、排序和推荐提高商品发现效率","textPreview":"通过分类、搜索、排序和推荐提高商品发现效率","textChars":21,"textLines":1,"bbox":[80,363,476,54]}
+{"kind":"shape","id":"sh/i9s36hcr","slide":3,"bbox":[56,431,9,9]}
+{"kind":"textbox","id":"sh/bulwval8","slide":3,"text":"通过审核、举报、消息留痕和后台管理提高交易安全性","textPreview":"通过审核、举报、消息留痕和后台管理提高交易安全性","textChars":24,"textLines":1,"bbox":[80,421,476,54]}
+{"kind":"textbox","id":"sh/0fepkzup","slide":3,"text":"技术路线：Vue3 单页应用 + Spring Boot REST API + MySQL 数据持久化 + Redis 缓存与热度统计","textPreview":"技术路线：Vue3 单页应用 + Spring Boot REST API + MySQL 数据持久化 + Redis 缓存与热度统计","textChars":67,"textLines":1,"bbox":[56,560,970,32]}
+{"kind":"image","id":"im/m58z25kb","slide":3,"name":"","geometry":"roundRect","alt":"商品市场搜索界面截图","bbox":[618,188,554,254]}
+{"kind":"notes","id":"nt/nay1b9","slide":3,"text":"项目背景来自校园二手交易的真实痛点。传统交易方式信息分散，用户很难检索，也难以判断交易是否安全。我们的做法是建设一个统一的 Web 平台，让商品发布、市场浏览、沟通、下单和后台治理都在系统内完成。"}
+{"kind":"slide","id":"sl/r8jd6v","slide":4,"title":"第一章  系统简介","textShapes":9}
+{"kind":"textbox","id":"sh/61032lsz","slide":4,"text":"第一章  系统简介","textPreview":"第一章  系统简介","textChars":9,"textLines":1,"bbox":[56,30,340,24]}
+{"kind":"textbox","id":"sh/dsji5sne","slide":4,"text":"总体用例覆盖买家、卖家和管理员三类角色","textPreview":"总体用例覆盖买家、卖家和管理员三类角色","textChars":19,"textLines":1,"bbox":[56,62,950,58]}
+{"kind":"shape","id":"sh/o7qpg3ex","slide":4,"bbox":[56,136,1168,1.4]}
+{"kind":"textbox","id":"sh/vy90je9c","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1182,650,42,22]}
+{"kind":"shape","id":"sh/6dcbulwv","slide":4,"bbox":[56,175,230,430]}
+{"kind":"shape","id":"sh/oj2t83it","slide":4,"bbox":[316,175,230,430]}
+{"kind":"shape","id":"sh/6hcrmhk3","slide":4,"bbox":[576,175,230,430]}
+{"kind":"shape","id":"sh/9cvixcze","slide":4,"bbox":[860,188,300,120]}
+{"kind":"textbox","id":"sh/ylc7u54z","slide":4,"text":"普通用户","textPreview":"普通用户","textChars":4,"textLines":1,"bbox":[886,210,180,28]}
+{"kind":"textbox","id":"sh/r65wjudg","slide":4,"text":"注册登录、浏览搜索、收藏、沟通、下单、举报","textPreview":"注册登录、浏览搜索、收藏、沟通、下单、举报","textChars":21,"textLines":1,"bbox":[886,252,230,44]}
+{"kind":"shape","id":"sh/g3ex0nux","slide":4,"bbox":[860,336,300,120]}
+{"kind":"textbox","id":"sh/5o7qpg3e","slide":4,"text":"卖家","textPreview":"卖家","textChars":2,"textLines":1,"bbox":[886,358,180,28]}
+{"kind":"textbox","id":"sh/yxobm58z","slide":4,"text":"发布商品、维护商品、处理订单、填写物流","textPreview":"发布商品、维护商品、处理订单、填写物流","textChars":19,"textLines":1,"bbox":[886,400,230,44]}
+{"kind":"shape","id":"sh/nih4byhg","slide":4,"bbox":[860,484,300,120]}
+{"kind":"textbox","id":"sh/g7adsji5","slide":4,"text":"管理员","textPreview":"管理员","textChars":3,"textLines":1,"bbox":[886,506,180,28]}
+{"kind":"textbox","id":"sh/9s36hcrm","slide":4,"text":"商品审核、用户管理、举报处理、公告管理","textPreview":"商品审核、用户管理、举报处理、公告管理","textChars":19,"textLines":1,"bbox":[886,548,230,44]}
+{"kind":"image","id":"im/s72x4nap","slide":4,"name":"","geometry":"roundRect","alt":"系统总体用例图上半部分","bbox":[64,183,214,414]}
+{"kind":"image","id":"im/a1gvy90j","slide":4,"name":"","geometry":"roundRect","alt":"系统总体用例图中部","bbox":[324,183,214,414]}
+{"kind":"image","id":"im/re1w7mp0","slide":4,"name":"","geometry":"roundRect","alt":"系统总体用例图下半部分","bbox":[584,183,214,414]}
+{"kind":"notes","id":"nt/r8jd6v","slide":4,"text":"这一页展示的是系统总体用例。系统有普通用户、卖家和管理员三类角色。普通用户既可以作为买家，也可以作为卖家。管理员负责审核和治理，保证商品信息和交易流程更规范。"}
+{"kind":"slide","id":"sl/tcpexd","slide":5,"title":"第一章  系统简介","textShapes":15}
+{"kind":"textbox","id":"sh/0fepkzup","slide":5,"text":"第一章  系统简介","textPreview":"第一章  系统简介","textChars":9,"textLines":1,"bbox":[56,30,340,24]}
+{"kind":"textbox","id":"sh/bulwval8","slide":5,"text":"六大功能模块共同支撑校园交易闭环","textPreview":"六大功能模块共同支撑校园交易闭环","textChars":16,"textLines":1,"bbox":[56,62,950,58]}
+{"kind":"shape","id":"sh/i9s36hcr","slide":5,"bbox":[56,136,1168,1.4]}
+{"kind":"textbox","id":"sh/tovahoza","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1182,650,42,22]}
+{"kind":"shape","id":"sh/032lszqt","slide":5,"bbox":[56,180,520,120]}
+{"kind":"shape","id":"sh/ixczed8v","slide":5,"bbox":[835,176,310,388]}
+{"kind":"shape","id":"sh/0rqd4vmt","slide":5,"bbox":[56,342,310,52]}
+{"kind":"textbox","id":"sh/i9s36hcr","slide":5,"text":"用户认证","textPreview":"用户认证","textChars":4,"textLines":1,"bbox":[74,355,92,22]}
+{"kind":"textbox","id":"sh/bulwval8","slide":5,"text":"注册、登录、资料、地址","textPreview":"注册、登录、资料、地址","textChars":11,"textLines":1,"bbox":[178,357,160,20]}
+{"kind":"shape","id":"sh/0fepkzup","slide":5,"bbox":[406,342,310,52]}
+{"kind":"textbox","id":"sh/p0bi9s36","slide":5,"text":"商品管理","textPreview":"商品管理","textChars":4,"textLines":1,"bbox":[424,355,92,22]}
+{"kind":"textbox","id":"sh/ixczed8v","slide":5,"text":"发布、搜索、详情、收藏","textPreview":"发布、搜索、详情、收藏","textChars":11,"textLines":1,"bbox":[528,357,160,20]}
+{"kind":"shape","id":"sh/bi9s36hc","slide":5,"bbox":[56,418,310,52]}
+{"kind":"textbox","id":"sh/032lszqt","slide":5,"text":"订单交易","textPreview":"订单交易","textChars":4,"textLines":1,"bbox":[74,431,92,22]}
+{"kind":"textbox","id":"sh/tovahoza","slide":5,"text":"购物车、支付、发货、收货","textPreview":"购物车、支付、发货、收货","textChars":12,"textLines":1,"bbox":[178,433,160,20]}
+{"kind":"shape","id":"sh/il0rqd4v","slide":5,"bbox":[406,418,310,52]}
+{"kind":"textbox","id":"sh/b6xkf6dc","slide":5,"text":"消息通知","textPreview":"消息通知","textChars":4,"textLines":1,"bbox":[424,431,92,22]}
+{"kind":"textbox","id":"sh/32lszqtc","slide":5,"text":"站内留言、系统通知","textPreview":"站内留言、系统通知","textChars":9,"textLines":1,"bbox":[528,433,160,20]}
+{"kind":"shape","id":"sh/ahoza1gv","slide":5,"bbox":[56,494,310,52]}
+{"kind":"textbox","id":"sh/l87ed8ba","slide":5,"text":"后台管理","textPreview":"后台管理","textChars":4,"textLines":1,"bbox":[74,507,92,22]}
+{"kind":"textbox","id":"sh/sneloj2t","slide":5,"text":"审核、公告、用户、数据","textPreview":"审核、公告、用户、数据","textChars":11,"textLines":1,"bbox":[178,509,160,20]}
+{"kind":"shape","id":"sh/3ex0nuxc","slide":5,"bbox":[406,494,310,52]}
+{"kind":"textbox","id":"sh/at47y1kr","slide":5,"text":"扩展治理","textPreview":"扩展治理","textChars":4,"textLines":1,"bbox":[424,507,92,22]}
+{"kind":"textbox","id":"sh/lkjm1cfa","slide":5,"text":"推荐、敏感词、举报、信誉","textPreview":"推荐、敏感词、举报、信誉","textChars":12,"textLines":1,"bbox":[528,509,160,20]}
+{"kind":"image","id":"im/2hwfyxob","slide":5,"name":"","geometry":"roundRect","alt":"商品分类入口截图","bbox":[64,188,504,104]}
+{"kind":"image","id":"im/kb6xkf6d","slide":5,"name":"","geometry":"roundRect","alt":"热门榜和公告截图","bbox":[843,184,294,372]}
+{"kind":"notes","id":"nt/tcpexd","slide":5,"text":"系统功能可以概括为六大模块：用户认证、商品管理、订单交易、消息通知、后台管理和扩展治理。它不是单一的展示页面，而是覆盖了用户交易前、交易中和交易后的完整过程。"}
+{"kind":"slide","id":"sl/pnqerh","slide":6,"title":"第二章  重要设计和实现","textShapes":19}
+{"kind":"textbox","id":"sh/8jqh0fep","slide":6,"text":"第二章  重要设计和实现","textPreview":"第二章  重要设计和实现","textChars":12,"textLines":1,"bbox":[56,30,340,24]}
+{"kind":"textbox","id":"sh/fyxobm58","slide":6,"text":"前后端分离让展示、业务和数据职责清晰","textPreview":"前后端分离让展示、业务和数据职责清晰","textChars":18,"textLines":1,"bbox":[56,62,950,58]}
+{"kind":"shape","id":"sh/qd4vmtwr","slide":6,"bbox":[56,136,1168,1.4]}
+{"kind":"textbox","id":"sh/xczed8v6","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1182,650,42,22]}
+{"kind":"shape","id":"sh/8v6psfil","slide":6,"bbox":[56,178,560,56]}
+{"kind":"textbox","id":"sh/fa9w3m94","slide":6,"text":"前端展示层","textPreview":"前端展示层","textChars":5,"textLines":1,"bbox":[78,193,150,24]}
+{"kind":"textbox","id":"sh/qpg3ex0n","slide":6,"text":"Vue3 / Router / Pinia / Axios","textPreview":"Vue3 / Router / Pinia / Axios","textChars":29,"textLines":1,"bbox":[246,195,330,22]}
+{"kind":"shape","id":"sh/1gvy90je","slide":6,"bbox":[56,254,560,56]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":6,"text":"接口控制层","textPreview":"接口控制层","textChars":5,"textLines":1,"bbox":[78,269,150,24]}
+{"kind":"textbox","id":"sh/a9w3m94f","slide":6,"text":"Controller 接收 REST 请求","textPreview":"Controller 接收 REST 请求","textChars":21,"textLines":1,"bbox":[246,271,330,22]}
+{"kind":"shape","id":"sh/zupwb2hw","slide":6,"bbox":[56,330,560,56]}
+{"kind":"textbox","id":"sh/sfil0rqd","slide":6,"text":"业务逻辑层","textPreview":"业务逻辑层","textChars":5,"textLines":1,"bbox":[78,345,150,24]}
+{"kind":"textbox","id":"sh/h0fepkzu","slide":6,"text":"Service 处理订单、审核、推荐、通知","textPreview":"Service 处理订单、审核、推荐、通知","textChars":21,"textLines":1,"bbox":[246,347,330,22]}
+{"kind":"shape","id":"sh/al87ed8b","slide":6,"bbox":[56,406,560,56]}
+{"kind":"textbox","id":"sh/z61032ls","slide":6,"text":"数据持久层","textPreview":"数据持久层","textChars":5,"textLines":1,"bbox":[78,421,150,24]}
+{"kind":"textbox","id":"sh/orytsvu9","slide":6,"text":"Mapper + MySQL 14 张业务表","textPreview":"Mapper + MySQL 14 张业务表","textChars":22,"textLines":1,"bbox":[246,423,330,22]}
+{"kind":"shape","id":"sh/hcrmhk3q","slide":6,"bbox":[56,482,560,56]}
+{"kind":"textbox","id":"sh/6xkf6dcb","slide":6,"text":"缓存增强层","textPreview":"缓存增强层","textChars":5,"textLines":1,"bbox":[78,497,150,24]}
+{"kind":"textbox","id":"sh/zed8v6ps","slide":6,"text":"Redis 验证码、限流、热度排行、缓存降级","textPreview":"Redis 验证码、限流、热度排行、缓存降级","textChars":22,"textLines":1,"bbox":[246,499,330,22]}
+{"kind":"shape","id":"sh/nih4byhg","slide":6,"bbox":[700,184,430,290]}
+{"kind":"shape","id":"sh/5o7qpg3e","slide":6,"bbox":[700,508,125,94]}
+{"kind":"textbox","id":"sh/g3ex0nux","slide":6,"text":"14","textPreview":"14","textChars":2,"textLines":1,"bbox":[720,523,85,34]}
+{"kind":"textbox","id":"sh/r65wjudg","slide":6,"text":"页面视图","textPreview":"页面视图","textChars":4,"textLines":1,"bbox":[720,563,85,24]}
+{"kind":"shape","id":"sh/ylc7u54z","slide":6,"bbox":[850,508,125,94]}
+{"kind":"textbox","id":"sh/9cvixcze","slide":6,"text":"14","textPreview":"14","textChars":2,"textLines":1,"bbox":[870,523,85,34]}
+{"kind":"textbox","id":"sh/gr2p8nqx","slide":6,"text":"业务表","textPreview":"业务表","textChars":3,"textLines":1,"bbox":[870,563,85,24]}
+{"kind":"shape","id":"sh/rytsvu9k","slide":6,"bbox":[1000,508,130,94]}
+{"kind":"textbox","id":"sh/yd0z6103","slide":6,"text":"Redis","textPreview":"Redis","textChars":5,"textLines":1,"bbox":[1020,523,90,34]}
+{"kind":"textbox","id":"sh/svu9knih","slide":6,"text":"缓存与热度","textPreview":"缓存与热度","textChars":5,"textLines":1,"bbox":[1020,563,90,24]}
+{"kind":"image","id":"im/hk3q5o7q","slide":6,"name":"","geometry":"roundRect","alt":"后台数据概览截图","bbox":[708,192,414,274]}
+{"kind":"notes","id":"nt/pnqerh","slide":6,"text":"系统架构采用前后端分离。前端负责页面展示和状态管理，后端按 Controller、Service、Mapper 分层处理请求，数据库负责核心数据保存，Redis 用于验证码、限流、缓存和热度排行。这样的结构让系统更容易维护和扩展。"}
+{"kind":"slide","id":"sl/mkbwqi","slide":7,"title":"第二章  重要设计和实现","textShapes":21}
+{"kind":"textbox","id":"sh/5sneloj2","slide":7,"text":"第二章  重要设计和实现","textPreview":"第二章  重要设计和实现","textChars":12,"textLines":1,"bbox":[56,30,340,24]}
+{"kind":"textbox","id":"sh/u54zidon","slide":7,"text":"状态模式约束商品和订单只能按合法路径流转","textPreview":"状态模式约束商品和订单只能按合法路径流转","textChars":20,"textLines":1,"bbox":[56,62,950,58]}
+{"kind":"shape","id":"sh/nqxs72x4","slide":7,"bbox":[56,136,1168,1.4]}
+{"kind":"textbox","id":"sh/czed8v6p","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1182,650,42,22]}
+{"kind":"textbox","id":"sh/5kb6xkf6","slide":7,"text":"商品状态","textPreview":"商品状态","textChars":4,"textLines":1,"bbox":[56,184,140,30]}
+{"kind":"shape","id":"sh/ytsvu9kn","slide":7,"bbox":[56,230,137,64]}
+{"kind":"textbox","id":"sh/neloj2t8","slide":7,"text":"待审核","textPreview":"待审核","textChars":3,"textLines":1,"bbox":[64,250,121,24]}
+{"kind":"textbox","id":"sh/gn29gr2p","slide":7,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[191,246,18,24]}
+{"kind":"shape","id":"sh/58z25kb6","slide":7,"bbox":[207,230,137,64]}
+{"kind":"textbox","id":"sh/d8bat47y","slide":7,"text":"在售","textPreview":"在售","textChars":2,"textLines":1,"bbox":[215,250,121,24]}
+{"kind":"textbox","id":"sh/knih4byh","slide":7,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[342,246,18,24]}
+{"kind":"shape","id":"sh/v6psfil0","slide":7,"bbox":[358,230,137,64]}
+{"kind":"textbox","id":"sh/2lszqtcj","slide":7,"text":"已下架","textPreview":"已下架","textChars":3,"textLines":1,"bbox":[366,250,121,24]}
+{"kind":"textbox","id":"sh/d0z61032","slide":7,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[493,246,18,24]}
+{"kind":"shape","id":"sh/kf6dcbul","slide":7,"bbox":[509,230,137,64]}
+{"kind":"textbox","id":"sh/vu9knih4","slide":7,"text":"已售出","textPreview":"已售出","textChars":3,"textLines":1,"bbox":[517,250,121,24]}
+{"kind":"textbox","id":"sh/29gr2p8n","slide":7,"text":"订单状态","textPreview":"订单状态","textChars":4,"textLines":1,"bbox":[56,344,140,30]}
+{"kind":"shape","id":"sh/donyd0z6","slide":7,"bbox":[56,390,137,64]}
+{"kind":"textbox","id":"sh/k3q5o7qp","slide":7,"text":"待付款","textPreview":"待付款","textChars":3,"textLines":1,"bbox":[64,410,121,24]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":7,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[191,406,18,24]}
+{"kind":"shape","id":"sh/9w3m94fu","slide":7,"bbox":[207,390,137,64]}
+{"kind":"textbox","id":"sh/25kb6xkf","slide":7,"text":"已付款","textPreview":"已付款","textChars":3,"textLines":1,"bbox":[215,410,121,24]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":7,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[342,406,18,24]}
+{"kind":"shape","id":"sh/kzupwb2h","slide":7,"bbox":[358,390,137,64]}
+{"kind":"textbox","id":"sh/9knih4by","slide":7,"text":"已发货","textPreview":"已发货","textChars":3,"textLines":1,"bbox":[366,410,121,24]}
+{"kind":"textbox","id":"sh/2t83itgf","slide":7,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[493,406,18,24]}
+{"kind":"shape","id":"sh/re1w7mp0","slide":7,"bbox":[509,390,137,64]}
+{"kind":"textbox","id":"sh/gvy90je9","slide":7,"text":"已完成","textPreview":"已完成","textChars":3,"textLines":1,"bbox":[517,410,121,24]}
+{"kind":"shape","id":"sh/9gr2p8nq","slide":7,"bbox":[56,510,590,88]}
+{"kind":"textbox","id":"sh/fyxobm58","slide":7,"text":"设计价值","textPreview":"设计价值","textChars":4,"textLines":1,"bbox":[80,528,120,26]}
+{"kind":"textbox","id":"sh/qd4vmtwr","slide":7,"text":"减少非法操作，例如未付款不能发货、已完成订单不能再次取消。","textPreview":"减少非法操作，例如未付款不能发货、已完成订单不能再次取消。","textChars":29,"textLines":1,"bbox":[201,531,400,28]}
+{"kind":"shape","id":"sh/x4nap4r6","slide":7,"bbox":[724,188,390,400]}
+{"kind":"image","id":"im/nuxc3ylc","slide":7,"name":"","geometry":"roundRect","alt":"订单管理界面截图","bbox":[732,196,374,384]}
+{"kind":"notes","id":"nt/mkbwqi","slide":7,"text":"状态模式主要体现在商品和订单生命周期上。商品从待审核到在售，再到下架或售出；订单从待付款到已付款、已发货、已完成。系统只允许符合当前状态的操作执行，从而避免业务状态混乱。"}
+{"kind":"slide","id":"sl/vny9y0","slide":8,"title":"第二章  重要设计和实现","textShapes":11}
+{"kind":"textbox","id":"sh/b2hwfyxo","slide":8,"text":"第二章  重要设计和实现","textPreview":"第二章  重要设计和实现","textChars":12,"textLines":1,"bbox":[56,30,340,24]}
+{"kind":"textbox","id":"sh/4nap4r65","slide":8,"text":"策略模式让商品展示可以按场景选择不同排序逻辑","textPreview":"策略模式让商品展示可以按场景选择不同排序逻辑","textChars":22,"textLines":1,"bbox":[56,62,950,58]}
+{"kind":"shape","id":"sh/t83itgfm","slide":8,"bbox":[56,136,1168,1.4]}
+{"kind":"textbox","id":"sh/m58z25kb","slide":8,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1182,650,42,22]}
+{"kind":"shape","id":"sh/bq1oryts","slide":8,"bbox":[56,185,500,220]}
+{"kind":"shape","id":"sh/twra5gbq","slide":8,"bbox":[56,430,500,150]}
+{"kind":"shape","id":"sh/bm58z25k","slide":8,"bbox":[660,190,470,62]}
+{"kind":"textbox","id":"sh/val87ed8","slide":8,"text":"最新策略","textPreview":"最新策略","textChars":4,"textLines":1,"bbox":[684,207,110,24]}
+{"kind":"textbox","id":"sh/6psfil0r","slide":8,"text":"发布时间越近，排序越靠前","textPreview":"发布时间越近，排序越靠前","textChars":12,"textLines":1,"bbox":[810,209,280,22]}
+{"kind":"shape","id":"sh/dcbulwva","slide":8,"bbox":[660,276,470,62]}
+{"kind":"textbox","id":"sh/kre1w7mp","slide":8,"text":"热度策略","textPreview":"热度策略","textChars":4,"textLines":1,"bbox":[684,293,110,24]}
+{"kind":"textbox","id":"sh/vixczed8","slide":8,"text":"浏览量和收藏行为提高曝光","textPreview":"浏览量和收藏行为提高曝光","textChars":12,"textLines":1,"bbox":[810,295,280,22]}
+{"kind":"shape","id":"sh/2x4nap4r","slide":8,"bbox":[660,362,470,62]}
+{"kind":"textbox","id":"sh/donyd0z6","slide":8,"text":"价格策略","textPreview":"价格策略","textChars":4,"textLines":1,"bbox":[684,379,110,24]}
+{"kind":"textbox","id":"sh/k3q5o7qp","slide":8,"text":"支持升序或降序比较","textPreview":"支持升序或降序比较","textChars":9,"textLines":1,"bbox":[810,381,280,22]}
+{"kind":"shape","id":"sh/vu9knih4","slide":8,"bbox":[660,448,470,62]}
+{"kind":"textbox","id":"sh/29gr2p8n","slide":8,"text":"行为推荐","textPreview":"行为推荐","textChars":4,"textLines":1,"bbox":[684,465,110,24]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":8,"text":"结合浏览、搜索、收藏、购买形成画像","textPreview":"结合浏览、搜索、收藏、购买形成画像","textChars":17,"textLines":1,"bbox":[810,467,280,22]}
+{"kind":"image","id":"im/p4r65wju","slide":8,"name":"","geometry":"roundRect","alt":"推荐商品卡片截图","bbox":[64,193,484,204]}
+{"kind":"image","id":"im/72x4nap4","slide":8,"name":"","geometry":"roundRect","alt":"猜你喜欢推荐截图","bbox":[64,438,484,134]}
+{"kind":"notes","id":"nt/vny9y0","slide":8,"text":"策略模式主要用在商品排序和推荐中。市场页可以选择最新、热度、价格等不同策略；首页推荐则使用行为推荐策略。这样系统可以根据不同场景切换算法，而不是把所有排序逻辑写死。"}
+{"kind":"slide","id":"sl/7mz4y5","slide":9,"title":"第二章  重要设计和实现","textShapes":16}
+{"kind":"textbox","id":"sh/6psfil0r","slide":9,"text":"第二章  重要设计和实现","textPreview":"第二章  重要设计和实现","textChars":12,"textLines":1,"bbox":[56,30,340,24]}
+{"kind":"textbox","id":"sh/dcbulwva","slide":9,"text":"外观模式把复杂交易流程封装成简单接口","textPreview":"外观模式把复杂交易流程封装成简单接口","textChars":18,"textLines":1,"bbox":[56,62,950,58]}
+{"kind":"shape","id":"sh/kre1w7mp","slide":9,"bbox":[56,136,1168,1.4]}
+{"kind":"textbox","id":"sh/vixczed8","slide":9,"text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[1182,650,42,22]}
+{"kind":"textbox","id":"sh/2x4nap4r","slide":9,"text":"前端只关心一个动作","textPreview":"前端只关心一个动作","textChars":9,"textLines":1,"bbox":[56,180,360,32]}
+{"kind":"shape","id":"sh/donyd0z6","slide":9,"bbox":[56,235,320,86]}
+{"kind":"textbox","id":"sh/k3q5o7qp","slide":9,"text":"点击“立即购买”","textPreview":"点击“立即购买”","textChars":8,"textLines":1,"bbox":[92,262,230,28]}
+{"kind":"textbox","id":"sh/vu9knih4","slide":9,"text":"后端封装完整业务","textPreview":"后端封装完整业务","textChars":8,"textLines":1,"bbox":[56,365,360,32]}
+{"kind":"shape","id":"sh/29gr2p8n","slide":9,"bbox":[56,420,110.8,64]}
+{"kind":"textbox","id":"sh/kre1w7mp","slide":9,"text":"身份校验","textPreview":"身份校验","textChars":4,"textLines":1,"bbox":[64,440,94.8,24]}
+{"kind":"textbox","id":"sh/dcbulwva","slide":9,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[164.8,436,18,24]}
+{"kind":"shape","id":"sh/6psfil0r","slide":9,"bbox":[180.8,420,110.8,64]}
+{"kind":"textbox","id":"sh/val87ed8","slide":9,"text":"商品校验","textPreview":"商品校验","textChars":4,"textLines":1,"bbox":[188.8,440,94.8,24]}
+{"kind":"textbox","id":"sh/k3q5o7qp","slide":9,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[289.6,436,18,24]}
+{"kind":"shape","id":"sh/donyd0z6","slide":9,"bbox":[305.6,420,110.8,64]}
+{"kind":"textbox","id":"sh/2x4nap4r","slide":9,"text":"创建订单","textPreview":"创建订单","textChars":4,"textLines":1,"bbox":[313.6,440,94.8,24]}
+{"kind":"textbox","id":"sh/vixczed8","slide":9,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[414.4,436,18,24]}
+{"kind":"shape","id":"sh/kf6dcbul","slide":9,"bbox":[430.4,420,110.8,64]}
+{"kind":"textbox","id":"sh/d0z61032","slide":9,"text":"更新状态","textPreview":"更新状态","textChars":4,"textLines":1,"bbox":[438.4,440,94.8,24]}
+{"kind":"textbox","id":"sh/dsji5sne","slide":9,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[539.2,436,18,24]}
+{"kind":"shape","id":"sh/o7qpg3ex","slide":9,"bbox":[555.2,420,110.8,64]}
+{"kind":"textbox","id":"sh/vmtwra5g","slide":9,"text":"发送通知","textPreview":"发送通知","textChars":4,"textLines":1,"bbox":[563.2,440,94.8,24]}
+{"kind":"shape","id":"sh/61032lsz","slide":9,"bbox":[56,540,610,58]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":9,"text":"Service 层提供统一入口，隐藏内部多表更新、日志记录和通知推送细节。","textPreview":"Service 层提供统一入口，隐藏内部多表更新、日志记录和通知推送细节。","textChars":37,"textLines":1,"bbox":[80,556,550,24]}
+{"kind":"shape","id":"sh/oj2t83it","slide":9,"bbox":[720,180,380,180]}
+{"kind":"shape","id":"sh/6dcbulwv","slide":9,"bbox":[720,400,380,170]}
+{"kind":"image","id":"im/wjudg7ad","slide":9,"name":"","geometry":"roundRect","alt":"发布商品界面截图","bbox":[728,188,364,164]}
+{"kind":"image","id":"im/ih4byhgn","slide":9,"name":"","geometry":"roundRect","alt":"消息中心界面截图","bbox":[728,408,364,154]}
+{"kind":"notes","id":"nt/7mz4y5","slide":9,"text":"外观模式体现在业务服务封装中。比如下单，前端只需要调用一个购买接口，但后端内部要校验身份、校验商品、创建订单、更新状态并发送通知。Service 层就相当于外观，降低了调用复杂度。"}
+{"kind":"slide","id":"sl/7hpmbu","slide":10,"title":"第二章  重要设计和实现","textShapes":15}
+{"kind":"textbox","id":"sh/18jqh0fe","slide":10,"text":"第二章  重要设计和实现","textPreview":"第二章  重要设计和实现","textChars":12,"textLines":1,"bbox":[56,30,340,24]}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":10,"text":"推荐算法根据用户行为画像和商品热度综合评分","textPreview":"推荐算法根据用户行为画像和商品热度综合评分","textChars":21,"textLines":1,"bbox":[56,62,950,58]}
+{"kind":"shape","id":"sh/j2t83itg","slide":10,"bbox":[56,136,1168,1.4]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":10,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[1182,650,42,22]}
+{"kind":"shape","id":"sh/1w7mp0bi","slide":10,"bbox":[56,185,118,96]}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":10,"text":"8","textPreview":"8","textChars":1,"textLines":1,"bbox":[76,204,78,34]}
+{"kind":"textbox","id":"sh/jqh0fepk","slide":10,"text":"浏览","textPreview":"浏览","textChars":2,"textLines":1,"bbox":[76,244,78,22]}
+{"kind":"shape","id":"sh/c3ylc7u5","slide":10,"bbox":[198,185,118,96]}
+{"kind":"textbox","id":"sh/1kre1w7m","slide":10,"text":"14","textPreview":"14","textChars":2,"textLines":1,"bbox":[218,204,78,34]}
+{"kind":"textbox","id":"sh/5o7qpg3e","slide":10,"text":"搜索","textPreview":"搜索","textChars":2,"textLines":1,"bbox":[218,244,78,22]}
+{"kind":"shape","id":"sh/g3ex0nux","slide":10,"bbox":[340,185,118,96]}
+{"kind":"textbox","id":"sh/nih4byhg","slide":10,"text":"30","textPreview":"30","textChars":2,"textLines":1,"bbox":[360,204,78,34]}
+{"kind":"textbox","id":"sh/yxobm58z","slide":10,"text":"收藏","textPreview":"收藏","textChars":2,"textLines":1,"bbox":[360,244,78,22]}
+{"kind":"shape","id":"sh/9cvixcze","slide":10,"bbox":[482,185,118,96]}
+{"kind":"textbox","id":"sh/gr2p8nqx","slide":10,"text":"45","textPreview":"45","textChars":2,"textLines":1,"bbox":[502,204,78,34]}
+{"kind":"textbox","id":"sh/r65wjudg","slide":10,"text":"购买","textPreview":"购买","textChars":2,"textLines":1,"bbox":[502,244,78,22]}
+{"kind":"textbox","id":"sh/ylc7u54z","slide":10,"text":"行为采集 → 时间衰减 → 兴趣画像 → 候选商品 → 综合评分 → 推荐展示","textPreview":"行为采集 → 时间衰减 → 兴趣画像 → 候选商品 → 综合评分 → 推荐展示","textChars":39,"textLines":1,"bbox":[56,330,660,34]}
+{"kind":"shape","id":"sh/90je9cvi","slide":10,"bbox":[56,410,9,9]}
+{"kind":"textbox","id":"sh/gfmlkjm1","slide":10,"text":"画像维度：分类偏好、关键词偏好、成色偏好、价格偏好","textPreview":"画像维度：分类偏好、关键词偏好、成色偏好、价格偏好","textChars":25,"textLines":1,"bbox":[80,400,596,50]}
+{"kind":"shape","id":"sh/gn29gr2p","slide":10,"bbox":[56,464,9,9]}
+{"kind":"textbox","id":"sh/58z25kb6","slide":10,"text":"商品因素：浏览量、收藏/交易热度、发布时间新鲜度","textPreview":"商品因素：浏览量、收藏/交易热度、发布时间新鲜度","textChars":24,"textLines":1,"bbox":[80,454,596,50]}
+{"kind":"shape","id":"sh/yhgn29gr","slide":10,"bbox":[56,518,9,9]}
+{"kind":"textbox","id":"sh/n29gr2p8","slide":10,"text":"冷启动：行为较少时优先推荐热门商品和最新商品","textPreview":"冷启动：行为较少时优先推荐热门商品和最新商品","textChars":22,"textLines":1,"bbox":[80,508,596,50]}
+{"kind":"shape","id":"sh/gbq1oryt","slide":10,"bbox":[760,200,360,330]}
+{"kind":"image","id":"im/udg7adsj","slide":10,"name":"","geometry":"roundRect","alt":"首页猜你喜欢推荐截图","bbox":[768,208,344,314]}
+{"kind":"notes","id":"nt/7hpmbu","slide":10,"text":"推荐算法使用用户行为画像加多因子评分。浏览、搜索、收藏和购买对应不同权重，购买和收藏代表更强兴趣。同时加入时间衰减，近期行为影响更大。系统根据分类、关键词、成色和价格偏好匹配候选商品，再结合热度和新鲜度排序。"}
+{"kind":"slide","id":"sl/a45gkn","slide":11,"title":"第二章  重要设计和实现","textShapes":20}
+{"kind":"textbox","id":"sh/a1gvy90j","slide":11,"text":"第二章  重要设计和实现","textPreview":"第二章  重要设计和实现","textChars":12,"textLines":1,"bbox":[56,30,340,24]}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":11,"text":"系统实现了从发布到治理的完整交易闭环","textPreview":"系统实现了从发布到治理的完整交易闭环","textChars":18,"textLines":1,"bbox":[56,62,950,58]}
+{"kind":"shape","id":"sh/s36hcrmh","slide":11,"bbox":[56,136,1168,1.4]}
+{"kind":"textbox","id":"sh/za1gvy90","slide":11,"text":"11","textPreview":"11","textChars":2,"textLines":1,"bbox":[1182,650,42,22]}
+{"kind":"shape","id":"sh/ap4r65wj","slide":11,"bbox":[56,176,133.75,64]}
+{"kind":"textbox","id":"sh/hgn29gr2","slide":11,"text":"发布商品","textPreview":"发布商品","textChars":4,"textLines":1,"bbox":[64,196,117.75,24]}
+{"kind":"textbox","id":"sh/svu9knih","slide":11,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[187.75,192,18,24]}
+{"kind":"shape","id":"sh/3ylc7u54","slide":11,"bbox":[203.75,176,133.75,64]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":11,"text":"敏感词检测","textPreview":"敏感词检测","textChars":5,"textLines":1,"bbox":[211.75,196,117.75,24]}
+{"kind":"textbox","id":"sh/w7mp0bi9","slide":11,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[335.5,192,18,24]}
+{"kind":"shape","id":"sh/psfil0rq","slide":11,"bbox":[351.5,176,133.75,64]}
+{"kind":"textbox","id":"sh/e1w7mp0b","slide":11,"text":"管理员审核","textPreview":"管理员审核","textChars":5,"textLines":1,"bbox":[359.5,196,117.75,24]}
+{"kind":"textbox","id":"sh/7mp0bi9s","slide":11,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[483.25,192,18,24]}
+{"kind":"shape","id":"sh/wval87ed","slide":11,"bbox":[499.25,176,133.75,64]}
+{"kind":"textbox","id":"sh/pg3ex0nu","slide":11,"text":"市场展示","textPreview":"市场展示","textChars":4,"textLines":1,"bbox":[507.25,196,117.75,24]}
+{"kind":"textbox","id":"sh/epkzupwb","slide":11,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[631,192,18,24]}
+{"kind":"shape","id":"sh/7adsji5s","slide":11,"bbox":[647,176,133.75,64]}
+{"kind":"textbox","id":"sh/wra5gbq1","slide":11,"text":"沟通下单","textPreview":"沟通下单","textChars":4,"textLines":1,"bbox":[655,196,117.75,24]}
+{"kind":"textbox","id":"sh/lc7u54zi","slide":11,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[778.75,192,18,24]}
+{"kind":"shape","id":"sh/p4r65wju","slide":11,"bbox":[794.75,176,133.75,64]}
+{"kind":"textbox","id":"sh/wjudg7ad","slide":11,"text":"支付发货","textPreview":"支付发货","textChars":4,"textLines":1,"bbox":[802.75,196,117.75,24]}
+{"kind":"textbox","id":"sh/7y1kre1w","slide":11,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[926.5,192,18,24]}
+{"kind":"shape","id":"sh/ed8v6psf","slide":11,"bbox":[942.5,176,133.75,64]}
+{"kind":"textbox","id":"sh/pwb2hwfy","slide":11,"text":"收货完成","textPreview":"收货完成","textChars":4,"textLines":1,"bbox":[950.5,196,117.75,24]}
+{"kind":"textbox","id":"sh/0bi9s36h","slide":11,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[1074.25,192,18,24]}
+{"kind":"shape","id":"sh/7qpg3ex0","slide":11,"bbox":[1090.25,176,133.75,64]}
+{"kind":"textbox","id":"sh/i5sneloj","slide":11,"text":"举报处理","textPreview":"举报处理","textChars":4,"textLines":1,"bbox":[1098.25,196,117.75,24]}
+{"kind":"shape","id":"sh/pkzupwb2","slide":11,"bbox":[56,292,250,160]}
+{"kind":"shape","id":"sh/qh0fepkz","slide":11,"bbox":[337,292,250,160]}
+{"kind":"shape","id":"sh/8nqxs72x","slide":11,"bbox":[618,292,250,160]}
+{"kind":"shape","id":"sh/q5o7qpg3","slide":11,"bbox":[899,292,250,160]}
+{"kind":"shape","id":"sh/8bat47y1","slide":11,"bbox":[56,520,1090,76]}
+{"kind":"textbox","id":"sh/1w7mp0bi","slide":11,"text":"答辩重点","textPreview":"答辩重点","textChars":4,"textLines":1,"bbox":[84,542,120,26]}
+{"kind":"textbox","id":"sh/uxc3ylc7","slide":11,"text":"这套流程证明系统不是静态页面，而是具备发布、审核、交易、通知和治理能力的业务系统。","textPreview":"这套流程证明系统不是静态页面，而是具备发布、审核、交易、通知和治理能力的业务系统。","textChars":41,"textLines":1,"bbox":[216,544,760,25]}
+{"kind":"image","id":"im/7y1kre1w","slide":11,"name":"","geometry":"roundRect","alt":"发布商品截图","bbox":[64,300,234,144]}
+{"kind":"image","id":"im/4fu18jqh","slide":11,"name":"","geometry":"roundRect","alt":"商品市场截图","bbox":[345,300,234,144]}
+{"kind":"image","id":"im/m94fu18j","slide":11,"name":"","geometry":"roundRect","alt":"订单中心截图","bbox":[626,300,234,144]}
+{"kind":"image","id":"im/83itgfml","slide":11,"name":"","geometry":"roundRect","alt":"敏感词管理截图","bbox":[907,300,234,144]}
+{"kind":"notes","id":"nt/a45gkn","slide":11,"text":"这一页是完整功能实现的总结。用户发布商品后，系统先进行敏感词检测，再进入管理员审核。审核通过后商品进入市场展示，买家可以搜索、沟通、下单、支付，卖家发货，买家确认收货。如果出现违规或纠纷，还可以举报并由后台处理。"}
+{"kind":"slide","id":"sl/a5qba3","slide":12,"title":"第二章  重要设计和实现","textShapes":6}
+{"kind":"textbox","id":"sh/xs72x4na","slide":12,"text":"第二章  重要设计和实现","textPreview":"第二章  重要设计和实现","textChars":12,"textLines":1,"bbox":[56,30,340,24]}
+{"kind":"textbox","id":"sh/q1orytsv","slide":12,"text":"后台治理保证平台内容可控、交易可追踪","textPreview":"后台治理保证平台内容可控、交易可追踪","textChars":18,"textLines":1,"bbox":[56,62,950,58]}
+{"kind":"shape","id":"sh/fmlkjm1c","slide":12,"bbox":[56,136,1168,1.4]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":12,"text":"12","textPreview":"12","textChars":2,"textLines":1,"bbox":[1182,650,42,22]}
+{"kind":"shape","id":"sh/1gvy90je","slide":12,"bbox":[56,180,360,185]}
+{"kind":"shape","id":"sh/je9cvixc","slide":12,"bbox":[460,180,320,185]}
+{"kind":"shape","id":"sh/xczed8v6","slide":12,"bbox":[815,180,320,185]}
+{"kind":"shape","id":"sh/k3q5o7qp","slide":12,"bbox":[56,405,360,145]}
+{"kind":"shape","id":"sh/2x4nap4r","slide":12,"bbox":[460,405,320,145]}
+{"kind":"shape","id":"sh/kre1w7mp","slide":12,"bbox":[815,405,320,145]}
+{"kind":"shape","id":"sh/val87ed8","slide":12,"bbox":[838,438,9,9]}
+{"kind":"textbox","id":"sh/6psfil0r","slide":12,"text":"商品审核：待审核商品通过后才公开展示","textPreview":"商品审核：待审核商品通过后才公开展示","textChars":18,"textLines":1,"bbox":[862,428,236,32]}
+{"kind":"shape","id":"sh/d8bat47y","slide":12,"bbox":[838,474,9,9]}
+{"kind":"textbox","id":"sh/knih4byh","slide":12,"text":"用户管理：异常账号可禁用或恢复","textPreview":"用户管理：异常账号可禁用或恢复","textChars":15,"textLines":1,"bbox":[862,464,236,32]}
+{"kind":"shape","id":"sh/wjudg7ad","slide":12,"bbox":[838,510,9,9]}
+{"kind":"textbox","id":"sh/p4r65wju","slide":12,"text":"举报处理：交易纠纷和违规商品进入后台闭环","textPreview":"举报处理：交易纠纷和违规商品进入后台闭环","textChars":20,"textLines":1,"bbox":[862,500,236,32]}
+{"kind":"image","id":"im/7mp0bi9s","slide":12,"name":"","geometry":"roundRect","alt":"后台数据概览截图","bbox":[64,188,344,169]}
+{"kind":"image","id":"im/l0rqd4vm","slide":12,"name":"","geometry":"roundRect","alt":"用户管理截图","bbox":[468,188,304,169]}
+{"kind":"image","id":"im/ixczed8v","slide":12,"name":"","geometry":"roundRect","alt":"公告管理截图","bbox":[823,188,304,169]}
+{"kind":"image","id":"im/032lszqt","slide":12,"name":"","geometry":"roundRect","alt":"敏感词管理截图","bbox":[64,413,344,129]}
+{"kind":"image","id":"im/i9s36hcr","slide":12,"name":"","geometry":"roundRect","alt":"安全告示页面截图","bbox":[468,413,304,129]}
+{"kind":"notes","id":"nt/a5qba3","slide":12,"text":"后台管理是平台治理的核心。管理员可以看到数据概览，进行用户管理、公告管理、敏感词维护和安全告示发布。同时，商品审核和举报处理让平台具备内容把关和纠纷处理能力。"}
+{"kind":"slide","id":"sl/rz0ae1","slide":13,"title":"第二章  重要设计和实现","textShapes":19}
+{"kind":"textbox","id":"sh/tovahoza","slide":13,"text":"第二章  重要设计和实现","textPreview":"第二章  重要设计和实现","textChars":12,"textLines":1,"bbox":[56,30,340,24]}
+{"kind":"textbox","id":"sh/ixczed8v","slide":13,"text":"测试结果说明核心流程可以稳定运行","textPreview":"测试结果说明核心流程可以稳定运行","textChars":16,"textLines":1,"bbox":[56,62,950,58]}
+{"kind":"shape","id":"sh/bi9s36hc","slide":13,"bbox":[56,136,1168,1.4]}
+{"kind":"textbox","id":"sh/0fepkzup","slide":13,"text":"13","textPreview":"13","textChars":2,"textLines":1,"bbox":[1182,650,42,22]}
+{"kind":"shape","id":"sh/p0bi9s36","slide":13,"bbox":[56,188,255,94]}
+{"kind":"textbox","id":"sh/i9s36hcr","slide":13,"text":"24","textPreview":"24","textChars":2,"textLines":1,"bbox":[76,203,215,34]}
+{"kind":"textbox","id":"sh/bulwval8","slide":13,"text":"后端 MockMvc 集成测试","textPreview":"后端 MockMvc 集成测试","textChars":15,"textLines":1,"bbox":[76,243,215,24]}
+{"kind":"shape","id":"sh/0je9cvix","slide":13,"bbox":[341,188,255,94]}
+{"kind":"textbox","id":"sh/t47y1kre","slide":13,"text":"16","textPreview":"16","textChars":2,"textLines":1,"bbox":[361,203,215,34]}
+{"kind":"textbox","id":"sh/9s36hcrm","slide":13,"text":"前端 Vitest 测试文件","textPreview":"前端 Vitest 测试文件","textChars":14,"textLines":1,"bbox":[361,243,215,24]}
+{"kind":"shape","id":"sh/g7adsji5","slide":13,"bbox":[626,188,255,94]}
+{"kind":"textbox","id":"sh/rmhk3q5o","slide":13,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[646,203,215,34]}
+{"kind":"textbox","id":"sh/y1kre1w7","slide":13,"text":"黑盒关键业务流程","textPreview":"黑盒关键业务流程","textChars":8,"textLines":1,"bbox":[646,243,215,24]}
+{"kind":"shape","id":"sh/90je9cvi","slide":13,"bbox":[911,188,255,94]}
+{"kind":"textbox","id":"sh/gfmlkjm1","slide":13,"text":"Build","textPreview":"Build","textChars":5,"textLines":1,"bbox":[931,203,215,34]}
+{"kind":"textbox","id":"sh/rytsvu9k","slide":13,"text":"前端生产构建通过","textPreview":"前端生产构建通过","textChars":8,"textLines":1,"bbox":[931,243,215,24]}
+{"kind":"textbox","id":"sh/yd0z6103","slide":13,"text":"重点验证场景","textPreview":"重点验证场景","textChars":6,"textLines":1,"bbox":[56,345,240,34]}
+{"kind":"shape","id":"sh/9cvixcze","slide":13,"bbox":[56,410,320,120]}
+{"kind":"textbox","id":"sh/gr2p8nqx","slide":13,"text":"搜索分页","textPreview":"搜索分页","textChars":4,"textLines":1,"bbox":[78,432,190,28]}
+{"kind":"textbox","id":"sh/c7u54zid","slide":13,"text":"100 条商品数据下，分页与筛选响应正常","textPreview":"100 条商品数据下，分页与筛选响应正常","textChars":20,"textLines":1,"bbox":[78,474,260,42]}
+{"kind":"shape","id":"sh/1orytsvu","slide":13,"bbox":[426,410,320,120]}
+{"kind":"textbox","id":"sh/u18jqh0f","slide":13,"text":"并发下单","textPreview":"并发下单","textChars":4,"textLines":1,"bbox":[448,432,190,28]}
+{"kind":"textbox","id":"sh/jm1cfa9w","slide":13,"text":"通过乐观锁避免同一商品被重复购买","textPreview":"通过乐观锁避免同一商品被重复购买","textChars":16,"textLines":1,"bbox":[448,474,260,42]}
+{"kind":"shape","id":"sh/cfa9w3m9","slide":13,"bbox":[796,410,320,120]}
+{"kind":"textbox","id":"sh/1032lszq","slide":13,"text":"Redis 降级","textPreview":"Redis 降级","textChars":8,"textLines":1,"bbox":[818,432,190,28]}
+{"kind":"textbox","id":"sh/u9knih4b","slide":13,"text":"缓存不可用时，核心业务仍能回退到数据库","textPreview":"缓存不可用时，核心业务仍能回退到数据库","textChars":19,"textLines":1,"bbox":[818,474,260,42]}
+{"kind":"textbox","id":"sh/judg7ads","slide":13,"text":"结论：功能完整、业务流程正确、安全控制和并发处理达到课程验收要求。","textPreview":"结论：功能完整、业务流程正确、安全控制和并发处理达到课程验收要求。","textChars":33,"textLines":1,"bbox":[56,590,940,30]}
+{"kind":"notes","id":"nt/rz0ae1","slide":13,"text":"在测试方面，后端有 24 个 MockMvc 集成测试，前端有 16 个 Vitest 测试文件，还设计了 10 组黑盒业务流程。重点验证了搜索分页、并发下单和 Redis 降级。测试结果说明系统核心流程能够稳定运行。"}
+{"kind":"slide","id":"sl/atanof","slide":14,"title":"第三章  成员分工","textShapes":13}
+{"kind":"textbox","id":"sh/bat47y1k","slide":14,"text":"第三章  成员分工","textPreview":"第三章  成员分工","textChars":9,"textLines":1,"bbox":[56,30,340,24]}
+{"kind":"textbox","id":"sh/4vmtwra5","slide":14,"text":"四名成员围绕架构、业务、前端和文档协同完成项目","textPreview":"四名成员围绕架构、业务、前端和文档协同完成项目","textChars":23,"textLines":1,"bbox":[56,62,950,58]}
+{"kind":"shape","id":"sh/tgfmlkjm","slide":14,"bbox":[56,136,1168,1.4]}
+{"kind":"textbox","id":"sh/m1cfa9w3","slide":14,"text":"14","textPreview":"14","textChars":2,"textLines":1,"bbox":[1182,650,42,22]}
+{"kind":"shape","id":"sh/bm58z25k","slide":14,"bbox":[56,180,1080,58]}
+{"kind":"textbox","id":"sh/47y1kre1","slide":14,"text":"刘荣沁","textPreview":"刘荣沁","textChars":3,"textLines":1,"bbox":[78,195,105,24]}
+{"kind":"textbox","id":"sh/tsvu9kni","slide":14,"text":"项目规划、后端架构、订单模块、数据库设计、部署配置","textPreview":"项目规划、后端架构、订单模块、数据库设计、部署配置","textChars":25,"textLines":1,"bbox":[206,196,840,24]}
+{"kind":"shape","id":"sh/m58z25kb","slide":14,"bbox":[56,256,1080,58]}
+{"kind":"textbox","id":"sh/bq1oryts","slide":14,"text":"明冬阳","textPreview":"明冬阳","textChars":3,"textLines":1,"bbox":[78,271,105,24]}
+{"kind":"textbox","id":"sh/3ex0nuxc","slide":14,"text":"用户认证、JWT、Redis、商品后端、后端测试","textPreview":"用户认证、JWT、Redis、商品后端、后端测试","textChars":24,"textLines":1,"bbox":[206,272,840,24]}
+{"kind":"shape","id":"sh/at47y1kr","slide":14,"bbox":[56,332,1080,58]}
+{"kind":"textbox","id":"sh/lkjm1cfa","slide":14,"text":"朱大前","textPreview":"朱大前","textChars":3,"textLines":1,"bbox":[78,347,105,24]}
+{"kind":"textbox","id":"sh/szqtcj6t","slide":14,"text":"前端架构、首页/市场/详情页、后台管理、消息通知、推荐与举报扩展","textPreview":"前端架构、首页/市场/详情页、后台管理、消息通知、推荐与举报扩展","textChars":32,"textLines":1,"bbox":[206,348,840,24]}
+{"kind":"shape","id":"sh/32lszqtc","slide":14,"bbox":[56,408,1080,58]}
+{"kind":"textbox","id":"sh/ahoza1gv","slide":14,"text":"邓先毅","textPreview":"邓先毅","textChars":3,"textLines":1,"bbox":[78,423,105,24]}
+{"kind":"textbox","id":"sh/l87ed8ba","slide":14,"text":"个人中心、订单中心、消息中心、购物车、支付页、UI/UX、前端测试、文档","textPreview":"个人中心、订单中心、消息中心、购物车、支付页、UI/UX、前端测试、文档","textChars":36,"textLines":1,"bbox":[206,424,840,24]}
+{"kind":"shape","id":"sh/sneloj2t","slide":14,"bbox":[56,525,1080,78]}
+{"kind":"textbox","id":"sh/3q5o7qpg","slide":14,"text":"总结","textPreview":"总结","textChars":2,"textLines":1,"bbox":[82,546,70,28]}
+{"kind":"textbox","id":"sh/e9cvixcz","slide":14,"text":"系统完成了校园二手交易从需求分析、功能实现、后台治理到测试验证的完整实践，后续可继续优化真实支付、实时聊天和移动端适配。","textPreview":"系统完成了校园二手交易从需求分析、功能实现、后台治理到测试验证的完整实践，后续可继续优化真实支付、实时聊天和移动端适配。","textChars":60,"textLines":1,"bbox":[166,548,890,28]}
+{"kind":"notes","id":"nt/atanof","slide":14,"text":"最后是成员分工。四名成员分别承担项目规划和后端架构、用户认证和 Redis、前端架构和扩展功能、业务页面和 UI 测试等工作。总体来看，本项目完成了校园二手交易平台从需求分析、功能实现、后台治理到测试验证的完整实践。后续可以继续优化真实支付、实时聊天和移动端适配。我的汇报到这里，谢谢各位老师。"}

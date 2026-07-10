@@ -30,6 +30,9 @@ const isOwner = computed(() =>
 const canBuy = computed(() =>
   product.value != null && product.value.status === 'APPROVED' && !isOwner.value
 )
+const isInCart = computed(() =>
+  product.value != null && cart.has(product.value.id)
+)
 
 async function fetch() {
   loading.value = true
@@ -88,8 +91,12 @@ function buy() {
   router.push(`/pay/${product.value?.id}`)
 }
 
-function addToCart() {
+function toggleCart() {
   if (!product.value) return
+  if (cart.has(product.value.id)) {
+    cart.remove(product.value.id)
+    return
+  }
   cart.add({
     productId: product.value.id,
     title: product.value.title,
@@ -242,7 +249,15 @@ onMounted(fetch)
               <UiIcon name="heart" :filled="product.favorite" />
               <span>{{ isOwner ? '自己的商品' : (acting ? '处理中...' : (product.favorite ? '已收藏' : '收藏')) }}</span>
             </button>
-            <button v-if="!isOwner" class="btn-cart" :disabled="acting" @click="addToCart">加入购物车</button>
+            <button
+              v-if="!isOwner"
+              class="btn-cart"
+              :class="{ on: isInCart }"
+              :disabled="acting"
+              @click="toggleCart"
+            >
+              {{ isInCart ? '已加入购物车' : '加入购物车' }}
+            </button>
             <button v-if="canBuy" class="btn-buy" @click="buy">立即购买</button>
             <button v-if="!isOwner" class="btn-report" :disabled="acting" @click="openReport">举报</button>
           </div>
@@ -367,6 +382,8 @@ onMounted(fetch)
 .btn-fav.on { border-color: #faad14; color: #faad14; background: #fffbe6; }
 .btn-cart { padding: 8px 20px; border: 1px solid #ff4d4f; border-radius: 8px; background: #fff; color: #ff4d4f; cursor: pointer; font-size: 15px; }
 .btn-cart:hover { background: #fff2f0; }
+.btn-cart.on { border-color: #1677ff; color: #1677ff; background: #eef6ff; }
+.btn-cart.on:hover { background: #e0f0ff; }
 .btn-buy { padding: 10px 40px; background: #ff4d4f; color: #fff; border: none; border-radius: 8px; font-size: 17px; font-weight: 600; cursor: pointer; }
 .btn-buy:hover { background: #e04343; }
 .btn-report { padding: 8px 18px; border: 1px solid #d9d9d9; border-radius: 8px; color: #64748b; background: #fff; cursor: pointer; font-size: 15px; }

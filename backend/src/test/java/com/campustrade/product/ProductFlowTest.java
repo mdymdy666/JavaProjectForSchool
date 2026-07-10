@@ -107,12 +107,12 @@ class ProductFlowTest {
         mockMvc.perform(post("/api/products/{id}/favorite", productId)
                         .header("Authorization", bearer(buyer)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.favorite").value(true));
+                .andExpect(jsonPath("$.data.favorite").value(false));
 
         mockMvc.perform(get("/api/products/{id}", productId)
                         .header("Authorization", bearer(buyer)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.favorite").value(true))
+                .andExpect(jsonPath("$.data.favorite").value(false))
                 .andExpect(jsonPath("$.data.sellerNickname").value("校园卖家"))
                 .andExpect(jsonPath("$.data.viewCount").value(1));
 
@@ -127,7 +127,7 @@ class ProductFlowTest {
 
         assertThat(jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM favorites WHERE user_id = ? AND product_id = ?",
-                Integer.class, buyer.getId(), productId)).isEqualTo(1);
+                Integer.class, buyer.getId(), productId)).isEqualTo(0);
         assertThat(jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM audit_logs WHERE target_type = 'PRODUCT' AND target_id = ?",
                 Integer.class, productId)).isEqualTo(1);

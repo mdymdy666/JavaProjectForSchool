@@ -5,6 +5,10 @@ import { createMemoryHistory, createRouter } from 'vue-router'
 import ProductDetailView from './ProductDetailView.vue'
 import detailSource from './ProductDetailView.vue?raw'
 
+const { favoriteProductMock } = vi.hoisted(() => ({
+  favoriteProductMock: vi.fn().mockResolvedValue({ code: 200, data: { productId: 7, favorite: true } })
+}))
+
 vi.mock('../api/product', () => ({
   getProductDetail: vi.fn().mockResolvedValue({ code: 200, data: {
     id: 7, sellerId: 2, sellerNickname: '卖家', sellerProductCount: 1,
@@ -12,7 +16,11 @@ vi.mock('../api/product', () => ({
     price: 30, itemCondition: '九成新', status: 'APPROVED', viewCount: 8,
     images: ['/book.jpg'], favorite: false, createdAt: '2026-07-06T12:00:00'
   }}),
-  favoriteProduct: vi.fn(), offShelfProduct: vi.fn(), relistProduct: vi.fn(), deleteProduct: vi.fn()
+  favoriteProduct: favoriteProductMock,
+  offShelfProduct: vi.fn(),
+  relistProduct: vi.fn(),
+  deleteProduct: vi.fn(),
+  reportProduct: vi.fn()
 }))
 vi.mock('../api/message', () => ({
   getMessages: vi.fn().mockResolvedValue({ data: [] }),
@@ -26,6 +34,7 @@ describe('ProductDetailView', () => {
     localStorage.setItem('campus-token', 'token')
     localStorage.setItem('campus-user-id', '1')
     localStorage.setItem('campus-role', 'USER')
+    localStorage.removeItem('campus-cart')
     const router = createRouter({
       history: createMemoryHistory(),
       routes: [
@@ -47,6 +56,17 @@ describe('ProductDetailView', () => {
     expect(detailSource).toMatch(/\.btn-fav \{[^}]*color:\s*#333;/)
     expect(detailSource).toMatch(/\.meta-item label \{[^}]*color:\s*#475569;/)
     expect(detailSource).toMatch(/\.meta-item label \{[^}]*font-weight:\s*700;/)
+
+    const cartButton = wrapper.get('button.btn-cart')
+    expect(cartButton.text()).toContain('加入购物车')
+    await cartButton.trigger('click')
+    await flushPromises()
+    expect(wrapper.get('button.btn-cart').text()).toContain('已加入购物车')
+    expect(JSON.parse(localStorage.getItem('campus-cart') || '[]')).toHaveLength(1)
+    await wrapper.get('button.btn-cart').trigger('click')
+    await flushPromises()
+    expect(wrapper.get('button.btn-cart').text()).toContain('加入购物车')
+    expect(JSON.parse(localStorage.getItem('campus-cart') || '[]')).toHaveLength(0)
 
     await wrapper.get('button.btn-contact').trigger('click')
     await flushPromises()

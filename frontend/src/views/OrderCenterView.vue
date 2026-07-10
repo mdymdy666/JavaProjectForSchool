@@ -77,6 +77,17 @@ function showTrack(o: OrderView) {
 function closeTrack() { trackOrder.value = null }
 function fmt(d: Date) { return d.toLocaleString('zh-CN', { hour12: false }) }
 
+function orderStatusText(status: string) {
+  const labels: Record<string, string> = {
+    PENDING_PAYMENT: '待支付',
+    PAID: '已支付，等待卖家发货',
+    SHIPPED: '已发货，等待确认收货',
+    COMPLETED: '交易已完成',
+    CANCELED: '订单已取消'
+  }
+  return labels[status] || status
+}
+
 onMounted(async () => {
   await fetch()
   if (route.query.action === 'buy') await buy()
@@ -105,6 +116,7 @@ onMounted(async () => {
             <span>卖家: {{ o.sellerNickname }}</span>
             <span class="amount">&yen;{{ o.totalAmount?.toFixed(2) }}</span>
           </div>
+          <div class="order-state">交易状态：{{ orderStatusText(o.status) }}</div>
           <div class="order-actions">
             <button v-if="o.status === 'PENDING_PAYMENT'" @click="goPay(o.id)">支付</button>
             <button v-if="o.status === 'SHIPPED'" @click="act(o.id, confirmOrder)">确认收货</button>
@@ -128,6 +140,7 @@ onMounted(async () => {
             <span>买家: {{ o.buyerNickname }}</span>
             <span class="amount">&yen;{{ o.totalAmount?.toFixed(2) }}</span>
           </div>
+          <div class="order-state">交易状态：{{ orderStatusText(o.status) }}</div>
           <div class="order-actions">
             <button v-if="o.status === 'PAID'" @click="ship(o.id)">发货</button>
             <button v-if="o.status === 'SHIPPED' || o.status === 'COMPLETED'" class="track-btn" @click="showTrack(o)">查看物流</button>
@@ -180,6 +193,17 @@ onMounted(async () => {
 }
 .order-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
 .order-info { display: flex; gap: 20px; font-size: 13px; color: #666; margin-bottom: 10px; }
+.order-state {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #eef6ff;
+  color: #0f5fc7;
+  font-size: 13px;
+  font-weight: 600;
+}
 .amount { color: #ff4d4f; font-weight: 600; }
 .order-actions { display: flex; gap: 8px; }
 .order-actions button {

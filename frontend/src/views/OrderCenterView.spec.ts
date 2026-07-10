@@ -47,8 +47,10 @@ describe('OrderCenterView', () => {
     const tabs = wrapper.findAll('.tabs button')
     expect(tabs.map(tab => tab.text())).toEqual(['我买的', '我卖的'])
     expect(tabs[0].classes()).toContain('active')
+    expect(wrapper.text()).toContain('交易状态：已发货，等待确认收货')
     expect(orderSource).toMatch(/\.tabs button \{[^}]*color:\s*#253044;/s)
     expect(orderSource).toMatch(/\.tabs button\.active \{[^}]*color:\s*#fff;/s)
+    expect(orderSource).toMatch(/\.order-state \{[^}]*font-weight:\s*600;/s)
   })
 
   it('shows an identifiable close control in the logistics dialog', async () => {

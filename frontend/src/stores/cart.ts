@@ -30,6 +30,11 @@ export const useCartStore = defineStore('cart', () => {
   const totalAmount = computed(() =>
     items.value.reduce((s, i) => s + i.price * i.quantity, 0)
   )
+  const productIds = computed(() => new Set(items.value.map(i => i.productId)))
+
+  function has(productId: number) {
+    return productIds.value.has(productId)
+  }
 
   function add(item: Omit<CartItem, 'quantity'>) {
     const exist = items.value.find(i => i.productId === item.productId)
@@ -59,5 +64,5 @@ export const useCartStore = defineStore('cart', () => {
     saveCart()
   }
 
-  return { items, totalCount, totalAmount, add, remove, updateQuantity, clear }
+  return { items, totalCount, totalAmount, has, add, remove, updateQuantity, clear }
 })

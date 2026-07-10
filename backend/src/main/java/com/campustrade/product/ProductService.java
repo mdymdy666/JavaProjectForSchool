@@ -189,15 +189,19 @@ public class ProductService {
         long existing = favoriteMapper.selectCount(new LambdaQueryWrapper<Favorite>()
                 .eq(Favorite::getUserId, userId)
                 .eq(Favorite::getProductId, productId));
-        if (existing == 0) {
-            Favorite favorite = new Favorite();
-            favorite.setUserId(userId);
-            favorite.setProductId(productId);
-            try {
-                favoriteMapper.insert(favorite);
-            } catch (DuplicateKeyException ignored) {
-                // The unique key makes concurrent repeated favorites idempotent.
-            }
+        if (existing > 0) {
+            favoriteMapper.delete(new LambdaQueryWrapper<Favorite>()
+                    .eq(Favorite::getUserId, userId)
+                    .eq(Favorite::getProductId, productId));
+            return new FavoriteResponse(productId, false);
+        }
+        Favorite favorite = new Favorite();
+        favorite.setUserId(userId);
+        favorite.setProductId(productId);
+        try {
+            favoriteMapper.insert(favorite);
+        } catch (DuplicateKeyException ignored) {
+            // The unique key makes concurrent repeated favorites idempotent.
         }
         return new FavoriteResponse(productId, true);
     }

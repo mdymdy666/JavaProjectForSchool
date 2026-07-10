@@ -54,7 +54,7 @@ function enterHome() {
 .cover-content {
   display: grid;
   justify-items: center;
-  width: min(860px, calc(100% - 40px));
+  width: min(1080px, calc(100% - 40px));
   margin-top: -8vh;
   padding: 34px 36px 38px;
   border: 1px solid rgba(255, 255, 255, 0.66);
@@ -82,10 +82,12 @@ function enterHome() {
 h1 {
   margin: 0;
   color: #fff;
-  font-size: clamp(42px, 6vw, 78px);
+  max-width: 100%;
+  font-size: clamp(42px, 5.2vw, 76px);
   line-height: 1.08;
   font-weight: 950;
   letter-spacing: 0;
+  white-space: nowrap;
   text-shadow: 0 4px 20px rgba(15, 23, 42, 0.34);
 }
 
@@ -178,6 +180,11 @@ h1 {
   .cover-content {
     margin-top: -4vh;
     padding: 26px 20px 30px;
+  }
+
+  h1 {
+    font-size: clamp(34px, 11vw, 54px);
+    white-space: normal;
   }
 
   .cover-subtitle {

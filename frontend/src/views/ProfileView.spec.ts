@@ -4,6 +4,10 @@ import ProfileView from './ProfileView.vue'
 import { updateProfile } from '../api/user'
 import { uploadImage } from '../api/upload'
 
+vi.mock('vue-router', () => ({
+  useRouter: () => ({ push: vi.fn() })
+}))
+
 vi.mock('../api/user', () => ({
   getMyProfile: vi.fn().mockResolvedValue({
     code: 200,
@@ -23,7 +27,37 @@ vi.mock('../api/user', () => ({
   }),
   getMyProducts: vi.fn().mockResolvedValue({
     code: 200,
-    data: [{ id: 1, title: 'Cherry 键盘', status: 'APPROVED' }]
+    data: [{
+      id: 1,
+      title: 'Cherry 键盘',
+      description: '机械键盘，配件齐全',
+      price: 129,
+      itemCondition: '九成新',
+      status: 'APPROVED',
+      viewCount: 18,
+      categoryName: '数码配件',
+      sellerNickname: '计科小李',
+      coverUrl: null,
+      createdAt: '2026-07-07T08:00:00',
+      favoriteCount: 2,
+      auditReason: null
+    }]
+  }),
+  getMyReports: vi.fn().mockResolvedValue({
+    code: 200,
+    data: [{
+      id: 9,
+      reporterId: 1,
+      reporterNickname: '计科小李',
+      productId: 8,
+      productTitle: '争议商品',
+      sellerNickname: '软件小陈',
+      reason: '疑似虚假描述',
+      reportStatus: 'PENDING',
+      handlingResult: null,
+      createdAt: '2026-07-07T08:00:00',
+      processedAt: null
+    }]
   }),
   getMyAddresses: vi.fn().mockResolvedValue({
     code: 200,
@@ -61,16 +95,21 @@ describe('ProfileView', () => {
     expect(wrapper.get('[data-test="profile-panel"]').text()).toContain('上传头像')
     expect(wrapper.text()).toContain('待处理事项')
 
-    await wrapper.get('button:nth-of-type(2)').trigger('click')
+    const navButtons = wrapper.findAll('.workbench-nav button')
+    await navButtons.find(button => button.text() === '收货地址')!.trigger('click')
     expect(wrapper.get('[data-test="address-panel"]').text()).toContain('软件学院 502')
     expect(wrapper.get('[data-test="address-panel"]').text()).toContain('默认')
 
-    await wrapper.get('button:nth-of-type(3)').trigger('click')
+    await navButtons.find(button => button.text() === '信誉实名')!.trigger('click')
     expect(wrapper.get('[data-test="trust-panel"]').text()).toContain('信誉评分')
     expect(wrapper.get('[data-test="trust-panel"]').text()).toContain('未实名认证')
 
-    await wrapper.get('button:nth-of-type(4)').trigger('click')
+    await navButtons.find(button => button.text() === '我的商品')!.trigger('click')
     expect(wrapper.get('[data-test="products-panel"]').text()).toContain('Cherry 键盘')
+    expect(wrapper.get('[data-test="products-panel"]').text()).toContain('¥129.00')
+
+    await navButtons.find(button => button.text() === '我的举报')!.trigger('click')
+    expect(wrapper.get('[data-test="reports-panel"]').text()).toContain('疑似虚假描述')
   })
 
   it('shows the uploaded avatar immediately after profile save', async () => {

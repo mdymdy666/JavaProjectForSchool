@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.campustrade.common.ApiResponse;
 import com.campustrade.common.PageResult;
 import com.campustrade.product.ProductDtos.AuditRequest;
-import com.campustrade.product.ProductDtos.ProductCard;
 import com.campustrade.product.ProductDtos.ProductDetail;
 import com.campustrade.product.ProductService;
 import com.campustrade.security.SecurityUser;
@@ -29,7 +28,7 @@ public class AdminProductController {
     }
 
     @GetMapping("/pending")
-    public ApiResponse<PageResult<ProductCard>> pending(
+    public ApiResponse<PageResult<ProductDetail>> pending(
             @RequestParam(defaultValue = "1") long page,
             @RequestParam(defaultValue = "20") long size) {
         return ApiResponse.success(productService.pending(page, size));

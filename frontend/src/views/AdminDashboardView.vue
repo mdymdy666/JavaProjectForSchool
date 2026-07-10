@@ -16,9 +16,10 @@ import {
   type SensitiveWordView
 } from '../api/admin'
 import { apiGet, apiPut } from '../api/http'
-import type { DashboardView, ProductCard } from '../types/domain'
+import type { DashboardView, ProductDetail } from '../types/domain'
 import StatusTag from '../components/StatusTag.vue'
 import * as echarts from 'echarts'
+import { formatMoney } from '../utils/money'
 
 const router = useRouter()
 const auth = useAuthStore()
@@ -29,7 +30,7 @@ const activeTab = ref<'dashboard' | 'audit' | 'users' | 'orders' | 'reports' | '
 const dashboard = ref<DashboardView | null>(null)
 
 // Audit
-const pending = ref<ProductCard[]>([])
+const pending = ref<ProductDetail[]>([])
 // Users
 const users = ref<any[]>([])
 const userTotal = ref(0)
@@ -97,7 +98,11 @@ async function fetchSensitiveWords() {
 
 // ---- Actions ----
 async function audit(id: number, approved: boolean) {
-  try { await auditProduct(id, approved, approved ? '通过' : '驳回'); fetchPending(); fetchDashboard() } catch { /* */ }
+  const reason = approved
+    ? '信息完整，准予上架'
+    : window.prompt('请输入驳回原因，卖家会在商品详情和个人中心看到', '图片、描述或价格信息不完整')?.trim()
+  if (!approved && !reason) return
+  try { await auditProduct(id, approved, reason || '通过'); fetchPending(); fetchDashboard() } catch { /* */ }
 }
 async function toggleUserStatus(id: number) {
   try { await apiPut(`/admin/users/${id}/status`); fetchUsers() } catch { /* */ }
@@ -234,6 +239,10 @@ function switchTab(tab: string) {
   else if (tab === 'announce') { }
 }
 
+function formatDate(value: string) {
+  return value ? value.slice(0, 16).replace('T', ' ') : ''
+}
+
 onMounted(() => { fetchDashboard(); fetchPending() })
 </script>
 
@@ -257,7 +266,7 @@ onMounted(() => { fetchDashboard(); fetchPending() })
         <div class="stat-card"><strong>{{ dashboard.userCount }}</strong><span>注册用户</span></div>
         <div class="stat-card"><strong>{{ dashboard.productCount }}</strong><span>商品总数</span></div>
         <div class="stat-card"><strong>{{ dashboard.orderCount }}</strong><span>订单总数</span></div>
-        <div class="stat-card"><strong>&yen;{{ (dashboard.turnover || 0).toFixed(2) }}</strong><span>成交总额</span></div>
+        <div class="stat-card"><strong>&yen;{{ formatMoney(dashboard.turnover) }}</strong><span>成交总额</span></div>
       </div>
 
       <div class="charts-row">
@@ -275,10 +284,16 @@ onMounted(() => { fetchDashboard(); fetchPending() })
     <!-- ====== 商品审核 ====== -->
     <div v-if="activeTab === 'audit'">
       <div v-if="pending.length" class="list-cards">
-        <div v-for="p in pending" :key="p.id" class="row-card">
-          <div>
+        <div v-for="p in pending" :key="p.id" class="row-card audit-card">
+          <div class="audit-cover">
+            <img v-if="p.images?.length" :src="p.images[0]" :alt="p.title" />
+            <span v-else>暂无图片</span>
+          </div>
+          <div class="row-main">
             <strong>{{ p.title }}</strong>
-            <p>{{ p.sellerNickname }} · &yen;{{ p.price?.toFixed(2) }} · {{ p.itemCondition }}</p>
+            <p>{{ p.sellerNickname }} · {{ p.categoryName }} · &yen;{{ formatMoney(p.price) }} · {{ p.itemCondition }}</p>
+            <p class="audit-desc">{{ p.description }}</p>
+            <p class="audit-meta">发布时间：{{ formatDate(p.createdAt) }} · 图片 {{ p.images?.length || 0 }} 张</p>
           </div>
           <StatusTag :status="p.status" />
           <div class="actions">
@@ -348,7 +363,7 @@ onMounted(() => { fetchDashboard(); fetchPending() })
             <td>{{ o.productTitle }}</td>
             <td>{{ o.buyerNickname }}</td>
             <td>{{ o.sellerNickname }}</td>
-            <td>&yen;{{ o.totalAmount?.toFixed(2) }}</td>
+            <td>&yen;{{ formatMoney(o.totalAmount) }}</td>
             <td><StatusTag :status="o.status" /></td>
             <td>{{ o.logisticsInfo || '-' }}</td>
             <td>{{ o.createdAt?.slice(0, 10) }}</td>
@@ -458,8 +473,13 @@ h2 { margin: 0 0 16px; }
   display: flex; align-items: center; gap: 16px;
   background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; padding: 12px 16px;
 }
+.audit-card { align-items: flex-start; }
+.audit-cover { width: 112px; height: 84px; flex: 0 0 112px; overflow: hidden; border-radius: 8px; background: #f1f5f9; color: #94a3b8; display: grid; place-items: center; font-size: 12px; }
+.audit-cover img { width: 100%; height: 100%; object-fit: cover; }
 .row-main { flex: 1; min-width: 0; }
 .row-card p { margin: 2px 0 0; font-size: 13px; color: #888; }
+.audit-desc { color: #334155 !important; line-height: 1.55; display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.audit-meta { color: #64748b !important; }
 .report-row { align-items: flex-start; }
 .report-reason { color: #334155 !important; line-height: 1.55; }
 .report-result { color: #16a34a !important; }

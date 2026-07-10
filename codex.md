@@ -326,3 +326,30 @@
 - 完成内容：后端 24 个测试全部通过（auth、product、order、message、admin、cache、extension），前端 5 个测试全部通过且 Vite 构建成功。JAVA_HOME 已永久配置为 `D:\java`（JDK 25）。
 - 验证方式：`mvn test` BUILD SUCCESS，`pnpm test` 5 passed，`pnpm build` ✓ built。
 - 后续状态：项目核心功能已全部实现，可进行答辩演示。答辩主线：注册登录 → 发布商品 → 管理员审核 → 搜索浏览 → 收藏下单 → 模拟支付 → 卖家发货 → 买家收货 → 消息通知 → 后台统计。
+
+## 2026-07-10 11:27 - 克隆覆盖并新增根目录启动脚本
+
+- 执行 Agent：Codex
+- 变动类型：脚本、环境、启动验证
+- 涉及文件：`start-all.ps1`、`codex.md`
+- 完成内容：按用户要求从 `https://github.com/mdymdy666/JavaProjectForSchool` 重新克隆覆盖当前工作区；新增根目录 PowerShell 启动脚本，覆盖工具版本检查、Git 状态检查、端口占用处理、前端依赖安装、后端启动、前端启动、临时 Vite 代理配置、健康检查、页面访问验证、日志与 PID 记录；支持 `-RunTests`、`-BuildFrontend`、`-AutoPort`、`-KillPortProcess`、`-Restart`、`-StopOnly` 等参数。
+- 验证方式：执行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\start-all.ps1 -CheckOnly -SkipInstall` 通过；执行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\start-all.ps1 -SkipInstall` 后验证 `http://localhost:8080/api/health`、`http://localhost:5173`、`http://localhost:5173/api/health` 均返回 HTTP 200。
+- 后续状态：已完成；当前服务运行在后端 `8080`、前端 `5173`。
+
+## 2026-07-10 15:55 - 全链路 UX 修复与 UI 回归
+
+- 执行 Agent：Codex
+- 变动类型：后端接口、前端页面、路由、测试、问题记录、UI 验证
+- 涉及文件：`backend/src/main/java/com/campustrade/product/`、`backend/src/main/java/com/campustrade/order/`、`backend/src/main/java/com/campustrade/user/UserController.java`、`backend/src/main/java/com/campustrade/extension/`、`frontend/src/router/index.ts`、`frontend/src/views/PaymentView.vue`、`frontend/src/views/ProfileView.vue`、`frontend/src/views/FavoriteListView.vue`、`frontend/src/views/AdminDashboardView.vue`、`frontend/src/views/ProductDetailView.vue`、`frontend/src/views/PublishProductView.vue`、`frontend/src/utils/money.ts`、对应前后端测试、`docs/qa/full-chain-ux-fix-log.md`、`output/qa/full-chain-ux/`
+- 完成内容：修复 0.01 金额展示；拆分商品支付与订单支付路由并新增订单详情接口；补全管理员审核详情；完善个人中心我的商品信息、编辑入口和我的举报；新增收藏列表页面与入口；补充待审核/驳回商品详情的审核原因；补充用户举报状态接口；登录支持 redirect 回跳；保存关键 UI 截图。
+- 验证方式：`mvn -f backend\pom.xml test` 31 个测试通过；`pnpm test` 44 个测试通过；`pnpm build` 构建成功；使用真实浏览器验证发布 0.01 元商品、卖家待审核详情、个人中心我的商品、管理员审核、市场小数金额、买家收藏/取消收藏、订单支付成功、举报提交、我的举报和管理员举报处理。
+- 后续状态：本轮 P0/P1 主链路问题已修复；购物车批量事务、举报通知细化和后台批量审核可作为后续增强。
+
+## 2026-07-10 16:16 - 修复售出收藏取消与购物车串号
+
+- 执行 Agent：Codex
+- 变动类型：后端状态规则、前端状态存储、测试、问题记录
+- 涉及文件：`backend/src/main/java/com/campustrade/product/ProductService.java`、`backend/src/test/java/com/campustrade/product/ProductFlowTest.java`、`frontend/src/stores/cart.ts`、`frontend/src/stores/auth.ts`、`frontend/src/stores/cart.spec.ts`、`frontend/src/views/ProductDetailView.spec.ts`、`docs/qa/full-chain-ux-fix-log.md`、`codex.md`
+- 完成内容：收藏接口允许用户取消已售出/下架商品的已有收藏，但仍禁止给非在售商品新增收藏；购物车从全局 `campus-cart` 改为按账号 `campus-cart:{userId}` 分桶，登录、切换账号、登出时自动切换购物车数据。
+- 验证方式：`mvn -f backend\pom.xml test` 31 个测试通过；`pnpm test` 45 个测试通过；`pnpm build` 构建成功；新增后端测试覆盖售出商品取消收藏，新增前端 store 测试覆盖账号 101/202 购物车隔离。
+- 后续状态：已完成，准备提交并推送到 `origin/main`。

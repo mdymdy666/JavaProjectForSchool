@@ -1,5 +1,6 @@
 package com.campustrade.user;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +60,21 @@ public class UserController {
             Boolean defaultAddress) {}
 
     public record VerificationRequest(@NotBlank String realName, @NotBlank String idCardNo) {}
+
+    public record MyProductResponse(
+            Long id,
+            String title,
+            String description,
+            BigDecimal price,
+            String itemCondition,
+            String status,
+            Integer viewCount,
+            String categoryName,
+            String sellerNickname,
+            String coverUrl,
+            LocalDateTime createdAt,
+            Long favoriteCount,
+            String auditReason) {}
 
     @GetMapping("/me")
     ApiResponse<ProfileResponse> me(Authentication auth) {
@@ -160,7 +176,48 @@ public class UserController {
     }
 
     @GetMapping("/me/products")
-    ApiResponse<List<ProductCard>> myProducts(Authentication auth) {
+    ApiResponse<List<MyProductResponse>> myProducts(Authentication auth) {
+        SecurityUser user = (SecurityUser) auth.getPrincipal();
+        List<Map<String, Object>> rows = jdbc.queryForList("""
+                SELECT p.id, p.title, p.description, p.price, p.item_condition, p.status, p.view_count,
+                       c.name AS category_name, u.nickname AS seller_nickname,
+                       (SELECT pi.image_url FROM product_images pi
+                        WHERE pi.product_id = p.id ORDER BY pi.sort_order LIMIT 1) AS cover_url,
+                       p.created_at,
+                       (SELECT COUNT(*) FROM favorites f WHERE f.product_id = p.id) AS favorite_count,
+                       (SELECT al.reason FROM audit_logs al
+                        WHERE al.target_type = 'PRODUCT'
+                          AND al.target_id = p.id
+                          AND al.action = 'REJECT'
+                          AND al.reason IS NOT NULL
+                        ORDER BY al.created_at DESC, al.id DESC LIMIT 1) AS audit_reason
+                FROM products p
+                JOIN categories c ON c.id = p.category_id
+                JOIN users u ON u.id = p.seller_id
+                WHERE p.seller_id = ? AND p.deleted = 0
+                ORDER BY p.created_at DESC
+                """, user.userId());
+        List<MyProductResponse> products = rows.stream().map(row -> new MyProductResponse(
+                ((Number) row.get("id")).longValue(),
+                (String) row.get("title"),
+                (String) row.get("description"),
+                (BigDecimal) row.get("price"),
+                (String) row.get("item_condition"),
+                (String) row.get("status"),
+                ((Number) row.get("view_count")).intValue(),
+                (String) row.get("category_name"),
+                (String) row.get("seller_nickname"),
+                (String) row.get("cover_url"),
+                row.get("created_at") instanceof java.time.LocalDateTime dt ? dt
+                        : ((java.sql.Timestamp) row.get("created_at")).toLocalDateTime(),
+                ((Number) row.get("favorite_count")).longValue(),
+                (String) row.get("audit_reason")
+        )).toList();
+        return ApiResponse.success(products);
+    }
+
+    @GetMapping("/me/favorites")
+    ApiResponse<List<ProductCard>> myFavorites(Authentication auth) {
         SecurityUser user = (SecurityUser) auth.getPrincipal();
         List<Map<String, Object>> rows = jdbc.queryForList("""
                 SELECT p.id, p.title, p.price, p.item_condition, p.status, p.view_count,
@@ -168,16 +225,17 @@ public class UserController {
                        (SELECT pi.image_url FROM product_images pi
                         WHERE pi.product_id = p.id ORDER BY pi.sort_order LIMIT 1) AS cover_url,
                        p.created_at
-                FROM products p
+                FROM favorites f
+                JOIN products p ON p.id = f.product_id
                 JOIN categories c ON c.id = p.category_id
                 JOIN users u ON u.id = p.seller_id
-                WHERE p.seller_id = ? AND p.deleted = 0
-                ORDER BY p.created_at DESC
+                WHERE f.user_id = ? AND p.deleted = 0
+                ORDER BY f.created_at DESC, f.id DESC
                 """, user.userId());
         List<ProductCard> cards = rows.stream().map(row -> new ProductCard(
                 ((Number) row.get("id")).longValue(),
                 (String) row.get("title"),
-                (java.math.BigDecimal) row.get("price"),
+                (BigDecimal) row.get("price"),
                 (String) row.get("item_condition"),
                 (String) row.get("status"),
                 ((Number) row.get("view_count")).intValue(),

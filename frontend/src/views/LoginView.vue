@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 
 const router = useRouter()
+const route = useRoute()
 const auth = useAuthStore()
 
 const form = reactive({
@@ -22,7 +23,8 @@ async function submit() {
       password: form.password
     })
     if (res.code === 200) {
-      router.push('/')
+      const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/'
+      router.push(redirect)
     } else {
       error.value = res.message || '登录失败'
     }

@@ -1,5 +1,5 @@
 import { apiDelete, apiGet, apiPut, apiPost } from './http'
-import type { AddressView, ApiResponse, UserProfile } from '../types/domain'
+import type { AddressView, ApiResponse, MyProduct, ProductCard, UserProfile, UserReport } from '../types/domain'
 
 export interface UpdateProfileRequest {
   nickname?: string
@@ -28,8 +28,16 @@ export async function updateProfile(data: UpdateProfileRequest): Promise<ApiResp
   return apiPut<UserProfile>('/users/me', data)
 }
 
-export async function getMyProducts(): Promise<ApiResponse<unknown>> {
-  return apiGet<unknown>('/users/me/products')
+export async function getMyProducts(): Promise<ApiResponse<MyProduct[]>> {
+  return apiGet<MyProduct[]>('/users/me/products')
+}
+
+export async function getMyFavorites(): Promise<ApiResponse<ProductCard[]>> {
+  return apiGet<ProductCard[]>('/users/me/favorites')
+}
+
+export async function getMyReports(): Promise<ApiResponse<UserReport[]>> {
+  return apiGet<UserReport[]>('/reports/my')
 }
 
 export async function getMyAddresses(): Promise<ApiResponse<AddressView[]>> {

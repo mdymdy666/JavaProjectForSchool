@@ -51,6 +51,7 @@ public final class ProductDtos {
             BigDecimal price,
             String itemCondition,
             String status,
+            String auditReason,
             Integer viewCount,
             List<String> images,
             boolean favorite,

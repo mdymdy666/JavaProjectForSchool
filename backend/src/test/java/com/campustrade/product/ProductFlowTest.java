@@ -77,6 +77,14 @@ class ProductFlowTest {
         JsonNode publishBody = objectMapper.readTree(publishResult.getResponse().getContentAsString());
         long productId = publishBody.path("data").path("id").asLong();
 
+        mockMvc.perform(get("/api/admin/products/pending")
+                        .header("Authorization", bearer(admin)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.records[0].title").value("蓝牙降噪耳机"))
+                .andExpect(jsonPath("$.data.records[0].description").value("自习室使用安静舒适，配件齐全"))
+                .andExpect(jsonPath("$.data.records[0].images.length()").value(2))
+                .andExpect(jsonPath("$.data.records[0].sellerNickname").value("校园卖家"));
+
         mockMvc.perform(get("/api/products").param("keyword", "降噪"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.total").value(0));
@@ -98,6 +106,30 @@ class ProductFlowTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.total").value(1))
                 .andExpect(jsonPath("$.data.records[0].title").value("蓝牙降噪耳机"));
+
+        mockMvc.perform(post("/api/products/{id}/favorite", productId)
+                        .header("Authorization", bearer(buyer)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.favorite").value(true));
+
+        mockMvc.perform(get("/api/users/me/favorites")
+                        .header("Authorization", bearer(buyer)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data[0].title").value("蓝牙降噪耳机"))
+                .andExpect(jsonPath("$.data[0].price").value(129.00));
+
+        jdbcTemplate.update("UPDATE products SET status = 'SOLD' WHERE id = ?", productId);
+
+        mockMvc.perform(post("/api/products/{id}/favorite", productId)
+                        .header("Authorization", bearer(buyer)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.favorite").value(false));
+
+        mockMvc.perform(post("/api/products/{id}/favorite", productId)
+                        .header("Authorization", bearer(buyer)))
+                .andExpect(status().isConflict());
+
+        jdbcTemplate.update("UPDATE products SET status = 'APPROVED' WHERE id = ?", productId);
 
         mockMvc.perform(post("/api/products/{id}/favorite", productId)
                         .header("Authorization", bearer(buyer)))

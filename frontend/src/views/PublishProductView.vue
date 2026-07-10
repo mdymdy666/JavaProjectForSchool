@@ -1,21 +1,26 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { publishProduct } from '../api/product'
+import { computed, onMounted, reactive, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { editProduct, getProductDetail, publishProduct } from '../api/product'
 import { uploadImage } from '../api/upload'
 import { useAuthStore } from '../stores/auth'
 
 const router = useRouter()
+const route = useRoute()
 const auth = useAuthStore()
 
 if (!auth.isLoggedIn) { router.push('/login') }
+
+const editId = computed(() => Number(route.params.id) || null)
+const isEditing = computed(() => editId.value != null)
 
 const categoryOptions = [
   { id: 1, name: '数码配件' },
   { id: 2, name: '图书教材' },
   { id: 3, name: '生活用品' },
   { id: 4, name: '运动户外' },
-  { id: 5, name: '服饰鞋包' }
+  { id: 5, name: '服饰鞋包' },
+  { id: 6, name: '美妆护肤' }
 ]
 
 const conditionOptions = ['全新', '九成新', '八成新', '七成新', '微瑕']
@@ -31,6 +36,7 @@ const form = reactive({
 const loading = ref(false)
 const uploading = ref(false)
 const error = ref('')
+const pageLoading = ref(false)
 
 const validImageUrls = computed(() => form.imageUrls.map(url => url.trim()).filter(Boolean))
 
@@ -79,14 +85,17 @@ async function submit() {
   loading.value = true
   error.value = ''
   try {
-    const res = await publishProduct({
+    const payload = {
       title: form.title.trim(),
       categoryId: form.categoryId,
       price: form.price,
       itemCondition: form.itemCondition,
       description: form.description.trim(),
       imageUrls: validUrls
-    })
+    }
+    const res = isEditing.value && editId.value
+      ? await editProduct(editId.value, payload)
+      : await publishProduct(payload)
     if (res.code === 200) {
       router.push(`/products/${res.data?.id}`)
     } else {
@@ -99,6 +108,37 @@ async function submit() {
     loading.value = false
   }
 }
+
+async function loadForEdit() {
+  if (!editId.value) return
+  pageLoading.value = true
+  error.value = ''
+  try {
+    const res = await getProductDetail(editId.value)
+    const product = res.data
+    if (!product || product.sellerId !== auth.userId) {
+      error.value = '只能编辑自己发布的商品'
+      return
+    }
+    if (product.status === 'SOLD' || product.status === 'DELETED') {
+      error.value = '当前状态不可编辑'
+      return
+    }
+    form.title = product.title
+    form.categoryId = product.categoryId
+    form.price = Number(product.price)
+    form.itemCondition = product.itemCondition
+    form.description = product.description
+    form.imageUrls = product.images.length ? [...product.images] : ['']
+  } catch (e: unknown) {
+    const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message
+    error.value = msg || '加载商品失败'
+  } finally {
+    pageLoading.value = false
+  }
+}
+
+onMounted(loadForEdit)
 </script>
 
 <template>
@@ -106,12 +146,13 @@ async function submit() {
     <header class="publish-hero">
       <div>
         <p class="eyebrow">校园闲置发布</p>
-        <h2>发布商品</h2>
+        <h2>{{ isEditing ? '编辑商品' : '发布商品' }}</h2>
       </div>
     </header>
 
     <main class="publish-workspace" data-test="publish-workspace">
-      <form class="publish-form" @submit.prevent="submit">
+      <div v-if="pageLoading" class="loading-panel">正在加载商品信息...</div>
+      <form v-else class="publish-form" @submit.prevent="submit">
         <section class="form-section">
           <div class="section-head">
             <strong>基础信息</strong>
@@ -206,7 +247,7 @@ async function submit() {
         <div class="action-bar" data-test="action-bar">
           <button type="button" class="cancel-btn" @click="router.push('/products')">取消</button>
           <button type="submit" class="submit-btn" :disabled="loading || uploading">
-            {{ loading ? '发布中...' : '发布商品' }}
+            {{ loading ? '保存中...' : (isEditing ? '保存并重新提交' : '发布商品') }}
           </button>
         </div>
       </form>
@@ -227,6 +268,15 @@ async function submit() {
 .eyebrow { color: #1677ff !important; font-weight: 700; font-size: 13px; }
 .publish-workspace {
   max-width: 760px;
+}
+.loading-panel {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  border: 1px solid #dbe2ea;
+  border-radius: 8px;
+  color: #64748b;
+  background: #fff;
 }
 .publish-form {
   border: 1px solid #dbe2ea;

@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { createOrder, payOrder, shipOrder, confirmOrder, cancelOrder, getBuyerOrders, getSellerOrders } from '../api/order'
 import StatusTag from '../components/StatusTag.vue'
 import type { OrderView } from '../types/domain'
+import { formatMoney } from '../utils/money'
 
 const route = useRoute()
 const router = useRouter()
@@ -53,7 +54,7 @@ async function ship(id: number) {
 }
 
 function goPay(orderId: number) {
-  router.push(`/pay/${orderId}`)
+  router.push(`/pay/order/${orderId}`)
 }
 
 function showTrack(o: OrderView) {
@@ -114,7 +115,7 @@ onMounted(async () => {
           <div class="order-info">
             <span>订单号: {{ o.orderNo }}</span>
             <span>卖家: {{ o.sellerNickname }}</span>
-            <span class="amount">&yen;{{ o.totalAmount?.toFixed(2) }}</span>
+            <span class="amount">&yen;{{ formatMoney(o.totalAmount) }}</span>
           </div>
           <div class="order-state">交易状态：{{ orderStatusText(o.status) }}</div>
           <div class="order-actions">
@@ -138,7 +139,7 @@ onMounted(async () => {
           <div class="order-info">
             <span>订单号: {{ o.orderNo }}</span>
             <span>买家: {{ o.buyerNickname }}</span>
-            <span class="amount">&yen;{{ o.totalAmount?.toFixed(2) }}</span>
+            <span class="amount">&yen;{{ formatMoney(o.totalAmount) }}</span>
           </div>
           <div class="order-state">交易状态：{{ orderStatusText(o.status) }}</div>
           <div class="order-actions">

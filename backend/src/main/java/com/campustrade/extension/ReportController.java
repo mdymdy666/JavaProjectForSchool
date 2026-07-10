@@ -25,6 +25,12 @@ public class ReportController {
         return ApiResponse.success(null);
     }
 
+    @GetMapping("/reports/my")
+    ApiResponse<List<ReportService.ReportView>> myReports(
+            @AuthenticationPrincipal SecurityUser user) {
+        return ApiResponse.success(reportService.reportsByReporter(user.userId()));
+    }
+
     @GetMapping("/admin/reports")
     ApiResponse<List<ReportService.ReportView>> reports(
             @RequestParam(required = false) String status) {

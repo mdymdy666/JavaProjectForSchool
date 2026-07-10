@@ -78,4 +78,13 @@ describe('ProductCard', () => {
     expect(favorite.attributes('aria-pressed')).toBe('true')
     expect(favorite.find('[data-icon="heart"]').exists()).toBe(true)
   })
+
+  it('keeps cent-level prices visible', async () => {
+    const centProduct = { ...product, price: 0.01 }
+    const { wrapper } = await mountCard(false)
+    await wrapper.setProps({ product: centProduct })
+
+    expect(wrapper.text()).toContain('¥0.01')
+    expect(wrapper.text()).not.toContain('¥0 ')
+  })
 })

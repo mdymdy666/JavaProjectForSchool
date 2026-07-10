@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
+const LEGACY_CART_KEY = 'campus-cart'
+const GUEST_CART_KEY = 'campus-cart:guest'
+
 export interface CartItem {
   productId: number
   title: string
@@ -11,17 +14,32 @@ export interface CartItem {
 }
 
 export const useCartStore = defineStore('cart', () => {
-  const items = ref<CartItem[]>(loadCart())
+  const storageKey = ref(currentCartKey())
+  const items = ref<CartItem[]>(loadCart(storageKey.value))
 
-  function loadCart(): CartItem[] {
+  function currentCartKey() {
+    const userId = localStorage.getItem('campus-user-id')
+    return userId ? `campus-cart:${userId}` : GUEST_CART_KEY
+  }
+
+  function loadCart(key: string): CartItem[] {
     try {
-      const raw = localStorage.getItem('campus-cart')
+      const raw = localStorage.getItem(key)
       return raw ? JSON.parse(raw) : []
     } catch { return [] }
   }
 
   function saveCart() {
-    localStorage.setItem('campus-cart', JSON.stringify(items.value))
+    localStorage.setItem(storageKey.value, JSON.stringify(items.value))
+    localStorage.removeItem(LEGACY_CART_KEY)
+  }
+
+  function switchOwner() {
+    const nextKey = currentCartKey()
+    if (nextKey === storageKey.value) return
+    storageKey.value = nextKey
+    items.value = loadCart(nextKey)
+    localStorage.removeItem(LEGACY_CART_KEY)
   }
 
   const totalCount = computed(() =>
@@ -64,5 +82,5 @@ export const useCartStore = defineStore('cart', () => {
     saveCart()
   }
 
-  return { items, totalCount, totalAmount, has, add, remove, updateQuantity, clear }
+  return { items, totalCount, totalAmount, has, add, remove, updateQuantity, clear, switchOwner }
 })

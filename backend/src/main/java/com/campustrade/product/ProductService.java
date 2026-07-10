@@ -183,9 +183,6 @@ public class ProductService {
     @Transactional
     public FavoriteResponse favorite(long userId, long productId) {
         Product product = requireProduct(productId);
-        if (!ProductStatus.APPROVED.name().equals(product.getStatus())) {
-            throw new BusinessException(ErrorCode.INVALID_STATE, "当前商品不可收藏");
-        }
         long existing = favoriteMapper.selectCount(new LambdaQueryWrapper<Favorite>()
                 .eq(Favorite::getUserId, userId)
                 .eq(Favorite::getProductId, productId));
@@ -194,6 +191,9 @@ public class ProductService {
                     .eq(Favorite::getUserId, userId)
                     .eq(Favorite::getProductId, productId));
             return new FavoriteResponse(productId, false);
+        }
+        if (!ProductStatus.APPROVED.name().equals(product.getStatus())) {
+            throw new BusinessException(ErrorCode.INVALID_STATE, "当前商品不可收藏");
         }
         Favorite favorite = new Favorite();
         favorite.setUserId(userId);
@@ -267,7 +267,7 @@ public class ProductService {
         return toDetail(product, adminId);
     }
 
-    public PageResult<ProductCard> pending(long page, long size) {
+    public PageResult<ProductDetail> pending(long page, long size) {
         long pageNumber = Math.max(1, page);
         long pageSize = Math.max(1, Math.min(MAX_PAGE_SIZE, size));
         Page<Product> result = productMapper.selectPage(
@@ -276,7 +276,7 @@ public class ProductService {
                         .eq(Product::getStatus, ProductStatus.PENDING.name())
                         .orderByAsc(Product::getCreatedAt));
         return new PageResult<>(
-                result.getRecords().stream().map(this::toCard).toList(),
+                result.getRecords().stream().map(product -> toDetail(product, null)).toList(),
                 result.getTotal(), result.getCurrent(), result.getSize());
     }
 
@@ -343,7 +343,8 @@ public class ProductService {
                 sellerProductCount == null ? 0 : sellerProductCount.intValue(),
                 product.getCategoryId(), productMapper.categoryName(product.getCategoryId()),
                 product.getTitle(), product.getDescription(), product.getPrice(),
-                product.getItemCondition(), product.getStatus(), product.getViewCount(),
+                product.getItemCondition(), product.getStatus(),
+                productMapper.latestRejectReason(product.getId()), product.getViewCount(),
                 images, favorite, product.getCreatedAt());
     }
 

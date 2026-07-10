@@ -7,6 +7,7 @@ import ProductCard from '../components/ProductCard.vue'
 import type { Announcement, ProductCard as ProductCardType, RecommendedProduct } from '../types/domain'
 import { apiGet } from '../api/http'
 import heroImage from '../assets/campus-market-hero.png'
+import { formatMoney } from '../utils/money'
 
 const router = useRouter()
 
@@ -315,7 +316,7 @@ function openAnnouncement(item: Announcement) {
                     <strong>{{ product.title }}</strong>
                     <small>{{ product.itemCondition }} · {{ product.viewCount }} 浏览量</small>
                   </span>
-                  <span class="slide-price">&yen;{{ product.price.toFixed(0) }}</span>
+                  <span class="slide-price">&yen;{{ formatMoney(product.price) }}</span>
                 </button>
               </div>
             </div>
@@ -379,7 +380,7 @@ function openAnnouncement(item: Announcement) {
                 <strong>{{ item.title }}</strong>
                 <small>{{ item.reason || '根据热度和新鲜度推荐' }}</small>
               </span>
-              <span class="recommend-price">&yen;{{ item.price.toFixed(0) }}</span>
+              <span class="recommend-price">&yen;{{ formatMoney(item.price) }}</span>
             </button>
           </div>
         </section>
@@ -430,7 +431,7 @@ function openAnnouncement(item: Announcement) {
               </span>
               <span v-else>{{ index + 1 }}</span>
               <button type="button" @click="goProduct(item.id)">{{ item.title }}</button>
-              <strong>¥{{ item.price.toFixed(0) }}</strong>
+              <strong>¥{{ formatMoney(item.price) }}</strong>
             </li>
           </ol>
           <p v-else class="side-empty">暂无热门商品</p>

@@ -5,6 +5,7 @@ import { favoriteProduct } from '../api/product'
 import { useAuthStore } from '../stores/auth'
 import UiIcon from './UiIcon.vue'
 import type { ProductCard } from '../types/domain'
+import { formatMoney } from '../utils/money'
 
 const props = defineProps<{ product: ProductCard }>()
 
@@ -89,7 +90,7 @@ function shortLocation(id: number) {
       </div>
 
       <div class="card-footer">
-        <strong class="price">&yen;{{ product.price.toFixed(0) }}</strong>
+        <strong class="price">&yen;{{ formatMoney(product.price) }}</strong>
         <button
           :class="['favorite', { active: favorited, loading: favoriteBusy }]"
           type="button"

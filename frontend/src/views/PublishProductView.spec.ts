@@ -11,7 +11,9 @@ vi.mock('../api/auth', () => ({
 }))
 
 vi.mock('../api/product', () => ({
-  publishProduct: vi.fn().mockResolvedValue({ code: 200, data: { id: 1 } })
+  publishProduct: vi.fn().mockResolvedValue({ code: 200, data: { id: 1 } }),
+  editProduct: vi.fn().mockResolvedValue({ code: 200, data: { id: 1 } }),
+  getProductDetail: vi.fn().mockResolvedValue({ code: 200, data: null })
 }))
 
 vi.mock('../api/upload', () => ({

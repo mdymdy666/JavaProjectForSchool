@@ -14,6 +14,10 @@ export async function getSellerOrders(): Promise<ApiResponse<OrderView[]>> {
   return apiGet<OrderView[]>('/orders', { role: 'seller' })
 }
 
+export async function getOrderDetail(id: number): Promise<ApiResponse<OrderView>> {
+  return apiGet<OrderView>(`/orders/${id}`)
+}
+
 export async function createOrder(data: CreateOrderRequest): Promise<ApiResponse<OrderView>> {
   return apiPost<OrderView>('/orders', data)
 }

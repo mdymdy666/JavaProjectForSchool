@@ -41,6 +41,7 @@ export interface ProductDetail {
   price: number
   itemCondition: string
   status: ProductStatus
+  auditReason: string | null
   viewCount: number
   images: string[]
   favorite: boolean
@@ -117,6 +118,36 @@ export interface UserProfile {
   realName: string | null
   idCardNo: string | null
   realNameStatus: 'UNVERIFIED' | 'PENDING' | 'VERIFIED' | 'REJECTED'
+}
+
+export interface MyProduct {
+  id: number
+  title: string
+  description: string
+  price: number
+  itemCondition: string
+  status: ProductStatus
+  viewCount: number
+  categoryName: string
+  sellerNickname: string
+  coverUrl: string | null
+  createdAt: string
+  favoriteCount: number
+  auditReason: string | null
+}
+
+export interface UserReport {
+  id: number
+  reporterId: number
+  reporterNickname: string
+  productId: number
+  productTitle: string
+  sellerNickname: string
+  reason: string
+  reportStatus: string
+  handlingResult: string | null
+  createdAt: string
+  processedAt: string | null
 }
 
 export interface AddressView {

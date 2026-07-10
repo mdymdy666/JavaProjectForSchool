@@ -1,31 +1,38 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import {
   createAddress,
   deleteAddress,
   getMyAddresses,
   getMyProducts,
   getMyProfile,
+  getMyReports,
   setDefaultAddress,
   submitVerification,
   updateAddress,
   updateProfile
 } from '../api/user'
 import { uploadImage } from '../api/upload'
-import type { AddressView, ProductCard, UserProfile } from '../types/domain'
+import type { AddressView, MyProduct, UserProfile, UserReport } from '../types/domain'
+import { formatMoney } from '../utils/money'
 
-type TabKey = 'profile' | 'addresses' | 'trust' | 'products'
+type TabKey = 'profile' | 'addresses' | 'trust' | 'products' | 'reports'
+
+const router = useRouter()
 
 const tabs: { key: TabKey; label: string }[] = [
   { key: 'profile', label: '资料编辑' },
   { key: 'addresses', label: '收货地址' },
   { key: 'trust', label: '信誉实名' },
-  { key: 'products', label: '我的商品' }
+  { key: 'products', label: '我的商品' },
+  { key: 'reports', label: '我的举报' }
 ]
 
 const activeTab = ref<TabKey>('profile')
 const profile = ref<UserProfile | null>(null)
-const myProducts = ref<ProductCard[]>([])
+const myProducts = ref<MyProduct[]>([])
+const myReports = ref<UserReport[]>([])
 const addresses = ref<AddressView[]>([])
 const loading = ref(true)
 const saving = ref(false)
@@ -60,7 +67,9 @@ async function fetch() {
   loading.value = true
   error.value = ''
   try {
-    const [pRes, prodRes, addrRes] = await Promise.all([getMyProfile(), getMyProducts(), getMyAddresses()])
+    const [pRes, prodRes, addrRes, reportRes] = await Promise.all([
+      getMyProfile(), getMyProducts(), getMyAddresses(), getMyReports()
+    ])
     profile.value = pRes.data || null
     if (profile.value) {
       edit.nickname = profile.value.nickname || ''
@@ -70,9 +79,9 @@ async function fetch() {
       verificationForm.realName = profile.value.realName || ''
       verificationForm.idCardNo = profile.value.idCardNo || ''
     }
-    const data = prodRes.data as unknown as { records?: ProductCard[] } | ProductCard[]
-    myProducts.value = Array.isArray(data) ? data : (data?.records || [])
+    myProducts.value = prodRes.data || []
     addresses.value = addrRes.data || []
+    myReports.value = reportRes.data || []
   } catch {
     error.value = '加载个人中心失败'
   } finally {
@@ -205,6 +214,34 @@ async function verifyIdentity() {
   }
 }
 
+function statusLabel(status: string) {
+  const labels: Record<string, string> = {
+    PENDING: '待审核',
+    APPROVED: '在售',
+    REJECTED: '已驳回',
+    OFF_SHELF: '已下架',
+    SOLD: '已售出',
+    DELETED: '已删除',
+    RESOLVED: '已处理',
+    PRODUCT_REMOVED: '商品已下架'
+  }
+  return labels[status] || status
+}
+
+function reportStatusLabel(status: string) {
+  const labels: Record<string, string> = {
+    PENDING: '待处理',
+    RESOLVED: '已处理',
+    PRODUCT_REMOVED: '商品已下架',
+    REJECTED: '已驳回'
+  }
+  return labels[status] || status
+}
+
+function formatDate(value: string) {
+  return value ? value.slice(0, 16).replace('T', ' ') : ''
+}
+
 onMounted(fetch)
 </script>
 
@@ -320,10 +357,51 @@ onMounted(fetch)
 
         <section v-if="activeTab === 'products'" class="panel" data-test="products-panel">
           <div class="panel-head"><h2>我的商品</h2><span>{{ myProducts.length }} 件</span></div>
-          <div v-if="myProducts.length" class="product-list">
-            <article v-for="p in myProducts" :key="p.id" class="product-row"><span>{{ p.title }}</span><small>{{ p.status }}</small></article>
+          <div v-if="myProducts.length" class="product-list rich-product-list">
+            <article v-for="p in myProducts" :key="p.id" class="product-row rich-product-row">
+              <div class="product-cover">
+                <img v-if="p.coverUrl" :src="p.coverUrl" :alt="p.title" />
+                <span v-else>暂无图片</span>
+              </div>
+              <div class="product-main">
+                <div class="product-title-line">
+                  <strong>{{ p.title }}</strong>
+                  <em>{{ statusLabel(p.status) }}</em>
+                </div>
+                <p class="product-desc">{{ p.description }}</p>
+                <div class="product-meta">
+                  <span>{{ p.categoryName }}</span>
+                  <span>{{ p.itemCondition }}</span>
+                  <span>&yen;{{ formatMoney(p.price) }}</span>
+                  <span>{{ p.viewCount }} 浏览</span>
+                  <span>{{ p.favoriteCount }} 收藏</span>
+                </div>
+                <p v-if="p.status === 'REJECTED' && p.auditReason" class="audit-reason">驳回原因：{{ p.auditReason }}</p>
+                <small>发布时间：{{ formatDate(p.createdAt) }}</small>
+              </div>
+              <div class="row-actions product-actions">
+                <button @click="router.push(`/products/${p.id}`)">查看详情</button>
+                <button v-if="p.status !== 'SOLD' && p.status !== 'DELETED'" @click="router.push(`/products/${p.id}/edit`)">编辑</button>
+              </div>
+            </article>
           </div>
           <p v-else class="empty">暂无发布的商品</p>
+        </section>
+
+        <section v-if="activeTab === 'reports'" class="panel" data-test="reports-panel">
+          <div class="panel-head"><h2>我的举报</h2><span>{{ myReports.length }} 条</span></div>
+          <div v-if="myReports.length" class="report-list">
+            <article v-for="report in myReports" :key="report.id" class="report-row">
+              <div>
+                <strong>{{ report.productTitle }}</strong>
+                <p>卖家：{{ report.sellerNickname }} · {{ formatDate(report.createdAt) }}</p>
+                <p class="report-reason">{{ report.reason }}</p>
+                <p v-if="report.handlingResult" class="report-result">处理结果：{{ report.handlingResult }}</p>
+              </div>
+              <em>{{ reportStatusLabel(report.reportStatus) }}</em>
+            </article>
+          </div>
+          <p v-else class="empty">暂无举报记录</p>
         </section>
       </main>
     </template>
@@ -484,8 +562,8 @@ onMounted(fetch)
 .check-line input { width: 16px; height: 16px; margin: 0; }
 .address-form button[type="submit"], .verify-box button { background: var(--brand-teal); color: #fff; }
 .address-form .ghost { background: #fff; color: #334155; border-color: #cbd5e1; }
-.address-list, .product-list { display: grid; gap: 10px; }
-.address-row, .product-row { display: flex; justify-content: space-between; gap: 16px; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px; }
+.address-list, .product-list, .report-list { display: grid; gap: 10px; }
+.address-row, .product-row, .report-row { display: flex; justify-content: space-between; gap: 16px; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px; }
 .address-row strong { margin-right: 12px; color: #0f172a; }
 .address-row span, .address-row p, .product-row small { color: #64748b; }
 .address-row p { margin: 7px 0 0; }
@@ -493,6 +571,69 @@ onMounted(fetch)
 .row-actions em { font-style: normal; color: #16a34a; background: #f0fdf4; border: 1px solid #86efac; border-radius: 999px; padding: 6px 10px; }
 .row-actions button { padding: 0 12px; }
 .row-actions button.danger { border-color: #fecaca; color: #dc2626; }
+.rich-product-row {
+  display: grid;
+  grid-template-columns: 108px minmax(0, 1fr) auto;
+  align-items: start;
+}
+.product-cover {
+  display: grid;
+  place-items: center;
+  width: 108px;
+  height: 82px;
+  overflow: hidden;
+  border-radius: 8px;
+  color: #94a3b8;
+  background: #f1f5f9;
+  font-size: 12px;
+}
+.product-cover img { width: 100%; height: 100%; object-fit: cover; }
+.product-main { display: grid; gap: 7px; min-width: 0; }
+.product-title-line { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.product-title-line strong { color: #17212b; font-size: 16px; }
+.product-title-line em, .report-row em {
+  width: fit-content;
+  padding: 4px 9px;
+  border-radius: 999px;
+  color: #0f5fc7;
+  background: #eef6ff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+}
+.product-desc, .report-reason, .report-result {
+  margin: 0;
+  color: #475569;
+  line-height: 1.6;
+}
+.product-desc {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.product-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.product-meta span {
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: #475569;
+  background: #f8fafc;
+  font-size: 12px;
+  font-weight: 800;
+}
+.audit-reason {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: #b45309;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+}
+.product-actions { align-content: start; }
+.report-row { align-items: flex-start; }
+.report-row strong { color: #17212b; }
+.report-row p { margin: 5px 0 0; color: #64748b; }
+.report-result { color: #15803d; }
 .trust-layout { display: grid; grid-template-columns: 260px 1fr; gap: 20px; }
 .score-box { border: 1px solid #ccfbf1; border-radius: 12px; background: #f0fdfa; padding: 22px; }
 .score-box span { color: var(--brand-teal); font-weight: 900; }
@@ -509,7 +650,8 @@ onMounted(fetch)
   .workbench-nav { position: static; display: flex; overflow-x: auto; }
   .score-card { justify-items: start; border-left: 0; padding-left: 0; }
   .address-form, .form-grid { grid-template-columns: 1fr; }
-  .address-row, .product-row { flex-direction: column; }
+  .address-row, .product-row, .report-row { flex-direction: column; }
+  .rich-product-row { grid-template-columns: 1fr; }
   .row-actions { justify-content: flex-start; }
 }
 </style>

@@ -1,53 +1,88 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCartStore } from '../stores/cart'
-import { createOrder, payOrder } from '../api/order'
+import { createOrder, getOrderDetail, payOrder } from '../api/order'
 import { getProductDetail } from '../api/product'
-import type { ProductDetail } from '../types/domain'
+import type { OrderView, ProductDetail } from '../types/domain'
+import { formatMoney } from '../utils/money'
 
 const route = useRoute()
 const router = useRouter()
 const cart = useCartStore()
 
 const product = ref<ProductDetail | null>(null)
+const order = ref<OrderView | null>(null)
+const loading = ref(false)
 const paying = ref(false)
 const paid = ref(false)
 const orderId = ref<number | null>(null)
 const error = ref('')
 const method = ref<'alipay' | 'wechat' | 'card'>('alipay')
 
-const isBatch = computed(() => route.params.orderId === 'batch')
-const isSingle = computed(() => route.params.orderId && route.params.orderId !== 'batch')
+const productId = computed(() => Number(route.params.productId) || null)
+const routeOrderId = computed(() => Number(route.params.orderId) || null)
+const isBatch = computed(() => route.name === 'pay-batch')
+const isProductCheckout = computed(() => route.name === 'pay-product')
+const isOrderCheckout = computed(() => route.name === 'pay-order' || route.name === 'legacy-pay')
 
-const title = computed(() => isBatch.value ? '购物车结算' : product.value?.title || '订单支付')
-const amount = computed(() => isBatch.value ? cart.totalAmount : (product.value?.price || 0))
+const title = computed(() => {
+  if (isBatch.value) return '购物车结算'
+  if (isOrderCheckout.value) return order.value?.productTitle || '订单支付'
+  return product.value?.title || '商品支付'
+})
+const amount = computed(() => {
+  if (isBatch.value) return cart.totalAmount
+  if (isOrderCheckout.value) return Number(order.value?.totalAmount || 0)
+  return Number(product.value?.price || 0)
+})
+const payDisabled = computed(() =>
+  paying.value || loading.value || (isOrderCheckout.value && order.value?.status !== 'PENDING_PAYMENT')
+)
 
-async function fetchProduct() {
-  if (!isSingle.value) return
+async function fetchCheckout() {
+  loading.value = true
+  error.value = ''
   try {
-    const id = Number(route.params.orderId)
-    const res = await getProductDetail(id)
-    product.value = res.data || null
-  } catch { /* */ }
+    if (isProductCheckout.value && productId.value) {
+      const res = await getProductDetail(productId.value)
+      product.value = res.data || null
+      return
+    }
+    if (isOrderCheckout.value && routeOrderId.value) {
+      const res = await getOrderDetail(routeOrderId.value)
+      order.value = res.data || null
+      orderId.value = res.data?.id || routeOrderId.value
+      return
+    }
+  } catch (e: any) {
+    error.value = e?.response?.data?.message || '结算信息加载失败'
+  } finally {
+    loading.value = false
+  }
 }
 
 function goOrders() { router.push('/orders') }
-function goHome() { router.push('/') }
+function goHome() { router.push('/home') }
 
 async function doPay() {
   paying.value = true
   error.value = ''
   try {
-    if (isSingle.value) {
-      // 直接购买: 创建订单 → 支付
-      const oRes = await createOrder({ productId: Number(route.params.orderId) })
+    if (isProductCheckout.value) {
+      if (!productId.value) { error.value = '商品不存在'; return }
+      const oRes = await createOrder({ productId: productId.value })
       if (oRes.code !== 200 || !oRes.data) { error.value = oRes.message || '下单失败'; return }
       orderId.value = oRes.data.id
       const pRes = await payOrder(oRes.data.id)
       if (pRes.code !== 200) { error.value = pRes.message || '支付失败'; return }
+    } else if (isOrderCheckout.value) {
+      if (!routeOrderId.value) { error.value = '订单不存在'; return }
+      const pRes = await payOrder(routeOrderId.value)
+      if (pRes.code !== 200) { error.value = pRes.message || '支付失败'; return }
+      order.value = pRes.data || order.value
+      orderId.value = routeOrderId.value
     } else {
-      // 购物车结算: 逐个下单 + 支付
       if (cart.items.length === 0) { error.value = '购物车为空'; return }
       for (const item of cart.items) {
         const oRes = await createOrder({ productId: item.productId })
@@ -63,7 +98,7 @@ async function doPay() {
   finally { paying.value = false }
 }
 
-fetchProduct()
+onMounted(fetchCheckout)
 </script>
 
 <template>
@@ -83,13 +118,18 @@ fetchProduct()
     <template v-else>
       <h2>确认支付</h2>
       <div class="pay-card">
+        <div v-if="loading" class="loading">正在加载结算信息...</div>
         <div class="order-summary">
           <span class="label">订单内容</span>
           <strong>{{ isBatch ? `${cart.totalCount} 件商品` : title }}</strong>
         </div>
         <div class="order-summary">
           <span class="label">应付金额</span>
-          <strong class="money">&yen;{{ amount.toFixed(2) }}</strong>
+          <strong class="money">&yen;{{ formatMoney(amount) }}</strong>
+        </div>
+        <div v-if="isOrderCheckout && order" class="order-summary">
+          <span class="label">订单状态</span>
+          <strong>{{ order.status === 'PENDING_PAYMENT' ? '待支付' : order.status }}</strong>
         </div>
 
         <div class="method-section">
@@ -109,8 +149,8 @@ fetchProduct()
 
         <p v-if="error" class="err">{{ error }}</p>
 
-        <button class="btn-pay" :disabled="paying" @click="doPay">
-          {{ paying ? '支付处理中...' : `确认支付 ¥${amount.toFixed(2)}` }}
+        <button class="btn-pay" :disabled="payDisabled" @click="doPay">
+          {{ paying ? '支付处理中...' : `确认支付 ¥${formatMoney(amount)}` }}
         </button>
         <button class="btn-cancel" @click="$router.back()">取消</button>
       </div>
@@ -135,6 +175,7 @@ fetchProduct()
 .btn-pay { display: block; width: 100%; padding: 14px; background: #ff4d4f; color: #fff; border: none; border-radius: 10px; font-size: 17px; font-weight: 600; cursor: pointer; margin-top: 20px; }
 .btn-pay:disabled { opacity: 0.5; cursor: default; }
 .btn-cancel { display: block; width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #d9d9d9; border-radius: 8px; background: #fff; cursor: pointer; font-size: 14px; color: #666; }
+.loading { padding: 10px 0; color: #64748b; font-size: 14px; }
 .err { color: #ff4d4f; font-size: 13px; margin: 12px 0 0; }
 
 .pay-success { text-align: center; padding: 64px 24px; }

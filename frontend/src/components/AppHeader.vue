@@ -16,6 +16,7 @@ const navItems = computed(() => [
   { label: '首页', path: '/home', show: true },
   { label: '市场', path: '/products', show: true },
   { label: '发布', path: '/publish', show: auth.isLoggedIn },
+  { label: '收藏', path: '/favorites', show: auth.isLoggedIn },
   { label: '订单', path: '/orders', show: auth.isLoggedIn },
   { label: '消息', path: '/messages', show: true, badge: auth.isLoggedIn ? notify.unreadCount : 0 },
   { label: '后台', path: '/admin', show: auth.isAdmin }

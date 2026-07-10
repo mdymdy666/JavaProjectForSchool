@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { useCartStore } from '../stores/cart'
+import { formatMoney } from '../utils/money'
 
 const router = useRouter()
 const cart = useCartStore()
 
 function goPay(productId: number) {
-  router.push(`/pay/single/${productId}`)
+  router.push(`/pay/product/${productId}`)
 }
 
 function goBatchPay() {
@@ -33,21 +34,21 @@ function goBatchPay() {
           <div class="item-info">
             <strong class="item-title">{{ item.title }}</strong>
             <p class="item-seller">{{ item.sellerNickname }}</p>
-            <p class="item-price">&yen;{{ item.price.toFixed(2) }}</p>
+            <p class="item-price">&yen;{{ formatMoney(item.price) }}</p>
           </div>
           <div class="item-qty">
             <button :disabled="item.quantity <= 1" @click="cart.updateQuantity(item.productId, item.quantity - 1)">−</button>
             <span>{{ item.quantity }}</span>
             <button @click="cart.updateQuantity(item.productId, item.quantity + 1)">+</button>
           </div>
-          <div class="item-subtotal">&yen;{{ (item.price * item.quantity).toFixed(2) }}</div>
+          <div class="item-subtotal">&yen;{{ formatMoney(item.price * item.quantity) }}</div>
           <button class="btn-del" @click="cart.remove(item.productId)">删除</button>
           <button class="btn-pay" @click="goPay(item.productId)">结算</button>
         </div>
       </div>
 
       <div class="cart-footer">
-        <span>共 {{ cart.totalCount }} 件，合计 <strong>&yen;{{ cart.totalAmount.toFixed(2) }}</strong></span>
+        <span>共 {{ cart.totalCount }} 件，合计 <strong>&yen;{{ formatMoney(cart.totalAmount) }}</strong></span>
         <button class="btn-batch" @click="goBatchPay">全部结算</button>
         <button class="btn-clear" @click="cart.clear()">清空</button>
       </div>

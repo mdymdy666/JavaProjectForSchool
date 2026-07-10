@@ -35,6 +35,7 @@ describe('ProductDetailView', () => {
     localStorage.setItem('campus-user-id', '1')
     localStorage.setItem('campus-role', 'USER')
     localStorage.removeItem('campus-cart')
+    localStorage.removeItem('campus-cart:1')
     const router = createRouter({
       history: createMemoryHistory(),
       routes: [
@@ -62,11 +63,12 @@ describe('ProductDetailView', () => {
     await cartButton.trigger('click')
     await flushPromises()
     expect(wrapper.get('button.btn-cart').text()).toContain('已加入购物车')
-    expect(JSON.parse(localStorage.getItem('campus-cart') || '[]')).toHaveLength(1)
+    expect(localStorage.getItem('campus-cart')).toBeNull()
+    expect(JSON.parse(localStorage.getItem('campus-cart:1') || '[]')).toHaveLength(1)
     await wrapper.get('button.btn-cart').trigger('click')
     await flushPromises()
     expect(wrapper.get('button.btn-cart').text()).toContain('加入购物车')
-    expect(JSON.parse(localStorage.getItem('campus-cart') || '[]')).toHaveLength(0)
+    expect(JSON.parse(localStorage.getItem('campus-cart:1') || '[]')).toHaveLength(0)
 
     await wrapper.get('button.btn-contact').trigger('click')
     await flushPromises()

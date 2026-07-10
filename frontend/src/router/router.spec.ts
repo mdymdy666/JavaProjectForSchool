@@ -14,6 +14,10 @@ describe('routes', () => {
     expect(names).toContain('product-detail')
     expect(names).toContain('safety')
     expect(names).toContain('orders')
+    expect(names).toContain('favorites')
+    expect(names).toContain('product-edit')
+    expect(names).toContain('pay-product')
+    expect(names).toContain('pay-order')
     expect(names).toContain('admin')
   })
 
@@ -36,8 +40,20 @@ describe('routes', () => {
     const orders = routes.find((r) => r.name === 'orders')
     expect(orders?.meta?.auth).toBe(true)
 
+    const favorites = routes.find((r) => r.name === 'favorites')
+    expect(favorites?.meta?.auth).toBe(true)
+
+    const productEdit = routes.find((r) => r.name === 'product-edit')
+    expect(productEdit?.meta?.auth).toBe(true)
+
     const messages = routes.find((r) => r.name === 'messages')
     expect(messages?.meta?.auth).toBe(true)
+  })
+
+  it('keeps product checkout separate from existing order payment', () => {
+    expect(routes.find((r) => r.name === 'pay-product')?.path).toBe('/pay/product/:productId')
+    expect(routes.find((r) => r.name === 'pay-order')?.path).toBe('/pay/order/:orderId')
+    expect(routes.find((r) => r.name === 'pay-batch')?.path).toBe('/pay/batch')
   })
 
   it('has admin guard on admin page', () => {

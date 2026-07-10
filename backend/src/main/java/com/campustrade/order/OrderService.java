@@ -79,6 +79,14 @@ public class OrderService {
         return orderMapper.selectList(query).stream().map(this::view).toList();
     }
 
+    public OrderView detail(long userId, long orderId) {
+        TradeOrder order = requireOrder(orderId);
+        if (order.getBuyerId() != userId && order.getSellerId() != userId) {
+            throw new BusinessException(ErrorCode.FORBIDDEN);
+        }
+        return view(order);
+    }
+
     @Transactional
     public OrderView pay(long buyerId, long orderId) {
         return transition(orderId, buyerId, true, OrderStatus.PAID, null, "模拟支付成功");

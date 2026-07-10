@@ -19,6 +19,17 @@ public interface ProductMapper extends BaseMapper<Product> {
     String categoryName(@Param("categoryId") long categoryId);
 
     @Select("""
+            SELECT reason FROM audit_logs
+            WHERE target_type = 'PRODUCT'
+              AND target_id = #{productId}
+              AND action = 'REJECT'
+              AND reason IS NOT NULL
+            ORDER BY created_at DESC, id DESC
+            LIMIT 1
+            """)
+    String latestRejectReason(@Param("productId") long productId);
+
+    @Select("""
             SELECT id FROM categories
             WHERE enabled = 1 AND name LIKE CONCAT('%', #{keyword}, '%')
             """)

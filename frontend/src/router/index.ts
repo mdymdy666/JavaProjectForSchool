@@ -55,9 +55,21 @@ export const routes: RouteRecordRaw[] = [
     meta: { auth: true }
   },
   {
+    path: '/products/:id/edit',
+    name: 'product-edit',
+    component: () => import('../views/PublishProductView.vue'),
+    meta: { auth: true }
+  },
+  {
     path: '/profile',
     name: 'profile',
     component: () => import('../views/ProfileView.vue'),
+    meta: { auth: true }
+  },
+  {
+    path: '/favorites',
+    name: 'favorites',
+    component: () => import('../views/FavoriteListView.vue'),
     meta: { auth: true }
   },
   {
@@ -84,9 +96,27 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('../views/CartView.vue')
   },
   {
-    path: '/pay/:orderId',
-    name: 'pay',
+    path: '/pay/order/:orderId',
+    name: 'pay-order',
     component: () => import('../views/PaymentView.vue'),
+    meta: { auth: true }
+  },
+  {
+    path: '/pay/product/:productId',
+    name: 'pay-product',
+    component: () => import('../views/PaymentView.vue'),
+    meta: { auth: true }
+  },
+  {
+    path: '/pay/batch',
+    name: 'pay-batch',
+    component: () => import('../views/PaymentView.vue'),
+    meta: { auth: true }
+  },
+  {
+    path: '/pay/:orderId',
+    name: 'legacy-pay',
+    redirect: to => ({ name: 'pay-order', params: { orderId: to.params.orderId } }),
     meta: { auth: true }
   }
 ]

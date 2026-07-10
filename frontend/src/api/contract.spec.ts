@@ -8,9 +8,10 @@ vi.mock('./http', () => ({
 }))
 
 import { apiGet, apiPost } from './http'
-import { getBuyerOrders, getSellerOrders, shipOrder } from './order'
+import { getBuyerOrders, getOrderDetail, getSellerOrders, shipOrder } from './order'
 import { relistProduct } from './product'
 import { createAnnouncement } from './admin'
+import { getMyFavorites, getMyReports } from './user'
 
 describe('frontend and backend API contract', () => {
   beforeEach(() => vi.clearAllMocks())
@@ -28,6 +29,17 @@ describe('frontend and backend API contract', () => {
     expect(apiPost).toHaveBeenCalledWith('/orders/8/ship', {
       logisticsInfo: '东门自提柜 A12'
     })
+  })
+
+  it('uses dedicated endpoints for existing order payment and user lists', async () => {
+    await getOrderDetail(9)
+    expect(apiGet).toHaveBeenCalledWith('/orders/9')
+
+    await getMyFavorites()
+    expect(apiGet).toHaveBeenCalledWith('/users/me/favorites')
+
+    await getMyReports()
+    expect(apiGet).toHaveBeenCalledWith('/reports/my')
   })
 
   it('uses the backend relist route and publishes announcements', async () => {

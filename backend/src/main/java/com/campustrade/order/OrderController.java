@@ -31,6 +31,11 @@ public class OrderController {
         return ApiResponse.success(orderService.list(userId(auth), role));
     }
 
+    @GetMapping("/{id}")
+    public ApiResponse<OrderView> detail(@PathVariable long id, Authentication auth) {
+        return ApiResponse.success(orderService.detail(userId(auth), id));
+    }
+
     @PostMapping
     public ApiResponse<OrderView> create(@Valid @RequestBody CreateOrderRequest request, Authentication auth) {
         return ApiResponse.success(orderService.createOrder(userId(auth), request));

@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { loginApi, logoutApi, type LoginRequest } from '../api/auth'
 import type { ApiResponse } from '../types/domain'
+import { useCartStore } from './cart'
 
 export const useAuthStore = defineStore('auth', () => {
   const token = ref<string | null>(localStorage.getItem('campus-token'))
@@ -29,6 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.setItem('campus-user-id', String(id))
     localStorage.setItem('campus-user', name)
     localStorage.setItem('campus-role', userRole)
+    useCartStore().switchOwner()
   }
 
   async function logout() {
@@ -41,6 +43,7 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.removeItem('campus-user-id')
     localStorage.removeItem('campus-user')
     localStorage.removeItem('campus-role')
+    useCartStore().switchOwner()
   }
 
   return { token, userId, nickname, role, isLoggedIn, isAdmin, login, saveSession, logout }

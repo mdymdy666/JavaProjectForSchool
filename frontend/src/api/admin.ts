@@ -1,12 +1,12 @@
 import { apiGet, apiPost, apiDelete, apiPut } from './http'
-import type { ApiResponse, ProductCard, PageResult, DashboardView } from '../types/domain'
+import type { ApiResponse, ProductDetail, PageResult, DashboardView } from '../types/domain'
 
 export async function getDashboard(): Promise<ApiResponse<DashboardView>> {
   return apiGet<DashboardView>('/admin/dashboard')
 }
 
-export async function getPendingProducts(): Promise<ApiResponse<PageResult<ProductCard>>> {
-  return apiGet<PageResult<ProductCard>>('/admin/products/pending')
+export async function getPendingProducts(): Promise<ApiResponse<PageResult<ProductDetail>>> {
+  return apiGet<PageResult<ProductDetail>>('/admin/products/pending')
 }
 
 export async function auditProduct(id: number, approved: boolean, reason?: string): Promise<ApiResponse<null>> {

@@ -172,6 +172,12 @@ class ExtensionFlowTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"productId\":" + productId + ",\"reason\":\"虚假描述\"}"))
                 .andExpect(status().isOk());
+
+        mockMvc.perform(get("/api/reports/my")
+                .header("Authorization", "Bearer " + reporterToken))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data[0].productTitle").value("测试商品"))
+                .andExpect(jsonPath("$.data[0].reportStatus").value("PENDING"));
     }
 
     @Test

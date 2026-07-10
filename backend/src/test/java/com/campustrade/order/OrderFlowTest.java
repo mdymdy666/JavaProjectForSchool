@@ -68,6 +68,12 @@ class OrderFlowTest {
                 .andExpect(jsonPath("$.data[0].id").value(orderId))
                 .andExpect(jsonPath("$.data[0].buyerNickname").value("订单买家"));
 
+        mockMvc.perform(get("/api/orders/{id}", orderId)
+                        .header("Authorization", bearer(buyer)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.id").value(orderId))
+                .andExpect(jsonPath("$.data.productTitle").value("宿舍台灯"));
+
         mockMvc.perform(post("/api/orders/{id}/confirm", orderId)
                         .header("Authorization", bearer(buyer)))
                 .andExpect(status().isConflict())

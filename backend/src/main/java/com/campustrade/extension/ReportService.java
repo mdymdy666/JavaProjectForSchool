@@ -72,6 +72,33 @@ public class ReportService {
                 rs.getTimestamp("processed_at") == null ? null : rs.getTimestamp("processed_at").toLocalDateTime()));
     }
 
+    public List<ReportView> reportsByReporter(long reporterId) {
+        return jdbc.query("""
+                SELECT r.id, r.reporter_id, ur.nickname AS reporter_nickname,
+                       r.product_id, p.title AS product_title, us.nickname AS seller_nickname,
+                       r.reason, r.report_status, r.handling_result,
+                       r.created_at, r.processed_at
+                FROM reports r
+                JOIN users ur ON ur.id = r.reporter_id
+                JOIN products p ON p.id = r.product_id
+                JOIN users us ON us.id = p.seller_id
+                WHERE r.reporter_id = ?
+                ORDER BY r.created_at DESC
+                """, (rs, i) -> new ReportView(
+                rs.getLong("id"),
+                rs.getLong("reporter_id"),
+                rs.getString("reporter_nickname"),
+                rs.getLong("product_id"),
+                rs.getString("product_title"),
+                rs.getString("seller_nickname"),
+                rs.getString("reason"),
+                rs.getString("report_status"),
+                rs.getString("handling_result"),
+                rs.getTimestamp("created_at").toLocalDateTime(),
+                rs.getTimestamp("processed_at") == null ? null : rs.getTimestamp("processed_at").toLocalDateTime()),
+                reporterId);
+    }
+
     public List<ReportView> pendingReports() {
         return reports("PENDING");
     }

@@ -7,6 +7,7 @@ import { useCartStore } from '../stores/cart'
 import type { ProductDetail } from '../types/domain'
 import UiIcon from '../components/UiIcon.vue'
 import ProductChatDialog from '../components/chat/ProductChatDialog.vue'
+import { formatMoney } from '../utils/money'
 
 const route = useRoute()
 const router = useRouter()
@@ -28,7 +29,7 @@ const isOwner = computed(() =>
   auth.isLoggedIn && product.value != null && auth.userId === product.value.sellerId
 )
 const canBuy = computed(() =>
-  product.value != null && product.value.status === 'APPROVED' && !isOwner.value
+  product.value != null && product.value.status === 'APPROVED' && !isOwner.value && auth.role !== 'ADMIN'
 )
 const isInCart = computed(() =>
   product.value != null && cart.has(product.value.id)
@@ -88,11 +89,11 @@ async function handleDelete() {
 
 function buy() {
   if (!auth.isLoggedIn) { router.push('/login'); return }
-  router.push(`/pay/${product.value?.id}`)
+  router.push(`/pay/product/${product.value?.id}`)
 }
 
 function toggleCart() {
-  if (!product.value) return
+  if (!product.value || !canBuy.value) return
   if (cart.has(product.value.id)) {
     cart.remove(product.value.id)
     return
@@ -220,7 +221,10 @@ onMounted(fetch)
         <div class="info-col">
           <span :class="['status-badge', statusClass(product.status)]">{{ statusLabel(product.status) }}</span>
           <h1>{{ product.title }}</h1>
-          <p class="price"><span>&yen;</span>{{ product.price.toFixed(2) }}</p>
+          <p class="price"><span>&yen;</span>{{ formatMoney(product.price) }}</p>
+          <p v-if="product.status === 'REJECTED' && product.auditReason" class="audit-reason">
+            驳回原因：{{ product.auditReason }}
+          </p>
 
           <div class="meta-grid">
             <div class="meta-item"><label>分类</label><span>{{ product.categoryName }}</span></div>
@@ -231,6 +235,7 @@ onMounted(fetch)
 
           <!-- 卖家操作 -->
           <div v-if="isOwner" class="owner-bar">
+            <button v-if="product.status !== 'SOLD' && product.status !== 'DELETED'" class="btn-edit" :disabled="acting" @click="router.push(`/products/${product.id}/edit`)">编辑商品</button>
             <button v-if="product.status === 'APPROVED'" class="btn-warn" :disabled="acting" @click="handleOffShelf">下架</button>
             <button v-if="product.status === 'OFF_SHELF'" class="btn-ok" :disabled="acting" @click="handleRelist">重新上架</button>
             <button v-if="product.status !== 'SOLD' && product.status !== 'DELETED'" class="btn-del" :disabled="acting" @click="handleDelete">删除</button>
@@ -250,7 +255,7 @@ onMounted(fetch)
               <span>{{ isOwner ? '自己的商品' : (acting ? '处理中...' : (product.favorite ? '已收藏' : '收藏')) }}</span>
             </button>
             <button
-              v-if="!isOwner"
+              v-if="canBuy"
               class="btn-cart"
               :class="{ on: isInCart }"
               :disabled="acting"
@@ -371,6 +376,7 @@ onMounted(fetch)
 .owner-bar { display: flex; gap: 8px; flex-wrap: wrap; }
 .owner-bar button { padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; font-size: 14px; color: #fff; }
 .owner-bar button:disabled { opacity: 0.5; cursor: default; }
+.btn-edit { background: #1677ff; }
 .btn-warn { background: #faad14; }
 .btn-ok { background: #52c41a; }
 .btn-del { background: #ff4d4f; }
@@ -390,6 +396,7 @@ onMounted(fetch)
 .btn-report:hover { color: #ff4d4f; border-color: #ffb3b3; background: #fff7f7; }
 .err { color: #ff4d4f; font-size: 13px; margin: 0; }
 .ok { color: #16a34a; font-size: 13px; margin: 0; }
+.audit-reason { margin: 0; padding: 10px 12px; border-radius: 8px; color: #b45309; background: #fff7ed; border: 1px solid #fed7aa; line-height: 1.6; }
 
 /* 描述 */
 .desc-section { margin-bottom: 28px; }
